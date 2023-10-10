@@ -1,10 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf.WellKnownTypes;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Crmf;
 using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -18,7 +20,7 @@ namespace Plantando_Alegria.MysqlDb
     {
 
         #region Metodo de Cadastro de Alunos.
-        public static void Cadastrar_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que retorna 2 valores
+        public static void Cadastrar_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que recebe 2 valores.
         {            
             string query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Telefone, @Alunos_Email," +
                                                                 "@Alunos_Endereco, @Alunos_Bairro, @Alunos_Cidade, @Alunos_CEP," +
@@ -64,36 +66,81 @@ namespace Plantando_Alegria.MysqlDb
 
         }
 
-        // Private data member
-        private string cadastro_ok;
-        public void Cad_ok(string result)
-        {
-            cadastro_ok = result;
+        #endregion
 
+        #region Metodo de inserir imagem do aluno
+
+        public static void Inserir_Imagem(Alunos_Imagem_mysql alunos_Imagem_Mysql)  // Metdodo que recebe 2 valores.
+        {
+            DB_PA dB_PA = new DB_PA();
+
+            string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Alunos_Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
+
+            Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto para a classe Conexao_Banco_PA.
+            MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto para a classe MysqlCommand.
+            cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
+
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
+            cmd.Parameters.Add("Alunos_Imagem", MySqlDbType.LongBlob).Value = dB_PA.Imagem();                           // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+            cmd.Parameters.Add("Ciado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                                 
+                                                                                                                         
+            try                                                                                                         
+            {                                                                                                           
+                cmd.Connection = Conexao_Banco_PA.Conectar_DB();    // Conecta no banco de dados
+                cmd.ExecuteNonQuery();                              // Executa query.
+                Conexao_Banco_PA.Desconectar_DB();                  // Desconecta do banco de dados.
+
+               // MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
+            {
+               // MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            Conexao_Banco_PA.Desconectar_DB();
         }
 
-        // Method that return object
-        public DB_PA Cad2_ok(DB_PA cad2_cad_ok)
+        #endregion
+
+        #region Metodo que trata a imagem para inserir no banco.
+
+        public void Inserir_Imagem()
+        {
+            DB_PA dB_PA = new DB_PA();
+            dB_PA.Imagem();
+
+        }
+        frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();
+
+        public string fotos; 
+        public string OpenFile2;
+
+        
+        private byte[] Imagem()
         {
 
-            // Creating object of Example
-            DB_PA obj = new DB_PA();
+            OpenFileDialog openFile = new OpenFileDialog();     // Instanciando objeto para a classe OpenFileDialog.
+            byte[] imagem_byte = null;
+            if (fotos == "")
+            {
+                return null;
+            }
+            openFile.FileName.ToString();
+            FileStream arquivo_imagem = new FileStream(fotos, FileMode.Open, FileAccess.Read);
+            BinaryReader binary_reader = new BinaryReader(arquivo_imagem);
 
-            // Adding the value of passed 
-            // an object in the current object
-            // and adding the sum in another object
-            obj.cadastro_ok = cad2_cad_ok.cadastro_ok;
+            imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);
 
-            // Returning the object
-            return obj;
+            return imagem_byte;
         }
+       
 
-
-
+        
 
 
 
         #endregion
+
 
         //public static void Atualizar_Cadastro (Alunos_Cadastro_mysql alunos_cadastro, string id)
         //{

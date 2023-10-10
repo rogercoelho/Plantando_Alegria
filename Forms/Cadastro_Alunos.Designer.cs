@@ -55,8 +55,8 @@
             this.txtb_nome_aluno = new System.Windows.Forms.TextBox();
             this.txtb_codigo = new System.Windows.Forms.TextBox();
             this.lbl_cod_aluno = new System.Windows.Forms.Label();
+            this.btn_inserir_imagem = new System.Windows.Forms.Button();
             this.pcb_imagem_aluno = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).BeginInit();
             this.SuspendLayout();
             // 
@@ -324,29 +324,31 @@
             this.lbl_cod_aluno.TabIndex = 14;
             this.lbl_cod_aluno.Text = "Codigo do Aluno";
             // 
+            // btn_inserir_imagem
+            // 
+            this.btn_inserir_imagem.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_inserir_imagem.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_inserir_imagem.FlatAppearance.BorderSize = 2;
+            this.btn_inserir_imagem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_inserir_imagem.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_inserir_imagem.Location = new System.Drawing.Point(395, 79);
+            this.btn_inserir_imagem.Name = "btn_inserir_imagem";
+            this.btn_inserir_imagem.Size = new System.Drawing.Size(107, 29);
+            this.btn_inserir_imagem.TabIndex = 49;
+            this.btn_inserir_imagem.Text = "Inserir Img.";
+            this.btn_inserir_imagem.UseVisualStyleBackColor = false;
+            this.btn_inserir_imagem.Click += new System.EventHandler(this.button1_Click);
+            // 
             // pcb_imagem_aluno
             // 
             this.pcb_imagem_aluno.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pcb_imagem_aluno.Image = global::Plantando_Alegria.Properties.Resources.maquina_fotografica;
             this.pcb_imagem_aluno.Location = new System.Drawing.Point(508, 12);
             this.pcb_imagem_aluno.Name = "pcb_imagem_aluno";
             this.pcb_imagem_aluno.Size = new System.Drawing.Size(121, 96);
             this.pcb_imagem_aluno.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcb_imagem_aluno.TabIndex = 48;
             this.pcb_imagem_aluno.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button1.FlatAppearance.BorderSize = 2;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(395, 79);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 29);
-            this.button1.TabIndex = 49;
-            this.button1.Text = "Inserir Img.";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // frm_cadastro_alunos
             // 
@@ -355,7 +357,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 432);
             this.ControlBox = false;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_inserir_imagem);
             this.Controls.Add(this.pcb_imagem_aluno);
             this.Controls.Add(this.txtb_telefone_emergencia_2);
             this.Controls.Add(this.lbl_tel_emergencia_2);
@@ -388,6 +390,7 @@
             this.Name = "frm_cadastro_alunos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Plantando Alegria - Cadastro de Alunos";
+            this.Load += new System.EventHandler(this.frm_cadastro_alunos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -424,6 +427,6 @@
         private System.Windows.Forms.TextBox txtb_codigo;
         private System.Windows.Forms.Label lbl_cod_aluno;
         private System.Windows.Forms.PictureBox pcb_imagem_aluno;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_inserir_imagem;
     }
 }

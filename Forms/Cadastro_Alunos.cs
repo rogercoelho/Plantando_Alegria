@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -135,7 +137,7 @@ namespace Plantando_Alegria.Forms
             }
             #endregion
 
-            #region Cadastra os dados no banco.
+            #region Cadastra os dados na tabela Alunos_Cadastro.
 
             codigo_aluno = Convert.ToInt32(txtb_codigo.Text); // converte o conteudo do textbox (string) em int.
 
@@ -145,14 +147,54 @@ namespace Plantando_Alegria.Forms
                                                                                     txtb_telefone_emergencia_2.Text.ToUpper());
             // Instanciando objeto da classe Alunos_Cadastro_mysql que retorna o conteudo das textbox em Caixa Alta (toUpper)
 
-
-
             DB_PA.Cadastrar_Aluno(Alunos_Cadastro_Mysql);   // Chama o metodo Cadastrar_Aluno da classe Db_PA com os valores do objeto Alunos_Cadastro_Mysql.
-
-   
 
             #endregion
 
+            #region Insere a imagem na tabela Alunos_Imagem
+            Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
+            DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
+
+            #endregion
+
+        }
+        #endregion
+
+        #region Metodo do Botao Inserir Imagem.
+
+        public string foto;
+        public string openfile;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();     // Instanciando objeto para a classe OpenFileDialog.
+            openFile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png";  // Filtra arquivos jpeg, jpg, e png
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                foto = openFile.FileName.ToString();    // tranfere o caminho da janela para a string foto.
+                pcb_imagem_aluno.ImageLocation = foto;
+            }
+            DB_PA dB_PA = new DB_PA();
+            dB_PA.fotos = foto;
+            openfile = openFile.FileName.ToString();
+            dB_PA.Inserir_Imagem();
+            
+            
+        }
+
+        #endregion
+
+        #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
+        private void foto_padrao()
+        {
+            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;
+            foto = "Resources/maquina_fotografica.png";
+        }
+
+        
+        private void frm_cadastro_alunos_Load(object sender, EventArgs e)
+        {
+            foto_padrao();
         }
         #endregion
     }
