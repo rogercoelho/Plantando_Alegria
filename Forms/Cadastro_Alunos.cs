@@ -8,6 +8,7 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_cadastro_alunos : Form
     {
+        public static string foto_aluno;
             
         #region Metodo Construtor.
         public frm_cadastro_alunos()
@@ -178,10 +179,16 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao inserir imagem.
         private void btn_inserir_imagem_Click(object sender, EventArgs e)
         {
-            Imagem_Aluno imagem_Aluno = new Imagem_Aluno();
+           
+            OpenFileDialog openfile = new OpenFileDialog();
+            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";
 
-            imagem_Aluno.Botao_Inserir();
-            pcb_imagem_aluno.ImageLocation = Imagem_Aluno.foto_aluno;
+            if (openfile.ShowDialog() == DialogResult.OK)                                                       // Se pressionar OK na janela.
+            {
+                foto_aluno = openfile.FileName.ToString();                                                // Pega o caminho da imagem selecionada.
+
+                pcb_imagem_aluno.ImageLocation = foto_aluno;                                      // Mostra a imagem no PictureBox.
+            }
 
         }
 
@@ -196,58 +203,8 @@ namespace Plantando_Alegria.Forms
         public void foto_padrao()
         {
             pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.
-            Imagem_Aluno.foto_aluno = "Resources/maquina_fotografica.png";                 // caminho onde a foto esta armazenada.
+            foto_aluno = "Resources/maquina_fotografica.png";                 // caminho onde a foto esta armazenada.
         }
         #endregion
     }
-
-    public class Imagem_Aluno
-    {
-        public static string foto_aluno;
-        frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();
-       public byte[] foto_byte;
-        public void Botao_Inserir()
-        {
-            OpenFileDialog openfile = new OpenFileDialog();
-            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";
-
-            if (openfile.ShowDialog() == DialogResult.OK)                                                       // Se pressionar OK na janela.
-            {
-                foto_aluno = openfile.FileName.ToString();                                                // Pega o caminho da imagem selecionada.
-
-                frm_Cadastro_Alunos.pcb_imagem_aluno.ImageLocation = foto_aluno;                                      // Mostra a imagem no PictureBox.
-            }
-        }
-
-        #region Metodo que trata a imagem para inserir no banco.
-
-        public byte[] Imagem()             // Metodo private que retorna um array de byte para a foto ser inserida
-                                            // na tabela Alunos_Imagem, na coluna Alunos_Imagem do tipo longblob.
-        {
-
-            byte[] imagem_byte = null;      // Crio uma variavel do tipo array de byte e inicio com nulo.
-            if (foto_aluno == "")
-            {
-                return null;
-            }
-
-            FileStream arquivo_imagem = new FileStream(foto_aluno, FileMode.Open, FileAccess.Read);
-            BinaryReader binary_reader = new BinaryReader(arquivo_imagem);
-
-            foto_byte = imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);
-
-            
-
-            return imagem_byte;
-        }
-
-
-
-
-
-
-        #endregion
-    }
-
-
 }

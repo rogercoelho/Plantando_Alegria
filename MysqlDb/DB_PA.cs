@@ -9,6 +9,7 @@ namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
+
         #region Declarando variavel e objeto para comunicar com o form Cadastro Alunos.
         public static string Cad_Ok;                                                    // string para a limpeza do textbox
         #endregion
@@ -44,9 +45,6 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.Connection = Conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
                 cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
                 Conexao_Banco_PA.Desconectar_DB();
-
-                MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 
                 DB_PA.Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
                                 
@@ -68,36 +66,51 @@ namespace Plantando_Alegria.MysqlDb
 
         public static void Inserir_Imagem(Alunos_Imagem_mysql alunos_Imagem_Mysql)  // Metdodo que recebe 2 valores.
         {
-            Imagem_Aluno imagem_Aluno = new Imagem_Aluno();
 
-            string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Alunos_Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
-
-            Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto para a classe Conexao_Banco_PA.
-            MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto para a classe MysqlCommand.
-            cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
-
-            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-            cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = imagem_Aluno.foto_byte;                  // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-            cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                                 
-                                                                                                                         
-            try                                                                                                         
-            {                                                                                                           
-                cmd.Connection = Conexao_Banco_PA.Conectar_DB();    // Conecta no banco de dados
-                cmd.ExecuteNonQuery();                              // Executa query.
-                Conexao_Banco_PA.Desconectar_DB();                  // Desconecta do banco de dados.
-
-            }
-            catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
+            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
+                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
             {
-               MessageBox.Show("Erro ao Inserir Imagem no Banco de Dados.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                byte[] imagem_byte = null;                                          // Crio um array de byte e inicio como nulo.
+                FileStream arquivo_imagem = new FileStream(frm_cadastro_alunos.foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
+                                                                                                                                // Incanciando o objeto para a classe Binary reader 
+                                                                                                                                // parecido com o datareader.
 
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
+
+
+                string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Alunos_Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
+
+
+                Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto para a classe Conexao_Banco_PA.
+                MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto para a classe MysqlCommand.
+                cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
+
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
+                cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                 // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
+
+                try
+                {
+                    cmd.Connection = Conexao_Banco_PA.Conectar_DB();    // Conecta no banco de dados
+                    cmd.ExecuteNonQuery();                              // Executa query.
+                    Conexao_Banco_PA.Desconectar_DB();                  // Desconecta do banco de dados.
+
+                    MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
+                {
+                    MessageBox.Show("Erro ao Inserir Imagem no Banco de Dados.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+                Conexao_Banco_PA.Desconectar_DB();
             }
-            Conexao_Banco_PA.Desconectar_DB();
         }
-
         #endregion
 
-       
+
 
 
 
