@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 using Plantando_Alegria.MysqlDb;
 using System;
 using System.Collections.Generic;
@@ -176,6 +175,11 @@ namespace Plantando_Alegria.Forms
             #endregion
         }
         #endregion
+
+        private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
