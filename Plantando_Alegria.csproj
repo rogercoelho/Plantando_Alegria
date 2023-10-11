@@ -107,6 +107,12 @@
     <Compile Include="Forms\Cadastro_Alunos.Designer.cs">
       <DependentUpon>Cadastro_Alunos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Ficha_Alunos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ficha_Alunos.Designer.cs">
+      <DependentUpon>Ficha_Alunos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Pesquisar_Alunos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Cadastro_Alunos.resx">
       <DependentUpon>Cadastro_Alunos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ficha_Alunos.resx">
+      <DependentUpon>Ficha_Alunos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pesquisar_Alunos.resx">
       <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
