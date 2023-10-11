@@ -1,20 +1,6 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Crmf;
-using Plantando_Alegria.MysqlDb;
+﻿using Plantando_Alegria.MysqlDb;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Plantando_Alegria.Forms
 {
@@ -149,11 +135,28 @@ namespace Plantando_Alegria.Forms
 
             DB_PA.Cadastrar_Aluno(Alunos_Cadastro_Mysql);   // Chama o metodo Cadastrar_Aluno da classe Db_PA com os valores do objeto Alunos_Cadastro_Mysql.
 
+            if (DB_PA.Cad_Ok == "OK")
+            {
+                #region Limpa todos os textbox.
+                txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
+                txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
+                txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
+                txtb_bairro.Clear() ;                    // Limpa os campos após cadastrado.
+                txtb_cidade.Clear();                    // Limpa os campos após cadastrado.
+                txtb_cep.Clear();                       // Limpa os campos após cadastrado.
+                txtb_email.Clear();                     // Limpa os campos após cadastrado.
+                txtb_telefone.Clear();                  // Limpa os campos após cadastrado.
+                txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
+                txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
+                txtb_telefone_emergencia_2.Clear();
+                #endregion
+            }
+
             #endregion
 
             #region Insere a imagem na tabela Alunos_Imagem
-            Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
-            DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
+          //  Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
+          // DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
 
             #endregion
 

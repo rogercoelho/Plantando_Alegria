@@ -1,23 +1,14 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Crmf;
+﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
+        public static string Cad_Ok;
 
         #region Metodo de Cadastro de Alunos.
         public static void Cadastrar_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que recebe 2 valores.
@@ -53,13 +44,15 @@ namespace Plantando_Alegria.MysqlDb
 
                 MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                DB_PA dB_PA = new DB_PA();
-                string Cadastro = "OK";            
+                
+                DB_PA.Cad_Ok = "OK";
                                 
             }
             catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
             {
                 MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DB_PA.Cad_Ok = "Erro";
             }
 
             Conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco).
