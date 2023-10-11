@@ -80,7 +80,7 @@
             this.btn_pesquisar_aluno.TabIndex = 10;
             this.btn_pesquisar_aluno.Text = "Pesquisar Aluno";
             this.btn_pesquisar_aluno.UseVisualStyleBackColor = false;
-            this.btn_pesquisar_aluno.Click += new System.EventHandler(this.btn_consultar_aluno_Click);
+            this.btn_pesquisar_aluno.Click += new System.EventHandler(this.btn_pesquisar_aluno_Click);
             // 
             // btn_sair
             // 

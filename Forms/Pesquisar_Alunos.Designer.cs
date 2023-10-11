@@ -47,7 +47,7 @@
             this.lbl_cadastro_alunos.Name = "lbl_cadastro_alunos";
             this.lbl_cadastro_alunos.Size = new System.Drawing.Size(388, 26);
             this.lbl_cadastro_alunos.TabIndex = 49;
-            this.lbl_cadastro_alunos.Text = "Plantando Alegria - Consulta de Alunos";
+            this.lbl_cadastro_alunos.Text = "Plantando Alegria - Pesquisa de Alunos";
             // 
             // btn_limpar
             // 
@@ -62,6 +62,7 @@
             this.btn_limpar.TabIndex = 48;
             this.btn_limpar.Text = "Limpar";
             this.btn_limpar.UseVisualStyleBackColor = false;
+            this.btn_limpar.Click += new System.EventHandler(this.btn_limpar_Click);
             // 
             // chkbox_resultado
             // 
@@ -85,6 +86,7 @@
             this.btn_voltar.TabIndex = 46;
             this.btn_voltar.Text = "Volltar";
             this.btn_voltar.UseVisualStyleBackColor = false;
+            this.btn_voltar.Click += new System.EventHandler(this.btn_voltar_Click);
             // 
             // btn_pesquisar
             // 
@@ -99,6 +101,7 @@
             this.btn_pesquisar.TabIndex = 45;
             this.btn_pesquisar.Text = "Pesquisar Aluno";
             this.btn_pesquisar.UseVisualStyleBackColor = false;
+            this.btn_pesquisar.Click += new System.EventHandler(this.btn_pesquisar_Click);
             // 
             // lbl_nome_aluno
             // 
@@ -138,6 +141,7 @@
             // 
             // frm_pesquisar_alunos
             // 
+            this.AcceptButton = this.btn_pesquisar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 458);

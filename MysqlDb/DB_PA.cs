@@ -9,8 +9,10 @@ namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
-        public static string Cad_Ok;        // string para a limpeza do textbox
-        public static string openfile2 = (string)frm_cadastro_alunos.caminho_openfile;
+        #region Declarando variavel e objeto para comunicar com o form Cadastro Alunos.
+        public static string Cad_Ok;                                                    // string para a limpeza do textbox
+        public static string openfile2 = (string)frm_cadastro_alunos.caminho_openfile;  // Objeto que recebe as infos da imagem.
+        #endregion
 
         #region Metodo de Cadastro de Alunos.
         public static void Cadastrar_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que recebe 2 valores.
@@ -19,7 +21,7 @@ namespace Plantando_Alegria.MysqlDb
                                                                 "@Alunos_Endereco, @Alunos_Bairro, @Alunos_Cidade, @Alunos_CEP," +
                                                                 "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
                                                                 "@Alunos_Telefone_Emergencia_2, @Criado_Em)";
-                                                            // Variavel que recebe a query do mysql.
+                                                                            // Variavel que recebe a query do mysql.
 
             Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instancia o objeto para a classe Conexao_Banco_PA.
             MySqlCommand cmd = new MySqlCommand();                          // Instancia o objeto para a classe MySqlCommand.
@@ -47,14 +49,14 @@ namespace Plantando_Alegria.MysqlDb
                 MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 
-                DB_PA.Cad_Ok = "OK";
+                DB_PA.Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
                                 
             }
             catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
             {
                 MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro",  MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                DB_PA.Cad_Ok = "Erro";
+                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.
             }
 
             Conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco).

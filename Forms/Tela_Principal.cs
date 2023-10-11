@@ -18,6 +18,7 @@ namespace Plantando_Alegria
             InitializeComponent();
         }
 
+        #region Metodo do botao Cadastro de Alunos.
         private void btn_cadastro_alunos_Click(object sender, EventArgs e)
         {
             #region Abre o form Cadastro de alunos e fecha o principal.
@@ -26,23 +27,24 @@ namespace Plantando_Alegria
             this.Hide();                                                            // Esconde a tela principal.
             #endregion
         }
+        #endregion
 
-        private void btn_sair_Click(object sender, EventArgs e)
+        #region Metodo do Botao Pesquisar Aluno. 
+        private void btn_pesquisar_aluno_Click(object sender, EventArgs e)
         {
-            Application.Exit();  // Encerra a Aplicacao.
-        }
+            #region Abre o formulario de Pesquisa de alunos.
 
-        private void btn_consultar_aluno_Click(object sender, EventArgs e)
-        {
-            #region Abre o formulario de consulta
+            frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();     // Instancia a classe Consultar_Alunos.
 
-           // Plantando_Alegria_Consultar_Aluno consultar_Aluno = new Plantando_Alegria_Consultar_Aluno();  // Instancia a classe Consultar_Alunos.
-
-           // consultar_Aluno.Show();                                   // Mostra a tela de consulta
-            this.Hide();                                              // Esconde a tela principal
+            frm_Pesquisar_Alunos.Show();                                                // Mostra a tela de consulta
+            this.Hide();                                                                // Esconde a tela principal
 
             #endregion
+
         }
+        #endregion
+
+
 
         private void btn_cadastro_planos_Click(object sender, EventArgs e)
         {
@@ -65,5 +67,12 @@ namespace Plantando_Alegria
 
             #endregion
         }
+
+        #region Metodo do Botao Sair.
+        private void btn_sair_Click(object sender, EventArgs e)
+        {
+            Application.Exit();  // Encerra a Aplicacao.
+        }
+        #endregion
     }
 }

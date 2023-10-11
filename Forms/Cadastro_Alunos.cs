@@ -1,6 +1,7 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Plantando_Alegria.Forms
 {
@@ -19,7 +20,6 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
-
             #region Abre a tela principal e fecha a atual.
             frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para pa classe.
             frm_Tela_Principal.Show();                                          // abre o frm tela principal
@@ -142,14 +142,18 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
+
             if (DB_PA.Cad_Ok == "OK")
             {
                 Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
                 DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
             }
+
             #endregion
 
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.
+
+
             if (DB_PA.Cad_Ok == "OK")
             {
                 txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
@@ -165,6 +169,7 @@ namespace Plantando_Alegria.Forms
                 txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
                 foto_padrao();                          // Carrega a foto padrao do sistema.
             }
+            
             #endregion
 
         }
@@ -175,15 +180,15 @@ namespace Plantando_Alegria.Forms
         {
             #region Recebe o caminho da imagem do aluno e mostra no picturebox.
 
-            OpenFileDialog openfile = new OpenFileDialog ();                                // Insancia objeto para a classe OpenfileDialog (janela abrir arquivo)
+            OpenFileDialog openfile = new OpenFileDialog ();                                                    // Insancia objeto para a classe OpenfileDialog (janela abrir arquivo)
             caminho_openfile = openfile.GetType();
-            caminho_openfile = openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";     // Filtra apenas imagens jpg, jpeg e png
+            caminho_openfile = openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";      // Filtra apenas imagens jpg, jpeg e png
 
-            if (openfile.ShowDialog() == DialogResult.OK)
+            if (openfile.ShowDialog() == DialogResult.OK)                                                       // Se pressionar OK na janela.
             {
-                caminho_openfile = openfile.FileName.ToString();
-                                                                  // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = (string)caminho_openfile;                          // Mostra a imagem no PictureBox.
+                caminho_openfile = openfile.FileName.ToString();                                                // Pega o caminho da imagem selecionada.
+
+                pcb_imagem_aluno.ImageLocation = (string)caminho_openfile;                                      // Mostra a imagem no PictureBox.
             }
             #endregion
         }
