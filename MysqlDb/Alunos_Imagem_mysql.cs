@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Plantando_Alegria.MysqlDb
+﻿namespace Plantando_Alegria.MysqlDb
 {
     public class Alunos_Imagem_mysql
     {

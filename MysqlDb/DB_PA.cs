@@ -8,7 +8,8 @@ namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
-        public static string Cad_Ok;
+        public static string Cad_Ok;        // string para a limpeza do textbox
+        public static string openfile2 = (string)frm_cadastro_alunos.caminho_openfile;
 
         #region Metodo de Cadastro de Alunos.
         public static void Cadastrar_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que recebe 2 valores.
@@ -74,8 +75,8 @@ namespace Plantando_Alegria.MysqlDb
             cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
 
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-            cmd.Parameters.Add("Alunos_Imagem", MySqlDbType.LongBlob).Value = dB_PA.Imagem();                           // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-            cmd.Parameters.Add("Ciado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                                 
+            cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = dB_PA.Imagem();                           // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+            cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                                 
                                                                                                                          
             try                                                                                                         
             {                                                                                                           
@@ -83,11 +84,9 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.ExecuteNonQuery();                              // Executa query.
                 Conexao_Banco_PA.Desconectar_DB();                  // Desconecta do banco de dados.
 
-               // MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
             {
-               // MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             Conexao_Banco_PA.Desconectar_DB();
@@ -96,30 +95,18 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo que trata a imagem para inserir no banco.
-
-        public void Inserir_Imagem()
-        {
-            DB_PA dB_PA = new DB_PA();
-            dB_PA.Imagem();
-
-        }
-        frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();
-
-        public string fotos; 
-        public string OpenFile2;
-
         
-        private byte[] Imagem()
+        private byte[] Imagem()             // Metodo private que retorna um array de byte para a foto ser inserida
+                                            // na tabela Alunos_Imagem, na coluna Alunos_Imagem do tipo longblob.
         {
-
-            OpenFileDialog openFile = new OpenFileDialog();     // Instanciando objeto para a classe OpenFileDialog.
-            byte[] imagem_byte = null;
-            if (fotos == "")
+            
+            byte[] imagem_byte = null;      // Crio uma variavel do tipo array de byte e inicio com nulo.
+            if ( openfile2 == "")
             {
                 return null;
             }
-            openFile.FileName.ToString();
-            FileStream arquivo_imagem = new FileStream(fotos, FileMode.Open, FileAccess.Read);
+            
+            FileStream arquivo_imagem = new FileStream(openfile2, FileMode.Open, FileAccess.Read);
             BinaryReader binary_reader = new BinaryReader(arquivo_imagem);
 
             imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);

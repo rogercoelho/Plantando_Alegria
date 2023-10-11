@@ -337,7 +337,7 @@
             this.btn_inserir_imagem.TabIndex = 49;
             this.btn_inserir_imagem.Text = "Inserir Img.";
             this.btn_inserir_imagem.UseVisualStyleBackColor = false;
-            this.btn_inserir_imagem.Click += new System.EventHandler(this.button1_Click);
+            this.btn_inserir_imagem.Click += new System.EventHandler(this.btn_inserir_imagem_Click);
             // 
             // pcb_imagem_aluno
             // 

@@ -6,11 +6,15 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_cadastro_alunos : Form
     {
+        public static object caminho_openfile = new object();
+            
+        #region Metodo Construtor.
         public frm_cadastro_alunos()
         {
             InitializeComponent();
             
         }
+        #endregion
 
         #region Metodo do botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
@@ -29,17 +33,17 @@ namespace Plantando_Alegria.Forms
         public void btn_limpar_Click(object sender, EventArgs e)
         {
             #region Limpa todos os textbox.
-            txtb_codigo.Text = "";                    // Limpa os campos após cadastrado.
-            txtb_nome_aluno.Text = "";                // Limpa os campos após cadastrado.
-            txtb_endereco.Text = "";                  // Limpa os campos após cadastrado.
-            txtb_bairro.Text = "";                    // Limpa os campos após cadastrado.
-            txtb_cidade.Text = "";                    // Limpa os campos após cadastrado.
-            txtb_cep.Text = "";                       // Limpa os campos após cadastrado.
-            txtb_email.Text = "";                     // Limpa os campos após cadastrado.
-            txtb_telefone.Text = "";                  // Limpa os campos após cadastrado.
-            txtb_contato_emergencia.Text = "";        // Limpa os campos após cadastrado.
-            txtb_telefone_emergencia_1.Text = "";     // Limpa os campos após cadastrado.
-            txtb_telefone_emergencia_2.Text = "";
+            txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
+            txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
+            txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
+            txtb_bairro.Clear();                    // Limpa os campos após cadastrado.
+            txtb_cidade.Clear();                    // Limpa os campos após cadastrado.
+            txtb_cep.Clear();                       // Limpa os campos após cadastrado.
+            txtb_email.Clear();                     // Limpa os campos após cadastrado.
+            txtb_telefone.Clear();                  // Limpa os campos após cadastrado.
+            txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
+            txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
+            txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
             #endregion
         }
         #endregion
@@ -135,54 +139,51 @@ namespace Plantando_Alegria.Forms
 
             DB_PA.Cadastrar_Aluno(Alunos_Cadastro_Mysql);   // Chama o metodo Cadastrar_Aluno da classe Db_PA com os valores do objeto Alunos_Cadastro_Mysql.
 
+            #region Em caso de cadasto realizado com sucesso, limpa os textbox.
             if (DB_PA.Cad_Ok == "OK")
             {
-                #region Limpa todos os textbox.
                 txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
                 txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
                 txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
-                txtb_bairro.Clear() ;                    // Limpa os campos após cadastrado.
+                txtb_bairro.Clear() ;                   // Limpa os campos após cadastrado.
                 txtb_cidade.Clear();                    // Limpa os campos após cadastrado.
                 txtb_cep.Clear();                       // Limpa os campos após cadastrado.
                 txtb_email.Clear();                     // Limpa os campos após cadastrado.
                 txtb_telefone.Clear();                  // Limpa os campos após cadastrado.
                 txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
                 txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
-                txtb_telefone_emergencia_2.Clear();
-                #endregion
+                txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
             }
+            #endregion
+
 
             #endregion
 
             #region Insere a imagem na tabela Alunos_Imagem
-          //  Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
-          // DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
+            Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
+            DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
 
             #endregion
 
         }
         #endregion
 
-        #region Metodo do Botao Inserir Imagem.
-
-        public string foto;
-        public string openfile;
-        private void button1_Click(object sender, EventArgs e)
+        #region Metodo do botao inserir imagem.
+        private void btn_inserir_imagem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();     // Instanciando objeto para a classe OpenFileDialog.
-            openFile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png";  // Filtra arquivos jpeg, jpg, e png
+            #region Recebe o caminho da imagem do aluno e mostra no picturebox.
 
-            if (openFile.ShowDialog() == DialogResult.OK)
+            OpenFileDialog openfile = new OpenFileDialog ();                                // Insancia objeto para a classe OpenfileDialog (janela abrir arquivo)
+            caminho_openfile = openfile.GetType();
+            caminho_openfile = openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";     // Filtra apenas imagens jpg, jpeg e png
+
+            if (openfile.ShowDialog() == DialogResult.OK)
             {
-                foto = openFile.FileName.ToString();    // tranfere o caminho da janela para a string foto.
-                pcb_imagem_aluno.ImageLocation = foto;
+                caminho_openfile = openfile.FileName.ToString();
+                                                                  // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = (string)caminho_openfile;                          // Mostra a imagem no PictureBox.
             }
-            DB_PA dB_PA = new DB_PA();
-            dB_PA.fotos = foto;
-            openfile = openFile.FileName.ToString();
-            dB_PA.Inserir_Imagem();
-            
-            
+            #endregion
         }
 
         #endregion
@@ -191,7 +192,7 @@ namespace Plantando_Alegria.Forms
         private void foto_padrao()
         {
             pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;
-            foto = "Resources/maquina_fotografica.png";
+            caminho_openfile = "Resources/maquina_fotografica.png";
         }
 
         
