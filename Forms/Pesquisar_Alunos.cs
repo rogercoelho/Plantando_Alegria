@@ -8,6 +8,8 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_pesquisar_alunos : Form
     {
+        public static string codigo_aluno;
+
         public frm_pesquisar_alunos()
         {
             InitializeComponent();
@@ -179,6 +181,17 @@ namespace Plantando_Alegria.Forms
         private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            string selecao, cod_aluno;                              // criando variaveis
+
+            selecao = chkbox_resultado.SelectedItem.ToString();     // variavel selecao recebe o item selecionado do checkbox
+
+            string[] selecao2 = selecao.Split(' ');                 // cria um array tipo string para separar o conteudo da variavel selecao.
+                                                                    // O delimitador é " " (espaco).
+
+            cod_aluno = selecao2[1];                                // A variavel cod_aluno recebe o 2 array da variavel selecao.
+            codigo_aluno = cod_aluno.ToString();
+            
+            
         }
     }
 
