@@ -139,6 +139,16 @@ namespace Plantando_Alegria.Forms
 
             DB_PA.Cadastrar_Aluno(Alunos_Cadastro_Mysql);   // Chama o metodo Cadastrar_Aluno da classe Db_PA com os valores do objeto Alunos_Cadastro_Mysql.
 
+            #endregion
+
+            #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
+            if (DB_PA.Cad_Ok == "OK")
+            {
+                Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
+                DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
+            }
+            #endregion
+
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.
             if (DB_PA.Cad_Ok == "OK")
             {
@@ -153,16 +163,8 @@ namespace Plantando_Alegria.Forms
                 txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
                 txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
                 txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
+                foto_padrao();                          // Carrega a foto padrao do sistema.
             }
-            #endregion
-
-
-            #endregion
-
-            #region Insere a imagem na tabela Alunos_Imagem
-            Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
-            DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
-
             #endregion
 
         }
@@ -189,16 +191,15 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
+        private void frm_cadastro_alunos_Load(object sender, EventArgs e)   // Metodo que é carregado quando o sistema é iniciado.
+        {
+            foto_padrao();      // chama o metodo foto_padrao.
+        }
+        
         private void foto_padrao()
         {
-            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;
-            caminho_openfile = "Resources/maquina_fotografica.png";
-        }
-
-        
-        private void frm_cadastro_alunos_Load(object sender, EventArgs e)
-        {
-            foto_padrao();
+            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.
+            caminho_openfile = "Resources/maquina_fotografica.png";                 // caminho onde a foto esta armazenada.
         }
         #endregion
     }

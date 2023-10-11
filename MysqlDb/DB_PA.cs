@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -87,6 +88,7 @@ namespace Plantando_Alegria.MysqlDb
             }
             catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
             {
+               MessageBox.Show("Erro ao Inserir Imagem no Banco de Dados.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             Conexao_Banco_PA.Desconectar_DB();
@@ -113,15 +115,17 @@ namespace Plantando_Alegria.MysqlDb
 
             return imagem_byte;
         }
-       
 
-        
+
+
 
 
 
         #endregion
 
 
+
+        #region Metodos coentados que serao usados depois.
         //public static void Atualizar_Cadastro (Alunos_Cadastro_mysql alunos_cadastro, string id)
         //{
         //    //string sql_sintaxe = "Insert into Cadastro_Alunos (Aluno_Codigo, Aluno_Nome, Aluno_Telefone, Aluno_Email," +    // Str_sql recebe a sintaxe do banco mysql.
@@ -166,6 +170,6 @@ namespace Plantando_Alegria.MysqlDb
 
         //    mysql_db.Close();
         //}
-
+        #endregion
     }
 }
