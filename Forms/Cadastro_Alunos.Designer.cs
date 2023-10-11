@@ -426,7 +426,7 @@
         private System.Windows.Forms.TextBox txtb_nome_aluno;
         private System.Windows.Forms.TextBox txtb_codigo;
         private System.Windows.Forms.Label lbl_cod_aluno;
-        private System.Windows.Forms.PictureBox pcb_imagem_aluno;
         private System.Windows.Forms.Button btn_inserir_imagem;
+        public System.Windows.Forms.PictureBox pcb_imagem_aluno;
     }
 }

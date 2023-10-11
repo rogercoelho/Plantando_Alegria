@@ -11,7 +11,6 @@ namespace Plantando_Alegria.MysqlDb
     {
         #region Declarando variavel e objeto para comunicar com o form Cadastro Alunos.
         public static string Cad_Ok;                                                    // string para a limpeza do textbox
-        public static string openfile2 = (string)frm_cadastro_alunos.caminho_openfile;  // Objeto que recebe as infos da imagem.
         #endregion
 
         #region Metodo de Cadastro de Alunos.
@@ -69,7 +68,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public static void Inserir_Imagem(Alunos_Imagem_mysql alunos_Imagem_Mysql)  // Metdodo que recebe 2 valores.
         {
-            DB_PA dB_PA = new DB_PA();
+            Imagem_Aluno imagem_Aluno = new Imagem_Aluno();
 
             string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Alunos_Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
 
@@ -78,7 +77,7 @@ namespace Plantando_Alegria.MysqlDb
             cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
 
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-            cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = dB_PA.Imagem();                           // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+            cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = imagem_Aluno.foto_byte;                  // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
             cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                                 
                                                                                                                          
             try                                                                                                         
@@ -98,32 +97,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo que trata a imagem para inserir no banco.
-        
-        private byte[] Imagem()             // Metodo private que retorna um array de byte para a foto ser inserida
-                                            // na tabela Alunos_Imagem, na coluna Alunos_Imagem do tipo longblob.
-        {
-            
-            byte[] imagem_byte = null;      // Crio uma variavel do tipo array de byte e inicio com nulo.
-            if ( openfile2 == "")
-            {
-                return null;
-            }
-            
-            FileStream arquivo_imagem = new FileStream(openfile2, FileMode.Open, FileAccess.Read);
-            BinaryReader binary_reader = new BinaryReader(arquivo_imagem);
-
-            imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);
-
-            return imagem_byte;
-        }
-
-
-
-
-
-
-        #endregion
+       
 
 
 
