@@ -14,6 +14,9 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_alunos : Form
     {
+        public string selecao;      // variavel que recebe a selecao do checklistbox
+
+
         public frm_ficha_alunos()
         {
             InitializeComponent();
@@ -21,23 +24,25 @@ namespace Plantando_Alegria.Forms
 
         private void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
-            DB_PA dB_PA = new DB_PA();
             frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();
 
-            txtb_codigo.Text = frm_Pesquisar_Alunos.codigo_aluno;
-            dB_PA.Cod_Aluno_1 = txtb_codigo.Text;
-            dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();
+            
+            //selecao = selecao.Replace("-", string.Empty);
 
-            txtb_nome_aluno.Text = dB_PA.lista[1].ToString();
-            txtb_telefone.Text = dB_PA.lista[2].ToString();
-            txtb_email.Text = dB_PA.lista[3].ToString();
-            txtb_endereco.Text = dB_PA.lista[4].ToString();
-            txtb_bairro.Text = dB_PA.lista[5].ToString();
-            txtb_cidade.Text = dB_PA.lista[6].ToString();
-            txtb_cep.Text = dB_PA.lista[7].ToString();
-            txtb_contato_emergencia.Text = dB_PA.lista[8].ToString();
-            txtb_telefone_emergencia_1.Text = dB_PA.lista[9].ToString();
-            txtb_telefone_emergencia_2.Text = dB_PA.lista[10].ToString();
+            char[] remove = new char[] { '-' };                                            // Criando um array de variaveis com caracteres que serao removidos da selecao.
+            string[] selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
+
+            txtb_codigo.Text = selecao2[1];
+            txtb_nome_aluno.Text = selecao2[3].ToString();
+            txtb_telefone.Text = selecao2[5].ToString();
+            txtb_email.Text = selecao2[7].ToString();
+            txtb_endereco.Text = selecao2[9].ToString();
+            txtb_bairro.Text = selecao2[11].ToString();
+            txtb_cidade.Text = selecao2[13].ToString();
+            txtb_cep.Text = selecao2[15].ToString();
+            txtb_contato_emergencia.Text = selecao2[17].ToString();
+            txtb_telefone_emergencia_1.Text = selecao2[19].ToString();
+            txtb_telefone_emergencia_2.Text = selecao2[21].ToString();
 
 
 

@@ -6,8 +6,7 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_pesquisar_alunos : Form
     {
-        frm_ficha_alunos frm_Ficha_Alunos1 = new frm_ficha_alunos();
-        public string codigo_aluno;  // Variavel que recebe a selecao do checklistbox.
+
 
         public frm_pesquisar_alunos()
         {
@@ -101,26 +100,21 @@ namespace Plantando_Alegria.Forms
             #endregion
 
         }
-        
+
         #endregion
 
+        #region Metodo de selecao do checklistbox.
         private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();             // Isntanciando objeto para a classe ficha do aluno.
 
-            string selecao, cod_aluno;                              // criando variaveis
+            frm_Ficha_Alunos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
 
-            selecao = chkbox_resultado.SelectedItem.ToString();     // variavel selecao recebe o item selecionado do checkbox
-
-            string[] selecao2 = selecao.Split(' ');                 // cria um array tipo string para separar o conteudo da variavel selecao.
-                                                                    // O delimitador é " " (espaco).
-
-            cod_aluno = selecao2[1];                                // A variavel cod_aluno recebe o 2 array da variavel selecao.
-            codigo_aluno = cod_aluno.ToString();
-
-            frm_Ficha_Alunos1.Show();
-            this.Close();
+            frm_Ficha_Alunos.Show();                                                // Abre a tela ficha do aluno.
+            this.Close();                                                           // Fecha a tela atual.
             
         }
+        #endregion
     }
 
 

@@ -222,34 +222,24 @@ namespace Plantando_Alegria.MysqlDb
                 else                                                // Caso possua dados na tabela do Banco faz a tratativa.
                 {
                     #region Pega do datareader e tranfere para a lista
+
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
-                    {
-                        lista_1.Add(dataReader[0]);
-                        lista_1.Add(dataReader[1]);
-                        lista_1.Add(dataReader[2]);
-                        lista_1.Add(dataReader[3]);
-                        lista_1.Add(dataReader[4]);
-                        lista_1.Add(dataReader[5]);
-                        lista_1.Add(dataReader[6]);
-                        lista_1.Add(dataReader[7]);
-                        lista_1.Add(dataReader[8]);
-                        lista_1.Add(dataReader[9]);
-                        lista_1.Add(dataReader[10]);
+                    {    
+                    lista.Add(string.Join(null , "Cod. - ", dataReader[0].ToString() + " - ",
+                                               "  Nome - ", dataReader[1].ToString() + " - ",
+                                               "  Tel. - ", dataReader[2].ToString() + " - ",
+                                               "  Email - ",  dataReader[3].ToString() + " - ",
+                                               "  Endereço - ", dataReader[4].ToString() + " - ",
+                                               "  Bairro - ", dataReader[5].ToString() + " - ",
+                                               "  Cidade - ", dataReader[6].ToString() + " - ",
+                                               "  CEP - ", dataReader[7].ToString() + " - ",
+                                               "  Contato Emergencia - ", dataReader[8].ToString() + " - ",
+                                               "  Telefone Emergencia_1 - ", dataReader[9].ToString() + " - ",
+                                               "  Telefone Emergencia_2 - ",  dataReader[10].ToString() + " - "));     // Acrescenta na variavel lista o valor do datareader.
                     }
 
-                    
-                        //lista.Add(string.Join(null, "Cod ", dataReader[0].ToString(),
-                        //                              " --- Nome  ", dataReader[1].ToString(),
-                        //                              " --- Tel.  ", dataReader[2].ToString(),
-                        //                              " --- Email  ", dataReader[3].ToString(),
-                        //                              " --- End.  ", dataReader[4].ToString(),
-                        //                              " --- Bairro  ", dataReader[5].ToString(),
-                        //                              " --- Cidade  ", dataReader[6].ToString(),
-                        //                              " --- CEP  ", dataReader[7].ToString(),
-                        //                              " --- Contato Emergencia  ", dataReader[8].ToString(),
-                        //                              " --- Tel. Emergencia 1  ", dataReader[9].ToString(),
-                        //                              " --- Tel. Emergencia 2 ", dataReader[10].ToString()));     // Acrescenta na variavel lista o valor do datareader.
-                    
+
+
 
 
                     #endregion
