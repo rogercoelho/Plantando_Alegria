@@ -377,8 +377,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pcb_imagem_aluno;
         private System.Windows.Forms.Button btn_limpar;
         private System.Windows.Forms.Button btn_adicionar_aluno;
         private System.Windows.Forms.Label lbl_ficha_aluno;
@@ -406,5 +404,6 @@
         private System.Windows.Forms.TextBox txtb_nome_aluno;
         private System.Windows.Forms.TextBox txtb_codigo;
         private System.Windows.Forms.Label lbl_cod_aluno;
+        public System.Windows.Forms.PictureBox pcb_imagem_aluno;
     }
 }

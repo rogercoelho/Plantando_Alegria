@@ -1,32 +1,24 @@
-﻿using MySqlConnector;
+﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.MysqlDb;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_alunos : Form
     {
-        public string selecao;      // variavel que recebe a selecao do checklistbox
-
-
+        public string selecao;       // variavel que recebe a selecao do checklistbox
+        public string codigo_aluno;
         public frm_ficha_alunos()
         {
             InitializeComponent();
         }
 
-        private void frm_ficha_alunos_Load(object sender, EventArgs e)
+        public void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
-            frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();
-
-            
+            DB_PA dB_PA = new DB_PA();
 
             char[] remove = new char[] { '|' };                                                 // Criando um array de variaveis com caracteres que serao removidos da selecao.
             string[] selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
@@ -42,6 +34,13 @@ namespace Plantando_Alegria.Forms
             txtb_contato_emergencia.Text = selecao2[17].ToString();
             txtb_telefone_emergencia_1.Text = selecao2[19].ToString();
             txtb_telefone_emergencia_2.Text = selecao2[21].ToString();
+            DB_PA.Cod_Aluno = txtb_codigo.Text;
+            dB_PA.Pesquisar_Imagem();
+            byte[] imagem_byte = DB_PA.imagem_byte;
+            MemoryStream memoryStream = new MemoryStream(imagem_byte);
+            pcb_imagem_aluno.Image = Image.FromStream(memoryStream);
+            pcb_imagem_aluno.Refresh();
+
 
 
 

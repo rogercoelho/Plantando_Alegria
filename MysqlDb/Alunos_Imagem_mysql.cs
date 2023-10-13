@@ -3,7 +3,7 @@
     public class Alunos_Imagem_mysql
     {
         public int Alunos_Codigo { get; set; }
-        public string Alunos_Imagem { get; set; }
+        public string Imagem { get; set; }
         public string Criado_Em { get; set; }
 
 

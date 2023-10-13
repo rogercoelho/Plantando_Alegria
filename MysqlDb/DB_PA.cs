@@ -4,13 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
 
-        #region Declarando variavel e objeto para comunicar com o form Cadastro Alunos.
+        #region Declaracao de objetos e variaveis para comunicar forms.
+        //comunica com o form cadastro de alunos e ficha de alunos
         public static string Cad_Ok;                                    // string para a limpeza do textbox
         public string query;                                            // variavel que recebe a query do banco.
         public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
@@ -19,6 +21,7 @@ namespace Plantando_Alegria.MysqlDb
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
         MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
         MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
+        public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
         #endregion
 
         #region Metodo de Cadastro de Alunos.
@@ -86,7 +89,7 @@ namespace Plantando_Alegria.MysqlDb
                 imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
 
 
-                string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Alunos_Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
+                string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
 
 
                 Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto para a classe Conexao_Banco_PA.
@@ -94,7 +97,7 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
 
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-                cmd.Parameters.Add("@Alunos_Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                 // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                 // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
                 cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
 
                 try
@@ -166,21 +169,30 @@ namespace Plantando_Alegria.MysqlDb
                      " '" + Nome_Aluno + "'";
 
                 cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-                cmd.Parameters.AddWithValue("@codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
-                cmd.Parameters.AddWithValue("@nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
+                cmd.Parameters.AddWithValue("@Alunos_codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
+                cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
         }
 
         #endregion
 
         #endregion
 
+        #region Metodo de pesquisa na tabela Alunos_imagem.
 
-
-
+        public void Pesquisar_Imagem()
+        {
+            cmd.Connection = conexao_Banco_PA.Conectar_DB();                                // Conecta no banco
+            query = "select Imagem from Alunos_Imagem where Alunos_Codigo =" + Cod_Aluno;   // Query que sera executada no banco.
+            cmd.CommandText = query;                                                        // Mysql Command recebe a query.
+            cmd.Parameters.AddWithValue("@Alunos_Codigo", Cod_Aluno);                       // recebe o parametro codigo do aluno.
+            Executa_Pesquisa_Imagem();                                                              // Acessa o metodo Executa_pesquisa.
+        }
 
         #endregion
 
-        #region Metodo de execucao da pesquisa.
+        #endregion
+
+        #region Metodo de execucao da pesquisa do cadastro.
 
         public void Executa_Pesquisa()
         {
@@ -264,10 +276,34 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo de execucao da pesquisa da imagem.
+        public void Executa_Pesquisa_Imagem()
+        {
+            try
+            {
+                dataReader = cmd.ExecuteReader();           // Executa o datareader
 
+                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
+                {
+                    dataReader.Read();                      // Faz a leitura do datareader.
+                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
+                   
+                }
+            }
 
+            catch (MySqlException errodb)
+            {
+                MessageBox.Show("Erro no banco de dados" + errodb);
+            }
+            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
+            {
+                dataReader.Close();                         // Encerra o datareader.
+                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
+                  
+            }
 
-
+        }
+        #endregion
 
 
 
