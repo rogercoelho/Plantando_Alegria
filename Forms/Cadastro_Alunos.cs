@@ -180,14 +180,13 @@ namespace Plantando_Alegria.Forms
         private void btn_inserir_imagem_Click(object sender, EventArgs e)
         {
            
-            OpenFileDialog openfile = new OpenFileDialog();
-            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";
+            OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
+            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filta os tipos de arquivos permitidos.
 
-            if (openfile.ShowDialog() == DialogResult.OK)                                                       // Se pressionar OK na janela.
+            if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
-                foto_aluno = openfile.FileName.ToString();                                                // Pega o caminho da imagem selecionada.
-
-                pcb_imagem_aluno.ImageLocation = foto_aluno;                                      // Mostra a imagem no PictureBox.
+                foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = foto_aluno;                            // Mostra a imagem no PictureBox.
             }
 
         }
@@ -195,16 +194,18 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
-        private void frm_cadastro_alunos_Load(object sender, EventArgs e)   // Metodo que é carregado quando o sistema é iniciado.
+        private void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.
         {
-            foto_padrao();      // chama o metodo foto_padrao.
+            foto_padrao();                      // caminho onde a foto esta armazenada.
         }
         
         public void foto_padrao()
         {
             pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.
-            foto_aluno = "Resources/maquina_fotografica.png";                 // caminho onde a foto esta armazenada.
+            foto_aluno = "Resources/maquina_fotografica.png";                       // caminho onde a foto esta armazenada.
+
         }
         #endregion
+
     }
 }

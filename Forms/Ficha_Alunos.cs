@@ -27,9 +27,8 @@ namespace Plantando_Alegria.Forms
             frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();
 
             
-            //selecao = selecao.Replace("-", string.Empty);
 
-            char[] remove = new char[] { '-' };                                            // Criando um array de variaveis com caracteres que serao removidos da selecao.
+            char[] remove = new char[] { '|' };                                                 // Criando um array de variaveis com caracteres que serao removidos da selecao.
             string[] selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
 
             txtb_codigo.Text = selecao2[1];

@@ -14,21 +14,11 @@ namespace Plantando_Alegria.MysqlDb
         public static string Cad_Ok;                                    // string para a limpeza do textbox
         public string query;                                            // variavel que recebe a query do banco.
         public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
-        public string Cod_Aluno_1;
         public static string Nome_Aluno;                                // variavel que recebe o nome do aluno do textbox.
         public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
-        public List<object> lista_1 = new List<object>();
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
         MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
         MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
-        #endregion
-
-        #region Metodo Construtor
-        public DB_PA()
-        {
-            Cod_Aluno = Cod_Aluno_1;
-        }
-
         #endregion
 
         #region Metodo de Cadastro de Alunos.
@@ -225,17 +215,17 @@ namespace Plantando_Alegria.MysqlDb
 
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
                     {    
-                    lista.Add(string.Join(null , "Cod. - ", dataReader[0].ToString() + " - ",
-                                               "  Nome - ", dataReader[1].ToString() + " - ",
-                                               "  Tel. - ", dataReader[2].ToString() + " - ",
-                                               "  Email - ",  dataReader[3].ToString() + " - ",
-                                               "  Endereço - ", dataReader[4].ToString() + " - ",
-                                               "  Bairro - ", dataReader[5].ToString() + " - ",
-                                               "  Cidade - ", dataReader[6].ToString() + " - ",
-                                               "  CEP - ", dataReader[7].ToString() + " - ",
-                                               "  Contato Emergencia - ", dataReader[8].ToString() + " - ",
-                                               "  Telefone Emergencia_1 - ", dataReader[9].ToString() + " - ",
-                                               "  Telefone Emergencia_2 - ",  dataReader[10].ToString() + " - "));     // Acrescenta na variavel lista o valor do datareader.
+                    lista.Add(string.Join(null , "Cod. | ", dataReader[0].ToString() + " | ",
+                                               "  Nome | ", dataReader[1].ToString() + " | ",
+                                               "  Tel. | ", dataReader[2].ToString() + " | ",
+                                               "  Email | ",  dataReader[3].ToString() + " | ",
+                                               "  Endereço | ", dataReader[4].ToString() + " | ",
+                                               "  Bairro | ", dataReader[5].ToString() + " | ",
+                                               "  Cidade | ", dataReader[6].ToString() + " | ",
+                                               "  CEP | ", dataReader[7].ToString() + " | ",
+                                               "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
+                                               "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
+                                               "  Telefone Emergencia_2 | ",  dataReader[10].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                     }
 
 

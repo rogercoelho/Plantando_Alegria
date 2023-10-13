@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Plantando_Alegria.MysqlDb
+﻿namespace Plantando_Alegria.MysqlDb
 {
     public class Alunos_Cadastro_mysql
     {

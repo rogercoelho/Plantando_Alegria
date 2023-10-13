@@ -168,9 +168,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\maquina fotografica.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\maquina_fotografica.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
