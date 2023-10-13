@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -11,7 +11,24 @@ namespace Plantando_Alegria.MysqlDb
     {
 
         #region Declarando variavel e objeto para comunicar com o form Cadastro Alunos.
-        public static string Cad_Ok;                                                    // string para a limpeza do textbox
+        public static string Cad_Ok;                                    // string para a limpeza do textbox
+        public string query;                                            // variavel que recebe a query do banco.
+        public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
+        public string Cod_Aluno_1;
+        public static string Nome_Aluno;                                // variavel que recebe o nome do aluno do textbox.
+        public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
+        public List<object> lista_1 = new List<object>();
+        Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
+        MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
+        MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
+        #endregion
+
+        #region Metodo Construtor
+        public DB_PA()
+        {
+            Cod_Aluno = Cod_Aluno_1;
+        }
+
         #endregion
 
         #region Metodo de Cadastro de Alunos.
@@ -109,6 +126,175 @@ namespace Plantando_Alegria.MysqlDb
             }
         }
         #endregion
+
+        
+        #region Metodos de pesquisas no banco.
+
+        #region Metodo de pesquisa na tabela Alunos_Cadastro.
+
+        #region Metodo de pesquisar tudo da tabela.
+
+        public void Pesquisar_Tudo_tbl_alunos_cadastro()
+        {    
+            query = "SELECT * from Alunos_Cadastro";    // Consulta do banco de dados Mysql.         
+            cmd.CommandText = query;                     // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco
+        }
+
+        #endregion
+
+        #region Metodo de pesquisar pelo nome do aluno.
+
+        public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
+        {
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Nome_Aluno + "'";    // query do mysql + o que esta escrito no label.       
+            cmd.CommandText = query;                                                                // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);                                       // Adiciona um parametro para acrescentar os valores encontrados
+        }
+
+        #endregion
+
+        #region Metodo de pesquisar pelo codigo do aluno.
+
+        public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
+        {    
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Cod_Aluno;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
+            cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Cod_Aluno;      // Adiciona um parametro para acrescentar os valores encontrados.
+
+        }
+
+        #endregion
+
+        #region Metodo de pesquisar pelo nome ou pelo codigo.
+
+        public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
+        {
+               
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
+                     + Cod_Aluno 
+                     + " OR Alunos_Nome LIKE" +
+                     " '" + Nome_Aluno + "'";
+
+                cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+                cmd.Parameters.AddWithValue("@codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
+                cmd.Parameters.AddWithValue("@nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
+        #endregion
+
+
+
+
+
+        #endregion
+
+        #region Metodo de execucao da pesquisa.
+
+        public void Executa_Pesquisa()
+        {
+            Encerramento encerramento = new Encerramento();         // instanciando objeto para a classe encerramento.
+
+            #region Inicia a execucao da pesquisa.
+
+            try                                                     // Tenta executar o comando.
+            {
+                cmd.Connection = conexao_Banco_PA.Conectar_DB();    // Abre a conexao com o banco. 
+                dataReader = cmd.ExecuteReader();                   // Abre a execucao do datareader.
+
+                #region Retorna a pesquisa nula.
+
+                if (!dataReader.HasRows)                            // Se o datareader nao possuir dados retornados do banco. 
+                {
+                    if (!dataReader.IsClosed)                       // Se o datareader nao estiver fechado.
+                    {
+                        dataReader.Close();                         // Encerra o data_reader.
+                        conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
+                    }
+                    encerramento.Mensagem2();
+                }
+
+                #endregion
+
+                #region Retorna a pesquisa com valores encontrados.
+
+                else                                                // Caso possua dados na tabela do Banco faz a tratativa.
+                {
+                    #region Pega do datareader e tranfere para a lista
+                    while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
+                    {
+                        lista_1.Add(dataReader[0]);
+                        lista_1.Add(dataReader[1]);
+                        lista_1.Add(dataReader[2]);
+                        lista_1.Add(dataReader[3]);
+                        lista_1.Add(dataReader[4]);
+                        lista_1.Add(dataReader[5]);
+                        lista_1.Add(dataReader[6]);
+                        lista_1.Add(dataReader[7]);
+                        lista_1.Add(dataReader[8]);
+                        lista_1.Add(dataReader[9]);
+                        lista_1.Add(dataReader[10]);
+                    }
+
+                    
+                        //lista.Add(string.Join(null, "Cod ", dataReader[0].ToString(),
+                        //                              " --- Nome  ", dataReader[1].ToString(),
+                        //                              " --- Tel.  ", dataReader[2].ToString(),
+                        //                              " --- Email  ", dataReader[3].ToString(),
+                        //                              " --- End.  ", dataReader[4].ToString(),
+                        //                              " --- Bairro  ", dataReader[5].ToString(),
+                        //                              " --- Cidade  ", dataReader[6].ToString(),
+                        //                              " --- CEP  ", dataReader[7].ToString(),
+                        //                              " --- Contato Emergencia  ", dataReader[8].ToString(),
+                        //                              " --- Tel. Emergencia 1  ", dataReader[9].ToString(),
+                        //                              " --- Tel. Emergencia 2 ", dataReader[10].ToString()));     // Acrescenta na variavel lista o valor do datareader.
+                    
+
+
+                    #endregion
+
+                }
+                #endregion
+
+                #region Encerra o datareader se estiver aberto ainda.
+                if (!dataReader.IsClosed)
+                {
+                    dataReader.Close();
+                }
+
+                #endregion
+            }
+
+
+            #region Caso dê algum erro retorna a mensagem.
+            catch (MySqlException erro_db)                          // Caso nao consiga executar os comandos do Try retorna o Catch com o erro do banco.
+            {
+                encerramento.Mensagem4("-->" + erro_db.Message);
+            }
+            #endregion
+
+            #region Encerra a conexao com o banco.
+            conexao_Banco_PA.Desconectar_DB();
+            #endregion
+
+            #endregion
+
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

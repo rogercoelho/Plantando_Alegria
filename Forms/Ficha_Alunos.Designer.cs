@@ -369,6 +369,7 @@
             this.Name = "frm_ficha_alunos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Plantando Alegria - Ficha do Aluno";
+            this.Load += new System.EventHandler(this.frm_ficha_alunos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
