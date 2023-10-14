@@ -93,9 +93,19 @@ namespace Plantando_Alegria.Forms
 
             #region Transfere as informacoes para a tela (checklistbox).
 
+
+            if (DB_PA.Cad_Ok == "OK")
+            {
+
             chkbox_resultado.Items.Clear();                             // Limpa o checklistbox para incluir valores novos.
             chkbox_resultado.Items.AddRange(dB_PA.lista.ToArray());     // Passa os itens da variavel resultado para um array e depois adiciona do checklistbox.
             encerramento.Mensagem3();
+
+            }
+            else
+            {
+                btn_limpar.PerformClick();
+            }
 
             #endregion
 

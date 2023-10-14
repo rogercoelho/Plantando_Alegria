@@ -157,18 +157,8 @@ namespace Plantando_Alegria.Forms
 
             if (DB_PA.Cad_Ok == "OK")
             {
-                txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
-                txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
-                txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
-                txtb_bairro.Clear() ;                   // Limpa os campos após cadastrado.
-                txtb_cidade.Clear();                    // Limpa os campos após cadastrado.
-                txtb_cep.Clear();                       // Limpa os campos após cadastrado.
-                txtb_email.Clear();                     // Limpa os campos após cadastrado.
-                txtb_telefone.Clear();                  // Limpa os campos após cadastrado.
-                txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
-                txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
-                txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
-                foto_padrao();                          // Carrega a foto padrao do sistema.
+                btn_limpar.PerformClick();  // Limpa os campos
+                foto_padrao();              // Carrega a foto padrao do sistema.
             }
             
             #endregion
@@ -198,7 +188,9 @@ namespace Plantando_Alegria.Forms
         {
             foto_padrao();                      // caminho onde a foto esta armazenada.
         }
-        
+        #endregion
+
+        #region Metodo do caminho da foto padrao.
         public void foto_padrao()
         {
             pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.

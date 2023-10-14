@@ -77,7 +77,7 @@
             this.lbl_tel_emergencia_2.Location = new System.Drawing.Point(459, 355);
             this.lbl_tel_emergencia_2.Name = "lbl_tel_emergencia_2";
             this.lbl_tel_emergencia_2.Size = new System.Drawing.Size(18, 20);
-            this.lbl_tel_emergencia_2.TabIndex = 25;
+            this.lbl_tel_emergencia_2.TabIndex = 26;
             this.lbl_tel_emergencia_2.Text = "2";
             // 
             // lbl_tel_emergencia_1
@@ -106,7 +106,7 @@
             this.lbl_cep.Location = new System.Drawing.Point(624, 241);
             this.lbl_cep.Name = "lbl_cep";
             this.lbl_cep.Size = new System.Drawing.Size(36, 20);
-            this.lbl_cep.TabIndex = 22;
+            this.lbl_cep.TabIndex = 25;
             this.lbl_cep.Text = "CEP";
             // 
             // txtb_cidade
@@ -124,7 +124,7 @@
             this.lbl_cidade.Location = new System.Drawing.Point(341, 241);
             this.lbl_cidade.Name = "lbl_cidade";
             this.lbl_cidade.Size = new System.Drawing.Size(60, 20);
-            this.lbl_cidade.TabIndex = 17;
+            this.lbl_cidade.TabIndex = 22;
             this.lbl_cidade.Text = "Cidade";
             // 
             // lbl_bairro
@@ -135,7 +135,7 @@
             this.lbl_bairro.Location = new System.Drawing.Point(19, 241);
             this.lbl_bairro.Name = "lbl_bairro";
             this.lbl_bairro.Size = new System.Drawing.Size(52, 20);
-            this.lbl_bairro.TabIndex = 21;
+            this.lbl_bairro.TabIndex = 18;
             this.lbl_bairro.Text = "Bairro";
             // 
             // btn_limpar
@@ -148,7 +148,7 @@
             this.btn_limpar.Location = new System.Drawing.Point(545, 407);
             this.btn_limpar.Name = "btn_limpar";
             this.btn_limpar.Size = new System.Drawing.Size(130, 35);
-            this.btn_limpar.TabIndex = 13;
+            this.btn_limpar.TabIndex = 14;
             this.btn_limpar.Text = "Limpar";
             this.btn_limpar.UseVisualStyleBackColor = false;
             this.btn_limpar.Click += new System.EventHandler(this.btn_limpar_Click);
@@ -163,7 +163,7 @@
             this.btn_adicionar_aluno.Location = new System.Drawing.Point(273, 407);
             this.btn_adicionar_aluno.Name = "btn_adicionar_aluno";
             this.btn_adicionar_aluno.Size = new System.Drawing.Size(147, 35);
-            this.btn_adicionar_aluno.TabIndex = 11;
+            this.btn_adicionar_aluno.TabIndex = 12;
             this.btn_adicionar_aluno.Text = "Adicionar Aluno";
             this.btn_adicionar_aluno.UseVisualStyleBackColor = false;
             this.btn_adicionar_aluno.Click += new System.EventHandler(this.btn_adicionar_aluno_Click);
@@ -176,7 +176,7 @@
             this.lbl_telefone_emergencia.Location = new System.Drawing.Point(19, 355);
             this.lbl_telefone_emergencia.Name = "lbl_telefone_emergencia";
             this.lbl_telefone_emergencia.Size = new System.Drawing.Size(249, 20);
-            this.lbl_telefone_emergencia.TabIndex = 20;
+            this.lbl_telefone_emergencia.TabIndex = 21;
             this.lbl_telefone_emergencia.Text = "Telefone do Contato Emergencia";
             // 
             // lbl_contato_emergencia
@@ -187,7 +187,7 @@
             this.lbl_contato_emergencia.Location = new System.Drawing.Point(19, 320);
             this.lbl_contato_emergencia.Name = "lbl_contato_emergencia";
             this.lbl_contato_emergencia.Size = new System.Drawing.Size(157, 20);
-            this.lbl_contato_emergencia.TabIndex = 19;
+            this.lbl_contato_emergencia.TabIndex = 20;
             this.lbl_contato_emergencia.Text = "Contato Emergência";
             // 
             // lbl_email
@@ -209,7 +209,7 @@
             this.lbl_telefone.Location = new System.Drawing.Point(19, 271);
             this.lbl_telefone.Name = "lbl_telefone";
             this.lbl_telefone.Size = new System.Drawing.Size(144, 20);
-            this.lbl_telefone.TabIndex = 18;
+            this.lbl_telefone.TabIndex = 19;
             this.lbl_telefone.Text = "Telefone do Aluno";
             // 
             // lbl_endereco
@@ -220,7 +220,7 @@
             this.lbl_endereco.Location = new System.Drawing.Point(19, 207);
             this.lbl_endereco.Name = "lbl_endereco";
             this.lbl_endereco.Size = new System.Drawing.Size(155, 20);
-            this.lbl_endereco.TabIndex = 16;
+            this.lbl_endereco.TabIndex = 17;
             this.lbl_endereco.Text = "Endereco Completo";
             // 
             // lbl_nome_aluno
@@ -231,7 +231,7 @@
             this.lbl_nome_aluno.Location = new System.Drawing.Point(19, 173);
             this.lbl_nome_aluno.Name = "lbl_nome_aluno";
             this.lbl_nome_aluno.Size = new System.Drawing.Size(125, 20);
-            this.lbl_nome_aluno.TabIndex = 15;
+            this.lbl_nome_aluno.TabIndex = 16;
             this.lbl_nome_aluno.Text = "Nome do Aluno";
             // 
             // lbl_cadastro_alunos
@@ -241,7 +241,7 @@
             this.lbl_cadastro_alunos.Location = new System.Drawing.Point(189, 9);
             this.lbl_cadastro_alunos.Name = "lbl_cadastro_alunos";
             this.lbl_cadastro_alunos.Size = new System.Drawing.Size(390, 26);
-            this.lbl_cadastro_alunos.TabIndex = 47;
+            this.lbl_cadastro_alunos.TabIndex = 27;
             this.lbl_cadastro_alunos.Text = "Plantando Alegria - Cadastro de Alunos";
             // 
             // btn_voltar
@@ -254,7 +254,7 @@
             this.btn_voltar.Location = new System.Drawing.Point(83, 407);
             this.btn_voltar.Name = "btn_voltar";
             this.btn_voltar.Size = new System.Drawing.Size(70, 35);
-            this.btn_voltar.TabIndex = 12;
+            this.btn_voltar.TabIndex = 13;
             this.btn_voltar.Text = "Voltar";
             this.btn_voltar.UseVisualStyleBackColor = false;
             this.btn_voltar.Click += new System.EventHandler(this.btn_voltar_Click);
@@ -316,7 +316,7 @@
             this.lbl_cod_aluno.Location = new System.Drawing.Point(19, 140);
             this.lbl_cod_aluno.Name = "lbl_cod_aluno";
             this.lbl_cod_aluno.Size = new System.Drawing.Size(134, 20);
-            this.lbl_cod_aluno.TabIndex = 14;
+            this.lbl_cod_aluno.TabIndex = 15;
             this.lbl_cod_aluno.Text = "Codigo do Aluno";
             // 
             // btn_inserir_imagem
@@ -329,7 +329,7 @@
             this.btn_inserir_imagem.Location = new System.Drawing.Point(511, 131);
             this.btn_inserir_imagem.Name = "btn_inserir_imagem";
             this.btn_inserir_imagem.Size = new System.Drawing.Size(107, 29);
-            this.btn_inserir_imagem.TabIndex = 49;
+            this.btn_inserir_imagem.TabIndex = 11;
             this.btn_inserir_imagem.Text = "Inserir Img.";
             this.btn_inserir_imagem.UseVisualStyleBackColor = false;
             this.btn_inserir_imagem.Click += new System.EventHandler(this.btn_inserir_imagem_Click);
@@ -339,7 +339,7 @@
             this.txtb_bairro.Location = new System.Drawing.Point(78, 240);
             this.txtb_bairro.Name = "txtb_bairro";
             this.txtb_bairro.Size = new System.Drawing.Size(257, 20);
-            this.txtb_bairro.TabIndex = 50;
+            this.txtb_bairro.TabIndex = 3;
             // 
             // contextMenuStrip1
             // 

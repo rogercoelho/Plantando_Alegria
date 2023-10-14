@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace Plantando_Alegria.MysqlDb
 {
@@ -13,7 +12,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Declaracao de objetos e variaveis para comunicar forms.
         //comunica com o form cadastro de alunos e ficha de alunos
-        public static string Cad_Ok;                                    // string para a limpeza do textbox
+        public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // variavel que recebe a query do banco.
         public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
         public static string Nome_Aluno;                                // variavel que recebe o nome do aluno do textbox.
@@ -119,7 +118,6 @@ namespace Plantando_Alegria.MysqlDb
             }
         }
         #endregion
-
         
         #region Metodos de pesquisas no banco.
 
@@ -215,8 +213,10 @@ namespace Plantando_Alegria.MysqlDb
                         conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
                     }
                     encerramento.Mensagem2();
+                
+                    DB_PA.Cad_Ok = "Erro";
+                    
                 }
-
                 #endregion
 
                 #region Retorna a pesquisa com valores encontrados.
@@ -239,12 +239,9 @@ namespace Plantando_Alegria.MysqlDb
                                                "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
                                                "  Telefone Emergencia_2 | ",  dataReader[10].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                     }
-
-
-
-
-
                     #endregion
+                    
+                    Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
 
                 }
                 #endregion
