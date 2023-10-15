@@ -30,26 +30,24 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Variaveis Operacionais
 
-        public static bool e_cadastro;
-        public static int contador;
+        public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
+        public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
         public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // variavel que recebe a query do banco.
         public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
+        MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
 
         #endregion
 
-        #region Declaracao de objetos e variaveis para comunicar forms.
+        #region Instanciando Objetos.
         //comunica com o form cadastro de alunos e ficha de alunos
-        public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
-        public static string Nome_Aluno;                                // variavel que recebe o nome do aluno do textbox.
+        Encerramento encerramento = new Encerramento();                 // instanciando objeto para a classe encerramento.
         public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
         MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
-        MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
         #endregion
 
-
-        #region Metodos de query do banco.
+        #region Metodos de Query do banco.
 
         #region Metodo Query para Atualizar Aluno REVISADO.
 
@@ -84,7 +82,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
-        #region Metodo Query Para Inserir imagem_Aluno.
+        #region Metodo Query Para Inserir imagem_Aluno REVISADO.
 
         public void Query_Inserir_Imagem()
         {
@@ -120,9 +118,61 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
+        #region Metodo Query para pesquisar tudo da tabela REVISADO.
 
+        public void Pesquisar_Tudo_tbl_alunos_cadastro()
+        {
+            query = "SELECT * from Alunos_Cadastro";    // Consulta do banco de dados Mysql.         
+            cmd.CommandText = query;                     // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco
+        }
+
+        #endregion
+        
+        #region Metodo Query para pesquisar pelo nome do aluno REVISADO.
+
+        public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
+        {
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Alunos_Nome + "'";    // query do mysql + o que esta escrito no label.       
+            cmd.CommandText = query;                                                                // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);                                       // Adiciona um parametro para acrescentar os valores encontrados
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo codigo do aluno REVISADO.
+
+        public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
+        {
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
+            cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
+
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo nome ou pelo codigo REVISADO.
+
+        public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
+        {
+
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
+                     + Alunos_Codigo
+                     + " OR Alunos_Nome LIKE" +
+                     " '" + Alunos_Nome + "'";
+
+            cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);            // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);          // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
+
+        #endregion
 
         #region Metodo Cadastra ou atualiza tabela Alunos_Cadastro REVISADO    
+
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
             if (e_cadastro == true)
@@ -196,78 +246,10 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-
-        #region Metodo de pesquisar tudo da tabela.
-
-        public void Pesquisar_Tudo_tbl_alunos_cadastro()
-        {
-            query = "SELECT * from Alunos_Cadastro";    // Consulta do banco de dados Mysql.         
-            cmd.CommandText = query;                     // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco
-        }
-
-        #endregion
-
-        #region Metodo de pesquisar pelo nome do aluno.
-
-        public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
-        {
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Nome_Aluno + "'";    // query do mysql + o que esta escrito no label.       
-            cmd.CommandText = query;                                                                // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-            cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);                                       // Adiciona um parametro para acrescentar os valores encontrados
-        }
-
-        #endregion
-
-        #region Metodo de pesquisar pelo codigo do aluno.
-
-        public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
-        {
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Cod_Aluno;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
-            cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Cod_Aluno;      // Adiciona um parametro para acrescentar os valores encontrados.
-
-        }
-
-        #endregion
-
-        #region Metodo de pesquisar pelo nome ou pelo codigo.
-
-        public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
-        {
-
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
-                     + Cod_Aluno
-                     + " OR Alunos_Nome LIKE" +
-                     " '" + Nome_Aluno + "'";
-
-            cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-            cmd.Parameters.AddWithValue("@Alunos_codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
-            cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
-        }
-
-        #endregion
-
-        #region Metodo de pesquisa na tabela Alunos_imagem.
-
-        public void Pesquisar_Imagem()
-        {
-            cmd.Connection = conexao_Banco_PA.Conectar_DB();                                // Conecta no banco
-            query = "select Imagem from Alunos_Imagem where Alunos_Codigo =" + Cod_Aluno;   // Query que sera executada no banco.
-            cmd.CommandText = query;                                                        // Mysql Command recebe a query.
-            cmd.Parameters.AddWithValue("@Alunos_Codigo", Cod_Aluno);                       // recebe o parametro codigo do aluno.
-            Executa_Pesquisa_Imagem();                                                              // Acessa o metodo Executa_pesquisa.
-        }
-
-        #endregion
-
-        #endregion
-
         #region Metodo de execucao da pesquisa do cadastro.
 
         public void Executa_Pesquisa()
         {
-            Encerramento encerramento = new Encerramento();         // instanciando objeto para a classe encerramento.
-
             #region Inicia a execucao da pesquisa.
 
             try                                                     // Tenta executar o comando.
@@ -295,7 +277,7 @@ namespace Plantando_Alegria.MysqlDb
 
                 else                                                // Caso possua dados na tabela do Banco faz a tratativa.
                 {
-                    #region Pega do datareader e tranfere para a lista
+                                                                    // Pega do datareader e tranfere para a lista
 
 
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
@@ -314,70 +296,32 @@ namespace Plantando_Alegria.MysqlDb
                                                    "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
                                                    "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
                                                    "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
-                    }
-                    #endregion
-
+                    }    
+                
                     Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
 
                 }
                 #endregion
 
-                #region Encerra o datareader se estiver aberto ainda.
+                #region  Encerra o datareader se estiver aberto ainda.
                 if (!dataReader.IsClosed)
                 {
                     dataReader.Close();
                 }
-
                 #endregion
             }
-
-
-            #region Caso dê algum erro retorna a mensagem.
             catch (MySqlException erro_db)                          // Caso nao consiga executar os comandos do Try retorna o Catch com o erro do banco.
             {
                 encerramento.Mensagem4("-->" + erro_db.Message);
-            }
-            #endregion
-
-            #region Encerra a conexao com o banco.
+            }    
             conexao_Banco_PA.Desconectar_DB();
+            
             #endregion
-
-            #endregion
-
         }
 
         #endregion
 
-        #region Metodo de execucao da pesquisa da imagem.
-        public void Executa_Pesquisa_Imagem()
-        {
-            try
-            {
-                dataReader = cmd.ExecuteReader();           // Executa o datareader
-
-                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
-                {
-                    dataReader.Read();                      // Faz a leitura do datareader.
-                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
-
-                }
-            }
-
-            catch (MySqlException errodb)
-            {
-                MessageBox.Show("Erro no banco de dados" + errodb);
-            }
-            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
-            {
-                dataReader.Close();                         // Encerra o datareader.
-                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
-
-            }
-
-        }
-        #endregion
-
+        
 
 
 
