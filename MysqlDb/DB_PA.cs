@@ -10,57 +10,197 @@ namespace Plantando_Alegria.MysqlDb
 {
     public class DB_PA
     {
+        #region Variaveis da tabela Alunos_Cadastro.
+
+        public static int Alunos_Codigo;
+        public static string Alunos_Nome;
+        public static string Alunos_Endereco;
+        public static string Alunos_Bairro;
+        public static string Alunos_Cidade;
+        public static string Alunos_CEP;
+        public static string Alunos_Telefone;
+        public static string Alunos_Email;
+        public static string Alunos_Contato_Emergencia;
+        public static string Alunos_Telefone_Emergencia_1;
+        public static string Alunos_Telefone_Emergencia_2;
+        public static string Criado_Em;
+        public static string Atualizado_Em;
+
+        #endregion
+
+        #region Variaveis Operacionais
+
+        public static bool e_cadastro;
+        public static int contador;
+        public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
+        public string query;                                            // variavel que recebe a query do banco.
+        public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
+
+        #endregion
 
         #region Declaracao de objetos e variaveis para comunicar forms.
         //comunica com o form cadastro de alunos e ficha de alunos
-        public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
-        public string query;                                            // variavel que recebe a query do banco.
         public static string Cod_Aluno;                                 // variavel que recebe o codigo do aluno do textbox.
         public static string Nome_Aluno;                                // variavel que recebe o nome do aluno do textbox.
         public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
         MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
         MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
-        public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
         #endregion
 
-        
-        #region Metodos de query do banco.
-       
-        #region metodo para cadastrar Aluno
 
-        public void Cadastrar_Aluno()
+        #region Metodos de query do banco.
+
+        #region Metodo Query para Atualizar Aluno REVISADO.
+
+        public void Query_Atualizar_Cadastro()
+        {
+            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco =@Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
+                                                      " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
+                                                      " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
+                                                      " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
+                                                      " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
+                                                      " WHERE Alunos_Codigo =" + Alunos_Codigo;
+            cmd.CommandText = query;
+            e_cadastro = false;
+            Cadastrar_Atualizar_Alunos_Cadastro();
+
+        }
+
+        #endregion
+
+        #region Metodo Query para Cadastrar Aluno REVISADO.
+
+        public void Query_Cadastrar_Aluno()
         {
             query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Telefone, @Alunos_Email," +
                                                                     "@Alunos_Endereco, @Alunos_Bairro, @Alunos_Cidade, @Alunos_CEP," +
                                                                     "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
-                                                                    "@Alunos_Telefone_Emergencia_2, @Criado_Em, Atualizado_Em)";
+                                                                    "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
             cmd.CommandText = query;
-
-            
+            e_cadastro = true;
+            Cadastrar_Atualizar_Alunos_Cadastro();
 
         }
         #endregion
 
-        #region Metodo para atualizar o cadastro do aluno.
+        #region Metodo Query Para Inserir imagem_Aluno.
 
-        public void Atualizar_Cadastro()
+        public void Query_Inserir_Imagem()
         {
-            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco =@Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
-                                                       " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
-                                                       " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
-                                                       " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
-                                                       " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
-                                                       " WHERE Alunos_Codigo =" + Cod_Aluno;
-            cmd.CommandText = query;
+            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
+                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
+            {
+
+                FileStream arquivo_imagem = new FileStream(frm_cadastro_alunos.foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
+                                                                                                                                // Incanciando o objeto para a classe Binary reader 
+                                                                                                                                // parecido com o datareader.
+
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
+
+
+                query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
+
+                cmd.CommandText = query;                                                                // variavel com a query sendo repassada para dentro do MysqlCommand.
+
+                if (e_cadastro != true)
+                {
+
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
+
+                }
+
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+
+                Executa_Banco();
+            }
+
+        }
+        #endregion
+
+
+
+        #region Metodo Cadastra ou atualiza tabela Alunos_Cadastro REVISADO    
+        public void Cadastrar_Atualizar_Alunos_Cadastro()
+        {
+            if (e_cadastro == true)
+            {
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
+                cmd.Parameters.Add("Atualizado_Em", MySqlDbType.Timestamp).Value = null;
+            }
+            else
+            {
+                cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;
+            }
+            cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                 // Adiciona na coluna da query
+            cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                          // O tipo da coluna (Varchar)
+            cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                // Recebe o valor de
+            cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                          // alunos_cadastro_mysql.
+            cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                              // Alunos_Bairro (nesse caso
+            cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;
+            cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;
+            cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;
+            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;
+            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;
+
+
+            Executa_Banco();
+
         }
 
         #endregion
+
+        #region Metodo de Execucao de conexao e atualizacao do Banco REVISADO.
+
+        public void Executa_Banco()
+        {
+            try
+            {
+                if (contador > 2) 
+                {
+                    contador = 0; 
+                }
+
+                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
+                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
+                conexao_Banco_PA.Desconectar_DB();
+
+                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
+                contador++;
+
+                if (contador == 1) 
+                {
+                    MessageBox.Show("Cadastro Realizado com Sucesso.\n" +
+                                    "Agora Vamos Salvar a Imagem do Aluno.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (contador == 2)
+                {
+                    MessageBox.Show("A imagem foi salva com sucesso.\n" +
+                                    "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    contador++;
+                }
+            }
+            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
+            {
+                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
+            }
+
+            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
+
+        }
+
+        #endregion
+
 
         #region Metodo de pesquisar tudo da tabela.
 
         public void Pesquisar_Tudo_tbl_alunos_cadastro()
-        {    
+        {
             query = "SELECT * from Alunos_Cadastro";    // Consulta do banco de dados Mysql.         
             cmd.CommandText = query;                     // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco
         }
@@ -81,7 +221,7 @@ namespace Plantando_Alegria.MysqlDb
         #region Metodo de pesquisar pelo codigo do aluno.
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
-        {    
+        {
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Cod_Aluno;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
             cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Cod_Aluno;      // Adiciona um parametro para acrescentar os valores encontrados.
@@ -94,15 +234,15 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
         {
-               
+
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
-                     + Cod_Aluno 
+                     + Cod_Aluno
                      + " OR Alunos_Nome LIKE" +
                      " '" + Nome_Aluno + "'";
 
-                cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-                cmd.Parameters.AddWithValue("@Alunos_codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
-                cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.AddWithValue("@Alunos_codigo", Cod_Aluno);            // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Nome_Aluno);          // Adiciona um parametro para acrescentar os valores encontrados.
         }
 
         #endregion
@@ -145,9 +285,9 @@ namespace Plantando_Alegria.MysqlDb
                         conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
                     }
                     encerramento.Mensagem2();
-                
+
                     DB_PA.Cad_Ok = "Erro";
-                    
+
                 }
                 #endregion
 
@@ -159,24 +299,24 @@ namespace Plantando_Alegria.MysqlDb
 
 
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
-                    {    
+                    {
 
-                    lista.Add(string.Join(null , "Cod. | ", dataReader[0].ToString() + " | ",
-                                               "  Nome | ", dataReader[1].ToString() + " | ",
-                                               "  Tel. | ", dataReader[2].ToString() + " | ",
-                                               "  Email | ",  dataReader[3].ToString() + " | ",
-                                               "  Endereço | ", dataReader[4].ToString() + " | ",
-                                               "  Bairro | ", dataReader[5].ToString() + " | ",
-                                               "  Cidade | ", dataReader[6].ToString() + " | ",
-                                               "  CEP | ", dataReader[7].ToString() + " | ",
-                                               "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
-                                               "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                               "  Telefone Emergencia_2 | ",  dataReader[10].ToString() + " | ",
-                                               "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
-                                               "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                        lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
+                                                   "  Nome | ", dataReader[1].ToString() + " | ",
+                                                   "  Tel. | ", dataReader[2].ToString() + " | ",
+                                                   "  Email | ", dataReader[3].ToString() + " | ",
+                                                   "  Endereço | ", dataReader[4].ToString() + " | ",
+                                                   "  Bairro | ", dataReader[5].ToString() + " | ",
+                                                   "  Cidade | ", dataReader[6].ToString() + " | ",
+                                                   "  CEP | ", dataReader[7].ToString() + " | ",
+                                                   "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
+                                                   "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
+                                                   "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
+                                                   "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
+                                                   "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                     }
                     #endregion
-                    
+
                     Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
 
                 }
@@ -220,7 +360,7 @@ namespace Plantando_Alegria.MysqlDb
                 {
                     dataReader.Read();                      // Faz a leitura do datareader.
                     imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
-                   
+
                 }
             }
 
@@ -232,100 +372,15 @@ namespace Plantando_Alegria.MysqlDb
             {
                 dataReader.Close();                         // Encerra o datareader.
                 conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
-                  
+
             }
 
         }
         #endregion
 
-        #region Metodo de execucao de Cadastro de Alunos.
-        public void Cadastra_Atualiza_Aluno(Alunos_Cadastro_mysql alunos_cadastro_mysql)   // Metodo que recebe 2 valores.
-        {            
-                        
-
-            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value =  alunos_cadastro_mysql.Alunos_Codigo;                               // Parametros do Banco que
-            cmd.Parameters.Add("@Alunos_Nome", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Nome;                                  // Adiciona na coluna da query
-            cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Telefone;                          // O tipo da coluna (Varchar)
-            cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Email;                                // Recebe o valor de
-            cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Endereco;                          // alunos_cadastro_mysql.
-            cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Bairro;                              // Alunos_Bairro (nesse caso
-            cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Cidade;
-            cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_CEP;
-            cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Contato_Emergencia;
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Telefone_Emergencia_1;
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = alunos_cadastro_mysql.Alunos_Telefone_Emergencia_2;
-            cmd.Parameters.Add("@Criado_Em",MySqlDbType.Timestamp).Value = DateTime.Now;
-            cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;
-
-            try
-            {
-                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
-                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
-                conexao_Banco_PA.Desconectar_DB();
-                
-                DB_PA.Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
-                                
-            }
-            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
-            {
-                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro",  MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.
-            }
-
-            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco).
-
-        }
-
-        #endregion
-
-        #region Metodo de inserir imagem do aluno
-
-        public static void Inserir_Imagem(Alunos_Imagem_mysql alunos_Imagem_Mysql)  // Metdodo que recebe 2 valores.
-        {
-
-            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
-                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
-            {
-                byte[] imagem_byte = null;                                          // Crio um array de byte e inicio como nulo.
-                FileStream arquivo_imagem = new FileStream(frm_cadastro_alunos.foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
-                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
-                                                                                                                                // Incanciando o objeto para a classe Binary reader 
-                                                                                                                                // parecido com o datareader.
-
-                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
 
 
-                string query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
 
-
-                Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto para a classe Conexao_Banco_PA.
-                MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto para a classe MysqlCommand.
-                cmd.CommandText = query;                                        // variavel com a query sendo repassada para dentro do MysqlCommand.
-
-                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = alunos_Imagem_Mysql.Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                 // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
-
-                try
-                {
-                    cmd.Connection = Conexao_Banco_PA.Conectar_DB();    // Conecta no banco de dados
-                    cmd.ExecuteNonQuery();                              // Executa query.
-                    Conexao_Banco_PA.Desconectar_DB();                  // Desconecta do banco de dados.
-
-                    MessageBox.Show("Cadastro Realizado com Sucesso\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                catch (MySqlException errodb)       // Caso de erro de conexao com o banco, retorna a mesaggem de erro.
-                {
-                    MessageBox.Show("Erro ao Inserir Imagem no Banco de Dados.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-
-                Conexao_Banco_PA.Desconectar_DB();
-            }
-        }
-        #endregion
 
 
 

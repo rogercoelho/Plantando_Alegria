@@ -126,26 +126,27 @@ namespace Plantando_Alegria.Forms
             }
             #endregion
 
-            #region Cadastra os dados na tabela Alunos_Cadastro.
+            DB_PA.Alunos_Codigo = Convert.ToInt32(txtb_codigo.Text);
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
+            DB_PA.Alunos_Telefone = txtb_telefone.Text;
+            DB_PA.Alunos_Email = txtb_email.Text;
+            DB_PA.Alunos_Endereco = txtb_endereco.Text;
+            DB_PA.Alunos_Bairro = txtb_bairro.Text;
+            DB_PA.Alunos_Cidade = txtb_cidade.Text;
+            DB_PA.Alunos_CEP = txtb_cep.Text;
+            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text;
+            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text;
+            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text;
 
-            DB_PA.Cod_Aluno = txtb_codigo.Text;
+            dB_PA.Query_Cadastrar_Aluno();
+            
 
-            Alunos_Cadastro_mysql Alunos_Cadastro_Mysql = new Alunos_Cadastro_mysql(txtb_codigo.Text, txtb_nome_aluno.Text.ToUpper(), txtb_endereco.Text.ToUpper(), txtb_bairro.Text.ToUpper(),
-                                                                                   txtb_cidade.Text.ToUpper(), txtb_cep.Text.ToUpper(), txtb_telefone.Text.ToUpper(), txtb_email.Text.ToUpper(),
-                                                                                   txtb_contato_emergencia.Text.ToUpper(), txtb_telefone_emergencia_1.Text.ToUpper(),
-                                                                                   txtb_telefone_emergencia_2.Text.ToUpper());
-            Alunos_Cadastro_Mysql.Alunos_Codigo = txtb_codigo.Text;
-            dB_PA.Cadastrar_Aluno();
-            dB_PA.Cadastra_Atualiza_Aluno(Alunos_Cadastro_Mysql);
-
-            #endregion
 
             #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
 
             if (DB_PA.Cad_Ok == "OK")
             {
-                Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(DB_PA.Cod_Aluno);
-                DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
+                dB_PA.Query_Inserir_Imagem();
             }
 
             #endregion

@@ -10,9 +10,8 @@ namespace Plantando_Alegria.Forms
     public partial class frm_ficha_alunos : Form
     {
         public string selecao;              // Variavel que recebe a selecao do checklistbox
-        public string codigo_aluno;         // Variavel que recebe o codigo do aluno.
         public static string foto_aluno;    // variavel que recebe o caminho da foto.
-        DB_PA DB_PA = new DB_PA();
+        DB_PA dB_PA = new DB_PA();
         public frm_ficha_alunos()
         {
             InitializeComponent();
@@ -139,17 +138,24 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao Salvar
         private void btn_salvar_Click(object sender, EventArgs e)
         {
+            DB_PA.Alunos_Codigo = Convert.ToInt32(txtb_codigo.Text);
+            DB_PA.Nome_Aluno = txtb_nome_aluno.Text;
+            DB_PA.Alunos_Telefone = txtb_telefone.Text;
+            DB_PA.Alunos_Email = txtb_email.Text;
+            DB_PA.Alunos_Endereco = txtb_endereco.Text;
+            DB_PA.Alunos_Bairro = txtb_bairro.Text;
+            DB_PA.Alunos_Cidade = txtb_cidade.Text;
+            DB_PA.Alunos_CEP = txtb_cep.Text;
+            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text;
+            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text;
+            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text;
 
-            DB_PA.Cod_Aluno = txtb_codigo.Text;
+            dB_PA.Query_Atualizar_Cadastro();
 
-            Alunos_Cadastro_mysql Alunos_Cadastro_Mysql = new Alunos_Cadastro_mysql(txtb_codigo.Text, txtb_nome_aluno.Text.ToUpper(), txtb_endereco.Text.ToUpper(), txtb_bairro.Text.ToUpper(),
-                                                                                  txtb_cidade.Text.ToUpper(), txtb_cep.Text.ToUpper(), txtb_telefone.Text.ToUpper(), txtb_email.Text.ToUpper(),
-                                                                                  txtb_contato_emergencia.Text.ToUpper(), txtb_telefone_emergencia_1.Text.ToUpper(),
-                                                                                  txtb_telefone_emergencia_2.Text.ToUpper());
-
-            DB_PA.Atualizar_Cadastro();
-            DB_PA.Cadastra_Atualiza_Aluno(Alunos_Cadastro_Mysql);
-
+            if (DB_PA.Cad_Ok == "OK")
+            {
+                MessageBox.Show("Funcionou.");
+            }
             
         }
 
