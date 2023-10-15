@@ -12,6 +12,7 @@ namespace Plantando_Alegria.Forms
         public string selecao;              // Variavel que recebe a selecao do checklistbox
         public string codigo_aluno;         // Variavel que recebe o codigo do aluno.
         public static string foto_aluno;    // variavel que recebe o caminho da foto.
+        DB_PA DB_PA = new DB_PA();
         public frm_ficha_alunos()
         {
             InitializeComponent();
@@ -139,6 +140,17 @@ namespace Plantando_Alegria.Forms
         private void btn_salvar_Click(object sender, EventArgs e)
         {
 
+            DB_PA.Cod_Aluno = txtb_codigo.Text;
+
+            Alunos_Cadastro_mysql Alunos_Cadastro_Mysql = new Alunos_Cadastro_mysql(txtb_nome_aluno.Text.ToUpper(), txtb_endereco.Text.ToUpper(), txtb_bairro.Text.ToUpper(),
+                                                                                  txtb_cidade.Text.ToUpper(), txtb_cep.Text.ToUpper(), txtb_telefone.Text.ToUpper(), txtb_email.Text.ToUpper(),
+                                                                                  txtb_contato_emergencia.Text.ToUpper(), txtb_telefone_emergencia_1.Text.ToUpper(),
+                                                                                  txtb_telefone_emergencia_2.Text.ToUpper());
+
+            DB_PA.Atualizar_Cadastro();
+            DB_PA.Cadastra_Atualiza_Aluno(Alunos_Cadastro_Mysql);
+
+            
         }
 
         #endregion

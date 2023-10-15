@@ -1,8 +1,6 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
-using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Plantando_Alegria.Forms
 {
@@ -54,8 +52,8 @@ namespace Plantando_Alegria.Forms
         {
 
             #region Criando variaveis.
-            int verifica,       // Variavel para verificar os campos de numeros do textbox. 
-                codigo_aluno;   // Variavel criada para converter a entrada do textbox (string) para int.
+            int verifica;       // Variavel para verificar os campos de numeros do textbox. 
+            DB_PA dB_PA = new DB_PA();
 
             #endregion
 
@@ -130,15 +128,15 @@ namespace Plantando_Alegria.Forms
 
             #region Cadastra os dados na tabela Alunos_Cadastro.
 
-            codigo_aluno = Convert.ToInt32(txtb_codigo.Text); // converte o conteudo do textbox (string) em int.
+            DB_PA.Cod_Aluno = txtb_codigo.Text;
 
-            Alunos_Cadastro_mysql Alunos_Cadastro_Mysql = new Alunos_Cadastro_mysql(codigo_aluno, txtb_nome_aluno.Text.ToUpper(), txtb_endereco.Text.ToUpper(), txtb_bairro.Text.ToUpper(),
-                                                                                    txtb_cidade.Text.ToUpper(), txtb_cep.Text.ToUpper(), txtb_telefone.Text.ToUpper(), txtb_email.Text.ToUpper(),
-                                                                                    txtb_contato_emergencia.Text.ToUpper(), txtb_telefone_emergencia_1.Text.ToUpper(),
-                                                                                    txtb_telefone_emergencia_2.Text.ToUpper());
-            // Instanciando objeto da classe Alunos_Cadastro_mysql que retorna o conteudo das textbox em Caixa Alta (toUpper)
-
-            DB_PA.Cadastrar_Aluno(Alunos_Cadastro_Mysql);   // Chama o metodo Cadastrar_Aluno da classe Db_PA com os valores do objeto Alunos_Cadastro_Mysql.
+            Alunos_Cadastro_mysql Alunos_Cadastro_Mysql = new Alunos_Cadastro_mysql(txtb_nome_aluno.Text.ToUpper(), txtb_endereco.Text.ToUpper(), txtb_bairro.Text.ToUpper(),
+                                                                                   txtb_cidade.Text.ToUpper(), txtb_cep.Text.ToUpper(), txtb_telefone.Text.ToUpper(), txtb_email.Text.ToUpper(),
+                                                                                   txtb_contato_emergencia.Text.ToUpper(), txtb_telefone_emergencia_1.Text.ToUpper(),
+                                                                                   txtb_telefone_emergencia_2.Text.ToUpper());
+            Alunos_Cadastro_Mysql.Alunos_Codigo = txtb_codigo.Text;
+            dB_PA.Cadastrar_Aluno();
+            dB_PA.Cadastra_Atualiza_Aluno(Alunos_Cadastro_Mysql);
 
             #endregion
 
@@ -146,7 +144,7 @@ namespace Plantando_Alegria.Forms
 
             if (DB_PA.Cad_Ok == "OK")
             {
-                Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(codigo_aluno);
+                Alunos_Imagem_mysql Alunos_Imagem_Mysql = new Alunos_Imagem_mysql(DB_PA.Cod_Aluno);
                 DB_PA.Inserir_Imagem(Alunos_Imagem_Mysql);
             }
 
