@@ -3,6 +3,7 @@ using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.MysqlDb
@@ -156,8 +157,10 @@ namespace Plantando_Alegria.MysqlDb
                 {
                     #region Pega do datareader e tranfere para a lista
 
+
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
                     {    
+
                     lista.Add(string.Join(null , "Cod. | ", dataReader[0].ToString() + " | ",
                                                "  Nome | ", dataReader[1].ToString() + " | ",
                                                "  Tel. | ", dataReader[2].ToString() + " | ",
@@ -168,7 +171,9 @@ namespace Plantando_Alegria.MysqlDb
                                                "  CEP | ", dataReader[7].ToString() + " | ",
                                                "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
                                                "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                               "  Telefone Emergencia_2 | ",  dataReader[10].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                                               "  Telefone Emergencia_2 | ",  dataReader[10].ToString() + " | ",
+                                               "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
+                                               "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                     }
                     #endregion
                     

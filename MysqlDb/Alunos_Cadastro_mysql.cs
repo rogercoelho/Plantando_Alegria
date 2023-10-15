@@ -15,12 +15,12 @@
         public string Alunos_Telefone_Emergencia_2 { get; set; }
         public string Criado_Em { get; set; }
 
-        public Alunos_Cadastro_mysql(string alunos_Nome, string alunos_Endereco, string alunos_Bairro, 
+        public Alunos_Cadastro_mysql(string alunos_Codigo, string alunos_Nome, string alunos_Endereco, string alunos_Bairro, 
                                      string alunos_Cidade, string alunos_CEP, string alunos_Telefone, string alunos_Email, 
                                      string alunos_Contato_Emergencia, string alunos_Telefone_Emergencia_1, 
                                      string alunos_Telefone_Emergencia_2)
         {
-           // Alunos_Codigo = alunos_Codigo;
+            Alunos_Codigo = alunos_Codigo;
             Alunos_Nome = alunos_Nome;
             Alunos_Endereco = alunos_Endereco;
             Alunos_Bairro = alunos_Bairro;
