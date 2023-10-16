@@ -1,9 +1,11 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.MysqlDb
@@ -12,7 +14,7 @@ namespace Plantando_Alegria.MysqlDb
     {
         #region Variaveis da tabela Alunos_Cadastro.
 
-        public static int Alunos_Codigo;
+        public static string Alunos_Codigo;
         public static string Alunos_Nome;
         public static string Alunos_Endereco;
         public static string Alunos_Bairro;
@@ -30,6 +32,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Variaveis Operacionais
 
+        public static string caminho_foto_aluno;
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
         public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
@@ -49,24 +52,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Metodos de Query do banco.
 
-        #region Metodo Query para Atualizar Aluno REVISADO.
-
-        public void Query_Atualizar_Cadastro()
-        {
-            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco =@Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
-                                                      " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
-                                                      " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
-                                                      " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
-                                                      " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
-                                                      " WHERE Alunos_Codigo =" + Alunos_Codigo;
-            cmd.CommandText = query;
-            e_cadastro = false;
-            Cadastrar_Atualizar_Alunos_Cadastro();
-
-        }
-
-        #endregion
-
         #region Metodo Query para Cadastrar Aluno REVISADO.
 
         public void Query_Cadastrar_Aluno()
@@ -82,40 +67,45 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
+        #region Metodo Query para Atualizar Aluno REVISADO.
+        public void Query_Atualizar_Cadastro()
+        {
+            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
+                                                      " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
+                                                      " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
+                                                      " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
+                                                      " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
+                                                      " WHERE Alunos_Codigo =" + Alunos_Codigo;
+            cmd.CommandText = query;
+            e_cadastro = false;
+            Cadastrar_Atualizar_Alunos_Cadastro();
+
+        }
+
+        #endregion
+
         #region Metodo Query Para Inserir imagem_Aluno REVISADO.
 
         public void Query_Inserir_Imagem()
         {
-            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
-                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
-            {
-
-                FileStream arquivo_imagem = new FileStream(frm_cadastro_alunos.foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
-                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
-                                                                                                                                // Incanciando o objeto para a classe Binary reader 
-                                                                                                                                // parecido com o datareader.
-
-                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
-
-
-                query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em)";  // variavel que recebe a query do banco.
-
-                cmd.CommandText = query;                                                                // variavel com a query sendo repassada para dentro do MysqlCommand.
-
-                if (e_cadastro != true)
-                {
-
-                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;          // Parametros do Banco que Adiciona na coluna da query
-                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
-
-                }
-
-                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-
-                Executa_Banco();
-            }
+            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel recebe query do banco.
+                      
+            Processa_Imagem();      // chama o metodo Processa banco.
 
         }
+
+        #endregion
+
+        #region Metodo Query Para Alterar imagem_Aluno.
+
+        public void Query_Alterar_Imagem()
+        {
+                            
+            query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;  // variavel recebe query do banco.
+
+            Processa_Imagem();  // chama o metodo processa banco.
+        }
+
         #endregion
 
         #region Metodo Query para pesquisar tudo da tabela REVISADO.
@@ -168,10 +158,23 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo Query para pesquisar pela imagem na tabela Alunos_imagem.
+
+        public void Pesquisar_Imagem()
+        {
+            cmd.Connection = conexao_Banco_PA.Conectar_DB();                                    // Conecta no banco
+            query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // Query que sera executada no banco.
+            cmd.CommandText = query;                                                            // Mysql Command recebe a query.
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                       // recebe o parametro codigo do aluno.
+            
+            Executa_Pesquisa_Imagem();                                                          // Acessa o metodo Executa_pesquisa.
+        }
 
         #endregion
 
-        #region Metodo Cadastra ou atualiza tabela Alunos_Cadastro REVISADO    
+        #endregion
+
+        #region Metodo que cadastra ou atualiza o cadastro na tabela Alunos_Cadastro REVISADO    
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
@@ -202,8 +205,44 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
+        
+        #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
+        public void Processa_Imagem()
+        {
+             
+                
+            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
+                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
+            {
 
-        #region Metodo de Execucao de conexao e atualizacao do Banco REVISADO.
+                if (e_cadastro == true)
+                {
+                   caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
+                }
+                else
+                {
+                    caminho_foto_aluno = frm_ficha_alunos.foto_aluno;
+                } 
+                                                                                                                                // parecido com o datareader.
+
+                FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
+
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
+
+
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+
+                cmd.CommandText = query;
+
+
+                Executa_Banco();
+            }
+
+        }
+        #endregion
+
+        #region Metodo de execucao de conexao e atualizacao do Banco REVISADO.
 
         public void Executa_Banco()
         {
@@ -246,7 +285,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo de execucao da pesquisa do cadastro.
+        #region Metodo que executa a pesquisa do cadastro na tabela Alunos_Cadastro.
 
         public void Executa_Pesquisa()
         {
@@ -321,12 +360,67 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        
+        #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
+        public void Executa_Pesquisa_Imagem()
+        {
+            try
+            {
+                dataReader = cmd.ExecuteReader();           // Executa o datareader
 
+                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
+                {
+                    dataReader.Read();                      // Faz a leitura do datareader.
+                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
 
+                }
+            }
 
+            catch (MySqlException erro_db)
+            {
+                encerramento.Mensagem4("-->" + erro_db.Message);
+            }
+            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
+            {
+                dataReader.Close();                         // Encerra o datareader.
+                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
 
+            }
 
+        }
+        #endregion
+
+        #region Classe de Mensagens de tela.
+        public class Encerramento
+        {
+            public void Mensagem1()
+            {
+                MessageBox.Show("*** ATENÇÃO *** \n" +
+                                "A pesquisa dos campos em branco retorna todas as informações da tabela.\n" +
+                                "Esta pesquisa pode demorar muito ou até travar, dependendo da quantidade de informações!",
+                                "Plantando Alegria - *** ATENÇÃO ***", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            public void Mensagem2()
+            {
+                MessageBox.Show("Não foi encontrado nenhum registro com os dados informados.\n",
+                                "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem3()
+            {
+                MessageBox.Show("Pesquisa realizada com sucesso!\n",
+                                "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem4(string erromsg)
+            {
+                MessageBox.Show("Ocorreu um erro ao tentar efetuar a pesquisa.\n" + erromsg,
+                                "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem5()
+            {
+                MessageBox.Show("A pesquisa irá efetuar a busca pelo código OU pelo nome do aluno.\n",
+                                "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        #endregion
 
 
 

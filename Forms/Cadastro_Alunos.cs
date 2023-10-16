@@ -128,7 +128,7 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             #region Passa os dados para a classe DB_PA
-            DB_PA.Alunos_Codigo = Convert.ToInt32(txtb_codigo.Text);
+            DB_PA.Alunos_Codigo = txtb_codigo.Text;
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
             DB_PA.Alunos_Telefone = txtb_telefone.Text;
             DB_PA.Alunos_Email = txtb_email.Text;

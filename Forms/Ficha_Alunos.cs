@@ -138,8 +138,9 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao Salvar
         private void btn_salvar_Click(object sender, EventArgs e)
         {
-            DB_PA.Alunos_Codigo = Convert.ToInt32(txtb_codigo.Text);
-            DB_PA.Nome_Aluno = txtb_nome_aluno.Text;
+            
+            DB_PA.Alunos_Codigo = txtb_codigo.Text;
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
             DB_PA.Alunos_Telefone = txtb_telefone.Text;
             DB_PA.Alunos_Email = txtb_email.Text;
             DB_PA.Alunos_Endereco = txtb_endereco.Text;
@@ -152,7 +153,13 @@ namespace Plantando_Alegria.Forms
 
             dB_PA.Query_Atualizar_Cadastro();
 
-            if (DB_PA.Cad_Ok == "OK")
+            if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao do cadastro.
+            {
+                dB_PA.Query_Alterar_Imagem();
+         
+            }
+
+            if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao da imagem.
             {
                 MessageBox.Show("Funcionou.");
             }
@@ -180,7 +187,7 @@ namespace Plantando_Alegria.Forms
             txtb_contato_emergencia.Text = selecao2[17].ToString();         // textbox recebe selecao na posicao do array.
             txtb_telefone_emergencia_1.Text = selecao2[19].ToString();      // textbox recebe selecao na posicao do array.
             txtb_telefone_emergencia_2.Text = selecao2[21].ToString();      // textbox recebe selecao na posicao do array.
-            DB_PA.Cod_Aluno = txtb_codigo.Text;                             // textbox recebe codigo do aluno direto da variavel.
+            DB_PA.Alunos_Codigo = txtb_codigo.Text;                         // textbox recebe codigo do aluno direto da variavel.
             dB_PA.Pesquisar_Imagem();                                       // Chama o metodo de Pesquisar imagem
             byte[] imagem_byte = DB_PA.imagem_byte;                         // Tranfere o array de byte da imagem.
             MemoryStream memoryStream = new MemoryStream(imagem_byte);      // Manda para a memoria a imagem (Memorystream).
