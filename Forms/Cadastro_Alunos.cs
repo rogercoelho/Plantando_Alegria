@@ -31,7 +31,7 @@ namespace Plantando_Alegria.Forms
         #region Metodo do Botao Limpar.
         public void btn_limpar_Click(object sender, EventArgs e)
         {
-            #region Limpa todos os textbox.
+            
             txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
             txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
             txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
@@ -43,7 +43,8 @@ namespace Plantando_Alegria.Forms
             txtb_contato_emergencia.Clear();        // Limpa os campos após cadastrado.
             txtb_telefone_emergencia_1.Clear();     // Limpa os campos após cadastrado.
             txtb_telefone_emergencia_2.Clear();     // Limpa os campos após cadastrado.
-            #endregion
+            foto_padrao();                          // Carrega a foto padrao do sistema.
+
         }
         #endregion
 
@@ -52,8 +53,8 @@ namespace Plantando_Alegria.Forms
         {
 
             #region Criando variaveis.
-            int verifica;       // Variavel para verificar os campos de numeros do textbox. 
-            DB_PA dB_PA = new DB_PA();
+            DB_PA dB_PA = new DB_PA();  // Instancia objeto para a classe DB_PA.
+            int verifica;               // Variavel para verificar os campos de numeros do textbox. 
 
             #endregion
 
@@ -126,6 +127,7 @@ namespace Plantando_Alegria.Forms
             }
             #endregion
 
+            #region Passa os dados para a classe DB_PA
             DB_PA.Alunos_Codigo = Convert.ToInt32(txtb_codigo.Text);
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
             DB_PA.Alunos_Telefone = txtb_telefone.Text;
@@ -137,11 +139,10 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text;
             DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text;
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text;
+            #endregion
 
             dB_PA.Query_Cadastrar_Aluno();
             
-
-
             #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
 
             if (DB_PA.Cad_Ok == "OK")
@@ -153,11 +154,9 @@ namespace Plantando_Alegria.Forms
 
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.
 
-
             if (DB_PA.Cad_Ok == "OK")
             {
                 btn_limpar.PerformClick();  // Limpa os campos
-                foto_padrao();              // Carrega a foto padrao do sistema.
             }
             
             #endregion
@@ -182,6 +181,8 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
+        #region Metodos para a Foto Padrao.
+
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
         private void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.
         {
@@ -196,6 +197,8 @@ namespace Plantando_Alegria.Forms
             foto_aluno = "Resources/maquina_fotografica.png";                       // caminho onde a foto esta armazenada.
 
         }
+        #endregion
+
         #endregion
 
     }
