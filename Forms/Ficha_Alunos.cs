@@ -158,6 +158,7 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
 
+            dB_PA.Compara_Ficha();
             dB_PA.Query_Atualizar_Cadastro();
 
             if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao do cadastro.

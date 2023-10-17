@@ -383,6 +383,44 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
+
+        public void Compara_Ficha()
+        {
+            if (frm_ficha_alunos.selecao2[3].ToString().Trim() == Alunos_Nome.ToString().Trim())
+            {
+                if (frm_ficha_alunos.selecao2[5].ToString().Trim() == Alunos_Endereco.ToString().Trim())
+                {
+                    if (frm_ficha_alunos.selecao2[7].ToString().Trim() == Alunos_Bairro.ToString().Trim())
+                    {
+                        if (frm_ficha_alunos.selecao2[9].ToString().Trim() == Alunos_Cidade.ToString().Trim())
+                        {
+                            if (frm_ficha_alunos.selecao2[11].ToString().Trim() == Alunos_CEP.ToString().Trim())
+                            {
+                                if (frm_ficha_alunos.selecao2[13].ToString().Trim() == Alunos_Telefone.ToString().Trim())
+                                {
+                                    if (frm_ficha_alunos.selecao2[15].ToString().Trim() == Alunos_Email.ToString().Trim())
+                                    {
+                                        if (frm_ficha_alunos.selecao2[17].ToString().Trim() == Alunos_Contato_Emergencia.ToString().Trim())
+                                        {
+                                            if (frm_ficha_alunos.selecao2[19].ToString().Trim() == Alunos_Telefone_Emergencia_1.ToString().Trim())
+                                            {
+                                                if (frm_ficha_alunos.selecao2[21].ToString().Trim() == Alunos_Telefone_Emergencia_2.ToString().Trim())
+                                                {
+                                                    encerramento.Mensagem_07();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         
         #region Classe de Mensagens de tela.
         public class Encerramento
@@ -418,6 +456,11 @@ namespace Plantando_Alegria.MysqlDb
             {
                 MessageBox.Show("A imagem foi salva com sucesso.\n" +
                                     "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_07()
+            {
+                MessageBox.Show("Nao houve alteração nos dados do aluno.\n" +
+                                    "Verificando se houve alteração da foto.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion
