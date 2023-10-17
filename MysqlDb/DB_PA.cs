@@ -166,6 +166,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_Imagem()
         {
+            cmd.Parameters.Clear(); // INSERIDO AGORA.
             cmd.Connection = conexao_Banco_PA.Conectar_DB();                                    // Conecta no banco
             query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // Query que sera executada no banco.
             cmd.CommandText = query;                                                            // Mysql Command recebe a query.
@@ -372,7 +373,7 @@ namespace Plantando_Alegria.MysqlDb
             {
                 encerramento.Mensagem_04("-->" + erro_db.Message);
             }
-            if (!dataReader.IsClosed | dataReader == null)                       // Se o datareader estiver aberto.
+            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
             {
                 dataReader.Close();                         // Encerra o datareader.
                 conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
