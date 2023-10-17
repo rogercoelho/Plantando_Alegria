@@ -298,7 +298,7 @@ namespace Plantando_Alegria.MysqlDb
             {
                 cmd.Connection = conexao_Banco_PA.Conectar_DB();    // Abre a conexao com o banco. 
                 dataReader = cmd.ExecuteReader();                   // Abre a execucao do datareader.
-
+                
                 #region Retorna a pesquisa nula.
 
                 if (!dataReader.HasRows)                            // Se o datareader nao possuir dados retornados do banco. 

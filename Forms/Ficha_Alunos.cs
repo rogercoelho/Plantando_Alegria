@@ -178,11 +178,11 @@ namespace Plantando_Alegria.Forms
             txtb_codigo.Text = selecao2[1];                                         // textbox recebe selecao na posicao do array.
             txtb_nome_aluno.Text = selecao2[3].ToString().Trim();                   // textbox recebe selecao na posicao do array.
             txtb_endereco.Text = selecao2[5].ToString().Trim();                     // textbox recebe selecao na posicao do array.
-            txtb_bairro.Text = selecao2[7].ToString().Trim();                        // textbox recebe selecao na posicao do array.
-            txtb_cidade.Text = selecao2[9].ToString().Trim();                     // textbox recebe selecao na posicao do array.
-            txtb_cep.Text = selecao2[11].ToString().Trim();                      // textbox recebe selecao na posicao do array.
-            txtb_telefone.Text = selecao2[13].ToString().Trim();                      // textbox recebe selecao na posicao do array.
-            txtb_email.Text = selecao2[15].ToString().Trim();                         // textbox recebe selecao na posicao do array.
+            txtb_bairro.Text = selecao2[7].ToString().Trim();                       // textbox recebe selecao na posicao do array.
+            txtb_cidade.Text = selecao2[9].ToString().Trim();                       // textbox recebe selecao na posicao do array.
+            txtb_cep.Text = selecao2[11].ToString().Trim();                         // textbox recebe selecao na posicao do array.
+            txtb_telefone.Text = selecao2[13].ToString().Trim();                    // textbox recebe selecao na posicao do array.
+            txtb_email.Text = selecao2[15].ToString().Trim();                       // textbox recebe selecao na posicao do array.
             txtb_contato_emergencia.Text = selecao2[17].ToString().Trim();          // textbox recebe selecao na posicao do array.
             txtb_telefone_emergencia_1.Text = selecao2[19].ToString().Trim();       // textbox recebe selecao na posicao do array.
             txtb_telefone_emergencia_2.Text = selecao2[21].ToString().Trim();       // textbox recebe selecao na posicao do array.
