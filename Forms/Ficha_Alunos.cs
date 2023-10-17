@@ -11,6 +11,7 @@ namespace Plantando_Alegria.Forms
     {
         #region Criando variaveis e instanciando objetos.
         public string selecao;                                      // Variavel que recebe a selecao do checklistbox
+        public static string[] selecao2;
         DB_PA dB_PA = new DB_PA();                                  // Instanciando objeto para a classe DB_PA.
         DB_PA.Encerramento encerramento = new DB_PA.Encerramento(); // Instanciando objeto para a subclasse DB_PA.Encerramento.
 
@@ -182,7 +183,7 @@ namespace Plantando_Alegria.Forms
         public void Carrega_Ficha_Aluno()
         {
             char[] remove = new char[] { '|' };                                                 // Criando um array de variaveis com caracteres que serao removidos da selecao.
-            string[] selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
+            selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
 
             txtb_codigo.Text = selecao2[1];                                         // textbox recebe selecao na posicao do array.
             txtb_nome_aluno.Text = selecao2[3].ToString().Trim();                   // textbox recebe selecao na posicao do array.
