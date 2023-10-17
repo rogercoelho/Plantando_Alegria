@@ -10,7 +10,7 @@ namespace Plantando_Alegria.Forms
     public partial class frm_ficha_alunos : Form
     {
         public string selecao;              // Variavel que recebe a selecao do checklistbox
-        public static string foto_aluno;    // variavel que recebe o caminho da foto.
+       // public static string foto_aluno;    // variavel que recebe o caminho da foto.
         DB_PA dB_PA = new DB_PA();
         public frm_ficha_alunos()
         {
@@ -129,8 +129,8 @@ namespace Plantando_Alegria.Forms
 
             if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
-                foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = foto_aluno;                            // Mostra a imagem no PictureBox.
+                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;                            // Mostra a imagem no PictureBox.
             }
         }
         #endregion

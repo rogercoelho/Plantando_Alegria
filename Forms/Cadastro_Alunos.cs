@@ -6,7 +6,6 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_cadastro_alunos : Form
     {
-        public static string foto_aluno;
         
         #region Metodo Construtor.
         public frm_cadastro_alunos()
@@ -175,8 +174,8 @@ namespace Plantando_Alegria.Forms
 
             if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
-                foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = foto_aluno;                            // Mostra a imagem no PictureBox.
+                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;                            // Mostra a imagem no PictureBox.
             }
 
         }
@@ -196,7 +195,7 @@ namespace Plantando_Alegria.Forms
         public void foto_padrao()
         {
             pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.
-            foto_aluno = "Resources/maquina_fotografica.png";                       // caminho onde a foto esta armazenada.
+            DB_PA.caminho_foto_aluno = "Resources/maquina_fotografica.png";                       // caminho onde a foto esta armazenada.
 
         }
         #endregion

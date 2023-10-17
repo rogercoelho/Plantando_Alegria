@@ -217,15 +217,6 @@ namespace Plantando_Alegria.MysqlDb
             if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
                                                                                     // Se a resposta for OK ai sim insere a imagem no banco.
             {
-
-                if (e_cadastro == true)
-                {
-                    caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
-                }
-                else
-                {
-                    caminho_foto_aluno = frm_ficha_alunos.foto_aluno;
-                }
                 if (caminho_foto_aluno != null)
                 {
                     FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
