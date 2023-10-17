@@ -33,6 +33,7 @@ namespace Plantando_Alegria.MysqlDb
         #region Variaveis Operacionais
 
         public static string caminho_foto_aluno;
+       // public static bool foto_alterada;
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
         public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
@@ -56,10 +57,12 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Query_Cadastrar_Aluno()
         {
-            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Telefone, @Alunos_Email," +
-                                                                    "@Alunos_Endereco, @Alunos_Bairro, @Alunos_Cidade, @Alunos_CEP," +
-                                                                    "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
-                                                                    "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
+            cmd.Parameters.Clear();
+
+            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +
+                                                        "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
+                                                        "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
+                                                        "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
             cmd.CommandText = query;
             e_cadastro = true;
             Cadastrar_Atualizar_Alunos_Cadastro();
@@ -72,6 +75,7 @@ namespace Plantando_Alegria.MysqlDb
         {
             query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
                                                       " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
+                                                      " Alunos_Telefone = @Alunos_Telefone, Alunos_Email = Alunos_Email, " +
                                                       " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
                                                       " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
                                                       " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
@@ -88,8 +92,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Query_Inserir_Imagem()
         {
-            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel recebe query do banco.
-                      
+            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel recebe query do banco.      
             Processa_Imagem();      // chama o metodo Processa banco.
 
         }
@@ -100,8 +103,10 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Query_Alterar_Imagem()
         {
-                            
+            cmd.Parameters.Clear();                
             query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;  // variavel recebe query do banco.
+
+            cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
 
             Processa_Imagem();  // chama o metodo processa banco.
         }
@@ -178,6 +183,8 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
+            cmd.Parameters.Clear();
+
             if (e_cadastro == true)
             {
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;
@@ -201,42 +208,39 @@ namespace Plantando_Alegria.MysqlDb
 
 
             Executa_Banco();
-
         }
 
         #endregion
         
         #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
         public void Processa_Imagem()
-        {
-             
-                
+        {  
             if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
                                                                                     // Se a resposta for OK ai sim insere a imagem no banco.
             {
 
                 if (e_cadastro == true)
                 {
-                   caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
+                    caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
                 }
                 else
                 {
                     caminho_foto_aluno = frm_ficha_alunos.foto_aluno;
-                } 
-                                                                                                                                // parecido com o datareader.
+                }
+                if (caminho_foto_aluno != null)
+                {
+                    FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
+                    BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
 
-                FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
-                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
-
-                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
-
-
-                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-
-                cmd.CommandText = query;
+                    imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
 
 
-                Executa_Banco();
+                    cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                    cmd.CommandText = query;
+                    Executa_Banco();
+                }                                                                                                                // parecido com o datareader.
+
+            
             }
 
         }

@@ -7,7 +7,7 @@ namespace Plantando_Alegria.Forms
     public partial class frm_cadastro_alunos : Form
     {
         public static string foto_aluno;
-            
+        
         #region Metodo Construtor.
         public frm_cadastro_alunos()
         {
@@ -140,7 +140,7 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text;
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text;
             #endregion
-
+            
             dB_PA.Query_Cadastrar_Aluno();
             
             #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
@@ -167,7 +167,7 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao inserir imagem.
         private void btn_inserir_imagem_Click(object sender, EventArgs e)
         {
-           
+            
             OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
             openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filta os tipos de arquivos permitidos.
 
