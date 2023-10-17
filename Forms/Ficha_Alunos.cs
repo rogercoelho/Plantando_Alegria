@@ -129,8 +129,8 @@ namespace Plantando_Alegria.Forms
 
             if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
-                foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = foto_aluno;                            // Mostra a imagem no PictureBox.
+                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;                            // Mostra a imagem no PictureBox.
             }
         }
         #endregion

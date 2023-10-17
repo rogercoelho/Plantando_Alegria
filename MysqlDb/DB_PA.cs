@@ -124,6 +124,7 @@ namespace Plantando_Alegria.MysqlDb
         {
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Alunos_Nome + "'";    // query do mysql + o que esta escrito no label.       
             cmd.CommandText = query;                                                                // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);                                       // Adiciona um parametro para acrescentar os valores encontrados
         }
 
@@ -135,6 +136,7 @@ namespace Plantando_Alegria.MysqlDb
         {
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
             cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Clear();
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
 
         }
@@ -152,6 +154,7 @@ namespace Plantando_Alegria.MysqlDb
                      " '" + Alunos_Nome + "'";
 
             cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);            // Adiciona um parametro para acrescentar os valores encontrados.
             cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);          // Adiciona um parametro para acrescentar os valores encontrados.
         }
@@ -165,6 +168,7 @@ namespace Plantando_Alegria.MysqlDb
             cmd.Connection = conexao_Banco_PA.Conectar_DB();                                    // Conecta no banco
             query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // Query que sera executada no banco.
             cmd.CommandText = query;                                                            // Mysql Command recebe a query.
+            cmd.Parameters.Clear();
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                       // recebe o parametro codigo do aluno.
             
             Executa_Pesquisa_Imagem();                                                          // Acessa o metodo Executa_pesquisa.
@@ -178,6 +182,8 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
+            cmd.Parameters.Clear();
+
             if (e_cadastro == true)
             {
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;
@@ -217,7 +223,7 @@ namespace Plantando_Alegria.MysqlDb
 
                 if (e_cadastro == true)
                 {
-                   caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
+                   //caminho_foto_aluno = frm_cadastro_alunos.foto_aluno;
                 }
                 else
                 {
@@ -230,7 +236,7 @@ namespace Plantando_Alegria.MysqlDb
 
                 imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
 
-
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
 
                 cmd.CommandText = query;
