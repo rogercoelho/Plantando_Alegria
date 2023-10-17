@@ -9,13 +9,19 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_alunos : Form
     {
-        public string selecao;              // Variavel que recebe a selecao do checklistbox
-       // public static string foto_aluno;    // variavel que recebe o caminho da foto.
-        DB_PA dB_PA = new DB_PA();
+        #region Criando variaveis e instanciando objetos.
+        public string selecao;                                      // Variavel que recebe a selecao do checklistbox
+        DB_PA dB_PA = new DB_PA();                                  // Instanciando objeto para a classe DB_PA.
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento(); // Instanciando objeto para a subclasse DB_PA.Encerramento.
+
+        #endregion
+
+        #region Metodo Construtor.
         public frm_ficha_alunos()
         {
             InitializeComponent();
         }
+        #endregion
 
         #region Metodo de execucao ao carregar Tela.
         public void frm_ficha_alunos_Load(object sender, EventArgs e)
@@ -30,40 +36,6 @@ namespace Plantando_Alegria.Forms
             frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
             frm_Tela_Principal.Show();                                          // Abre a tela principal.
             this.Close();                                                       // fecha a atual.
-        }
-        #endregion
-
-        #region Metodo do Botao Editar.
-        private void btn_editar_Click(object sender, EventArgs e)
-        {
-            #region Controle dos botoes e textbox.
-
-            txtb_nome_aluno.Enabled = true;                 // Ativa o campo para edicao.
-            txtb_endereco.Enabled = true;                   // Ativa o campo para edicao.
-            txtb_bairro.Enabled = true;                     // Ativa o campo para edicao.
-            txtb_cidade.Enabled = true;                     // Ativa o campo para edicao.
-            txtb_cep.Enabled = true;                        // Ativa o campo para edicao.
-            txtb_telefone.Enabled = true;                   // Ativa o campo para edicao.
-            txtb_email.Enabled = true;                      // Ativa o campo para edicao.
-            txtb_contato_emergencia.Enabled = true;         // Ativa o campo para edicao.
-            txtb_telefone_emergencia_1.Enabled = true;      // Ativa o campo para edicao.
-            txtb_telefone_emergencia_2.Enabled = true;      // Ativa o campo para edicao.
-
-            btn_voltar.Visible = false;         // Desativa a visualizacao do botao.
-            btn_editar.Visible = false;         // Desativa a visualizacao do botao.
-            btn_limpar.Visible = true;          // Ativa a visualizacao do botao .           
-            btn_salvar.Visible = true;          // Ativa a visualizacao do botao.
-            btn_cancelar.Visible = true;        // Ativa a visualizacao do botao.
-            btn_alterar_imagem.Visible = true;  // Ativa a visualizacao do botao.
-
-            btn_limpar.Enabled = true;          // Habilita a execucao do botao.
-            btn_salvar.Enabled = true;          // Habilita a execucao do botao.
-            btn_cancelar.Enabled = true;        // Habilita a execucao do botao.
-            btn_alterar_imagem.Enabled = true;  // Habilita a execucao do botao.
-            btn_voltar.Enabled = false;         // Desabilita a execucao do botao.
-            btn_editar.Enabled = false;         // Desabilita a execucao do botao.
-
-            #endregion
         }
         #endregion
 
@@ -135,6 +107,40 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
+        #region Metodo do Botao Editar.
+        private void btn_editar_Click(object sender, EventArgs e)
+        {
+            #region Controle dos botoes e textbox.
+
+            txtb_nome_aluno.Enabled = true;                 // Ativa o campo para edicao.
+            txtb_endereco.Enabled = true;                   // Ativa o campo para edicao.
+            txtb_bairro.Enabled = true;                     // Ativa o campo para edicao.
+            txtb_cidade.Enabled = true;                     // Ativa o campo para edicao.
+            txtb_cep.Enabled = true;                        // Ativa o campo para edicao.
+            txtb_telefone.Enabled = true;                   // Ativa o campo para edicao.
+            txtb_email.Enabled = true;                      // Ativa o campo para edicao.
+            txtb_contato_emergencia.Enabled = true;         // Ativa o campo para edicao.
+            txtb_telefone_emergencia_1.Enabled = true;      // Ativa o campo para edicao.
+            txtb_telefone_emergencia_2.Enabled = true;      // Ativa o campo para edicao.
+
+            btn_voltar.Visible = false;         // Desativa a visualizacao do botao.
+            btn_editar.Visible = false;         // Desativa a visualizacao do botao.
+            btn_limpar.Visible = true;          // Ativa a visualizacao do botao .           
+            btn_salvar.Visible = true;          // Ativa a visualizacao do botao.
+            btn_cancelar.Visible = true;        // Ativa a visualizacao do botao.
+            btn_alterar_imagem.Visible = true;  // Ativa a visualizacao do botao.
+
+            btn_limpar.Enabled = true;          // Habilita a execucao do botao.
+            btn_salvar.Enabled = true;          // Habilita a execucao do botao.
+            btn_cancelar.Enabled = true;        // Habilita a execucao do botao.
+            btn_alterar_imagem.Enabled = true;  // Habilita a execucao do botao.
+            btn_voltar.Enabled = false;         // Desabilita a execucao do botao.
+            btn_editar.Enabled = false;         // Desabilita a execucao do botao.
+
+            #endregion
+        }
+        #endregion
+
         #region Metodo do botao Salvar
         private void btn_salvar_Click(object sender, EventArgs e)
         {
@@ -161,7 +167,7 @@ namespace Plantando_Alegria.Forms
 
             if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao da imagem.
             {
-                MessageBox.Show("Funcionou.");
+                encerramento.Mensagem_06();
             }
             
         }

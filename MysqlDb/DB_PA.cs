@@ -261,8 +261,7 @@ namespace Plantando_Alegria.MysqlDb
                 }
                 else if (contador == 2)
                 {
-                    MessageBox.Show("A imagem foi salva com sucesso.\n" +
-                                    "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    encerramento.Mensagem_06();
                     contador++;
                 }
             }
@@ -299,7 +298,7 @@ namespace Plantando_Alegria.MysqlDb
                         dataReader.Close();                         // Encerra o data_reader.
                         conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
                     }
-                    encerramento.Mensagem2();
+                    encerramento.Mensagem_02();
 
                     DB_PA.Cad_Ok = "Erro";
 
@@ -345,7 +344,7 @@ namespace Plantando_Alegria.MysqlDb
             }
             catch (MySqlException erro_db)                          // Caso nao consiga executar os comandos do Try retorna o Catch com o erro do banco.
             {
-                encerramento.Mensagem4("-->" + erro_db.Message);
+                encerramento.Mensagem_04("-->" + erro_db.Message);
             }    
             conexao_Banco_PA.Desconectar_DB();
             
@@ -371,9 +370,9 @@ namespace Plantando_Alegria.MysqlDb
 
             catch (MySqlException erro_db)
             {
-                encerramento.Mensagem4("-->" + erro_db.Message);
+                encerramento.Mensagem_04("-->" + erro_db.Message);
             }
-            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
+            if (!dataReader.IsClosed | dataReader == null)                       // Se o datareader estiver aberto.
             {
                 dataReader.Close();                         // Encerra o datareader.
                 conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
@@ -387,32 +386,37 @@ namespace Plantando_Alegria.MysqlDb
         #region Classe de Mensagens de tela.
         public class Encerramento
         {
-            public void Mensagem1()
+            public void Mensagem_01()
             {
                 MessageBox.Show("*** ATENÇÃO *** \n" +
                                 "A pesquisa dos campos em branco retorna todas as informações da tabela.\n" +
                                 "Esta pesquisa pode demorar muito ou até travar, dependendo da quantidade de informações!",
                                 "Plantando Alegria - *** ATENÇÃO ***", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            public void Mensagem2()
+            public void Mensagem_02()
             {
                 MessageBox.Show("Não foi encontrado nenhum registro com os dados informados.\n",
                                 "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            public void Mensagem3()
+            public void Mensagem_03()
             {
                 MessageBox.Show("Pesquisa realizada com sucesso!\n",
                                 "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            public void Mensagem4(string erromsg)
+            public void Mensagem_04(string erromsg)
             {
                 MessageBox.Show("Ocorreu um erro ao tentar efetuar a pesquisa.\n" + erromsg,
                                 "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            public void Mensagem5()
+            public void Mensagem_05()
             {
                 MessageBox.Show("A pesquisa irá efetuar a busca pelo código OU pelo nome do aluno.\n",
                                 "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_06()
+            {
+                MessageBox.Show("A imagem foi salva com sucesso.\n" +
+                                    "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion

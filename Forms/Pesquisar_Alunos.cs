@@ -53,7 +53,7 @@ namespace Plantando_Alegria.Forms
             if (txtb_codigo.Text == "" && txtb_nome_aluno.Text == "")       // Pesquisa com os campos em branco.
             {
                   
-                encerramento.Mensagem1();                                   // Da um aviso que retorna tudo da tabela.
+                encerramento.Mensagem_01();                                   // Da um aviso que retorna tudo da tabela.
 
                 dB_PA.Pesquisar_Tudo_tbl_alunos_cadastro();
             }
@@ -82,7 +82,7 @@ namespace Plantando_Alegria.Forms
 
             else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text != "")      // Se a pesquisa tiver dados em ambos os campos.
             {
-                encerramento.Mensagem5();                                       // Informa que a pesquisa vai retornar valores de ambos os campos.
+                encerramento.Mensagem_05();                                       // Informa que a pesquisa vai retornar valores de ambos os campos.
                 dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro();
             }
 
@@ -102,7 +102,7 @@ namespace Plantando_Alegria.Forms
 
             chkbox_resultado.Items.Clear();                             // Limpa o checklistbox para incluir valores novos.
             chkbox_resultado.Items.AddRange(dB_PA.lista.ToArray());     // Passa os itens da variavel resultado para um array e depois adiciona do checklistbox.
-            encerramento.Mensagem3();
+            encerramento.Mensagem_03();
 
             }
             else
