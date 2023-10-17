@@ -33,7 +33,6 @@ namespace Plantando_Alegria.MysqlDb
         #region Variaveis Operacionais
 
         public static string caminho_foto_aluno;
-       // public static bool foto_alterada;
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
         public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
@@ -53,11 +52,11 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Metodos de Query do banco.
 
-        #region Metodo Query para Cadastrar Aluno REVISADO.
+        #region Metodo Query para Cadastrar Aluno.
 
         public void Query_Cadastrar_Aluno()
         {
-            cmd.Parameters.Clear();
+            cmd.Parameters.Clear();             // faz a limpeza dos parametros antes de incluir novos.
 
             query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +
                                                         "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
@@ -393,6 +392,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
+        
         #region Classe de Mensagens de tela.
         public class Encerramento
         {
@@ -433,7 +433,7 @@ namespace Plantando_Alegria.MysqlDb
 
 
 
-        #region Metodos coentados que serao usados depois.
+        #region Metodos comentados que serao usados depois.
         //public static void Atualizar_Cadastro (Alunos_Cadastro_mysql alunos_cadastro, string id)
         //{
         //    //string sql_sintaxe = "Insert into Cadastro_Alunos (Aluno_Codigo, Aluno_Nome, Aluno_Telefone, Aluno_Email," +    // Str_sql recebe a sintaxe do banco mysql.

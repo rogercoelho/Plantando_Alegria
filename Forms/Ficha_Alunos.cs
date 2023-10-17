@@ -172,27 +172,26 @@ namespace Plantando_Alegria.Forms
 
         public void Carrega_Ficha_Aluno()
         {
-            DB_PA dB_PA = new DB_PA();                                                          // Instanciando objeto para a classe DB_PA.
             char[] remove = new char[] { '|' };                                                 // Criando um array de variaveis com caracteres que serao removidos da selecao.
             string[] selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);   // Selecao2 recebe de selecao com os caracteres removidos.
 
-            txtb_codigo.Text = selecao2[1];                                 // textbox recebe selecao na posicao do array.
-            txtb_nome_aluno.Text = selecao2[3].ToString();                  // textbox recebe selecao na posicao do array.
-            txtb_telefone.Text = selecao2[5].ToString();                    // textbox recebe selecao na posicao do array.
-            txtb_email.Text = selecao2[7].ToString();                       // textbox recebe selecao na posicao do array.
-            txtb_endereco.Text = selecao2[9].ToString();                    // textbox recebe selecao na posicao do array.
-            txtb_bairro.Text = selecao2[11].ToString();                     // textbox recebe selecao na posicao do array.
-            txtb_cidade.Text = selecao2[13].ToString();                     // textbox recebe selecao na posicao do array.
-            txtb_cep.Text = selecao2[15].ToString();                        // textbox recebe selecao na posicao do array.
-            txtb_contato_emergencia.Text = selecao2[17].ToString();         // textbox recebe selecao na posicao do array.
-            txtb_telefone_emergencia_1.Text = selecao2[19].ToString();      // textbox recebe selecao na posicao do array.
-            txtb_telefone_emergencia_2.Text = selecao2[21].ToString();      // textbox recebe selecao na posicao do array.
-            DB_PA.Alunos_Codigo = txtb_codigo.Text;                         // textbox recebe codigo do aluno direto da variavel.
-            dB_PA.Pesquisar_Imagem();                                       // Chama o metodo de Pesquisar imagem
-            byte[] imagem_byte = DB_PA.imagem_byte;                         // Tranfere o array de byte da imagem.
-            MemoryStream memoryStream = new MemoryStream(imagem_byte);      // Manda para a memoria a imagem (Memorystream).
-            pcb_imagem_aluno.Image = Image.FromStream(memoryStream);        // Picturebox recebe a imagem decodificada da memoria.
-            pcb_imagem_aluno.Refresh();                                     // Atualiza o picturebox.
+            txtb_codigo.Text = selecao2[1];                                         // textbox recebe selecao na posicao do array.
+            txtb_nome_aluno.Text = selecao2[3].ToString().Trim();                   // textbox recebe selecao na posicao do array.
+            txtb_telefone.Text = selecao2[5].ToString().Trim();                     // textbox recebe selecao na posicao do array.
+            txtb_email.Text = selecao2[7].ToString().Trim();                        // textbox recebe selecao na posicao do array.
+            txtb_endereco.Text = selecao2[9].ToString().Trim();                     // textbox recebe selecao na posicao do array.
+            txtb_bairro.Text = selecao2[11].ToString().Trim();                      // textbox recebe selecao na posicao do array.
+            txtb_cidade.Text = selecao2[13].ToString().Trim();                      // textbox recebe selecao na posicao do array.
+            txtb_cep.Text = selecao2[15].ToString().Trim();                         // textbox recebe selecao na posicao do array.
+            txtb_contato_emergencia.Text = selecao2[17].ToString().Trim();          // textbox recebe selecao na posicao do array.
+            txtb_telefone_emergencia_1.Text = selecao2[19].ToString().Trim();       // textbox recebe selecao na posicao do array.
+            txtb_telefone_emergencia_2.Text = selecao2[21].ToString().Trim();       // textbox recebe selecao na posicao do array.
+            DB_PA.Alunos_Codigo = txtb_codigo.Text.Trim();                          // textbox recebe codigo do aluno direto da variavel.
+            dB_PA.Pesquisar_Imagem();                                               // Chama o metodo de Pesquisar imagem
+            byte[] imagem_byte = DB_PA.imagem_byte;                                 // Tranfere o array de byte da imagem.
+            MemoryStream memoryStream = new MemoryStream(imagem_byte);              // Manda para a memoria a imagem (Memorystream).
+            pcb_imagem_aluno.Image = Image.FromStream(memoryStream);                // Picturebox recebe a imagem decodificada da memoria.
+            pcb_imagem_aluno.Refresh();                                             // Atualiza o picturebox.
         }
         #endregion
 

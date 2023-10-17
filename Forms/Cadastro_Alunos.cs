@@ -128,17 +128,19 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             #region Passa os dados para a classe DB_PA
-            DB_PA.Alunos_Codigo = txtb_codigo.Text;
-            DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
-            DB_PA.Alunos_Telefone = txtb_telefone.Text;
-            DB_PA.Alunos_Email = txtb_email.Text;
-            DB_PA.Alunos_Endereco = txtb_endereco.Text;
-            DB_PA.Alunos_Bairro = txtb_bairro.Text;
-            DB_PA.Alunos_Cidade = txtb_cidade.Text;
-            DB_PA.Alunos_CEP = txtb_cep.Text;
-            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text;
-            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text;
-            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text;
+
+            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();
+            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();
+            DB_PA.Alunos_Email = txtb_email.Text.ToUpper();
+            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper();
+            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper();
+            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper();
+            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper();
+            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper();
+            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();
+            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
+            
             #endregion
             
             dB_PA.Query_Cadastrar_Aluno();
