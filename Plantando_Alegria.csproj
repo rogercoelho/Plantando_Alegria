@@ -125,8 +125,6 @@
     <Compile Include="Forms\Tela_Principal.Designer.cs">
       <DependentUpon>Tela_Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="MysqlDb\Alunos_Cadastro_mysql.cs" />
-    <Compile Include="MysqlDb\Alunos_Imagem_mysql.cs" />
     <Compile Include="MysqlDb\Conexao_Banco_PA.cs" />
     <Compile Include="MysqlDb\DB_PA.cs" />
     <Compile Include="Program.cs" />
