@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Plantando_Alegria.MysqlDb;
+﻿using Plantando_Alegria.MysqlDb;
 using System;
 using System.Drawing;
 using System.IO;
@@ -31,14 +30,14 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo de execucao ao carregar Tela.
-        public void frm_ficha_alunos_Load(object sender, EventArgs e)
+        private void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
             Carrega_Ficha_Aluno();
         }
         #endregion
 
         #region Metodo do Botao Voltar.
-        public void btn_voltar_Click(object sender, EventArgs e)
+        private void btn_voltar_Click(object sender, EventArgs e)
         {
             frm_Tela_Principal.Show();                                          // Abre a tela principal.
             this.Close();                                                       // fecha a atual.
@@ -219,7 +218,7 @@ namespace Plantando_Alegria.Forms
 
         #region Metodo que carrega a ficha do aluno.
 
-        public void Carrega_Ficha_Aluno()
+        private void Carrega_Ficha_Aluno()
         {
             char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
             selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);    // Selecao2 recebe de selecao com os caracteres removidos.
