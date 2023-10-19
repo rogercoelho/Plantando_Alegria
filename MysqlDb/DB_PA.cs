@@ -11,30 +11,30 @@ namespace Plantando_Alegria.MysqlDb
     {
         #region Variaveis da tabela Alunos_Cadastro.
 
-        public static string Alunos_Codigo;
-        public static string Alunos_Nome;
-        public static string Alunos_Endereco;
-        public static string Alunos_Bairro;
-        public static string Alunos_Cidade;
-        public static string Alunos_CEP;
-        public static string Alunos_Telefone;
-        public static string Alunos_Email;
-        public static string Alunos_Contato_Emergencia;
-        public static string Alunos_Telefone_Emergencia_1;
-        public static string Alunos_Telefone_Emergencia_2;
-        public static string Criado_Em;
-        public static string Atualizado_Em;
+        public static string Alunos_Codigo;                     // Variavel que comunica com o textbox.
+        public static string Alunos_Nome;                       // Variavel que comunica com o textbox.
+        public static string Alunos_Endereco;                   // Variavel que comunica com o textbox.
+        public static string Alunos_Bairro;                     // Variavel que comunica com o textbox.
+        public static string Alunos_Cidade;                     // Variavel que comunica com o textbox.
+        public static string Alunos_CEP;                        // Variavel que comunica com o textbox.
+        public static string Alunos_Telefone;                   // Variavel que comunica com o textbox.
+        public static string Alunos_Email;                      // Variavel que comunica com o textbox.
+        public static string Alunos_Contato_Emergencia;         // Variavel que comunica com o textbox.
+        public static string Alunos_Telefone_Emergencia_1;      // Variavel que comunica com o textbox.
+        public static string Alunos_Telefone_Emergencia_2;      // Variavel que comunica com o textbox.
+        public static string Criado_Em;                         // Variavel que tecebe a data do cadastro.
+        public static string Atualizado_Em;                     // Variavel que atualiza a data do cadastro.
 
         #endregion
 
         #region Variaveis da tabela Planos_Cadastro.
 
-        public static string planos_codigo;
-        public static string planos_nome;
-        public static string planos_qtd_aulas_semana;
-        public static string planos_qtd_aulas_total;
-        public static string planos_valor_mensal;
-        public static string planos_valor_total;
+        public static string planos_codigo;                 // Variavel que comunica com o textbox.
+        public static string planos_nome;                   // Variavel que comunica com o textbox.
+        public static string planos_qtd_aulas_semana;       // Variavel que comunica com o textbox.
+        public static string planos_qtd_aulas_total;        // Variavel que comunica com o textbox.
+        public static string planos_valor_mensal;           // Variavel que comunica com o textbox.
+        public static string planos_valor_total;            // Variavel que comunica com o textbox.
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace Plantando_Alegria.MysqlDb
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static bool dados_alterados;                             // variavel que identifica se tem alteracoes nos dados da ficha do aluno.
         public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto da ficha do aluno.
-        public static bool pesquisa_codigo = false;                     // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2
+        public static bool pesquisa_codigo = false;                     // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
         public static string Cad_Ok;                                    // Variavel para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // variavel que recebe a query do banco.
         public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
@@ -54,8 +54,8 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Instanciando Objetos.
-        //comunica com o form cadastro de alunos e ficha de alunos
-        Encerramento encerramento = new Encerramento();                 // instanciando objeto para a classe encerramento.
+                                                                        // Comunica com os forms.
+        Encerramento encerramento = new Encerramento();                 // Instanciando objeto para a classe encerramento.
         public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
         MySqlCommand cmd = new MySqlCommand();                          // Instanciando objeto da classe MysqlCommand. Para executar comandos Mysql.
@@ -63,107 +63,114 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Metodos de Query do banco.
 
-        #region Metodo Query para Cadastrar Aluno.
+        #region Tabela Alunos_Cadastro.
+
+        #region Metodo Query para Cadastrar Aluno na tabela Alunos_Cadastro.
 
         public void Query_Cadastrar_Aluno()
         {
-            cmd.Parameters.Clear();             // faz a limpeza dos parametros antes de incluir novos.
+            cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
 
-            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +
+            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
                                                         "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
                                                         "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
                                                         "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
-            cmd.CommandText = query;
-            e_cadastro = true;
+            cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
+            e_cadastro = true;              // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
         }
         #endregion
 
-        #region Metodo Query para Atualizar Aluno.
+        #region Metodo Query para Atualizar Aluno na tabela Alunos_Cadastro.
         public void Query_Atualizar_Cadastro()
         {
-            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
+            query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +      // Variavel ira receber a query.
                                                       " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
                                                       " Alunos_Telefone = @Alunos_Telefone, Alunos_Email = Alunos_Email, " +
                                                       " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
                                                       " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
                                                       " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
                                                       " WHERE Alunos_Codigo =" + Alunos_Codigo;
-            cmd.CommandText = query;
-            e_cadastro = false;
+            cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
+            e_cadastro = false;         // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
 
         }
 
         #endregion
 
-        #region Metodo Query Para Inserir imagem_Aluno.
-
-        public void Query_Inserir_Imagem()
-        {
-            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel recebe query do banco.      
-        }
-
-        #endregion
-
-        #region Metodo Query Para Alterar imagem_Aluno.
-
-        public void Query_Alterar_Imagem()
-        {
-            cmd.Parameters.Clear();                
-            query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;  // variavel recebe query do banco.
-
-            cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
-
-        }
-
-        #endregion
-
-        #region Metodo Query para pesquisar tudo da tabela.
+        #region Metodo Query para pesquisar tudo da tabela Alunos_Cadastro.
 
         public void Pesquisar_Tudo_tbl_alunos_cadastro()
         {
-            query = "SELECT * from Alunos_Cadastro";    // Consulta do banco de dados Mysql.         
-            cmd.CommandText = query;                     // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco
+            query = "SELECT * from Alunos_Cadastro";    // Variavel ira receber a query.         
+            cmd.CommandText = query;                    // Repassa a variavel query para os comandos do mysql.
         }
 
         #endregion
-        
-        #region Metodo Query para pesquisar pelo nome do aluno.
+
+        #region Metodo Query para pesquisar pelo nome do aluno na tabela Alunos_Cadastro.
 
         public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
         {
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Alunos_Nome + "'";    // query do mysql + o que esta escrito no label.       
-            cmd.CommandText = query;                                                                // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);                                       // Adiciona um parametro para acrescentar os valores encontrados
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Alunos_Nome + "'";   // Variavel ira receber a query. + o que esta na variavel.       
+            cmd.CommandText = query;                                                                // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);                               // Adiciona um parametro para acrescentar os valores encontrados
         }
 
         #endregion
 
-        #region Metodo Query para pesquisar pelo codigo do aluno.
+        #region Metodo Query para pesquisar pelo codigo do aluno na tabela Alunos_Cadastro.
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
         {
-            cmd.Parameters.Clear();                                                             // VERIFICAR SE É NECESSARIO
-            pesquisa_codigo = true;                                                             // Atribui trues a variavel pesquisa pelo codigo.
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
-            cmd.CommandText = query;                                                            // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
+            pesquisa_codigo = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
 
         }
 
         #endregion
-
-        #region Metodo Query para pesquisar pelo nome ou pelo codigo REVISADO.
+        
+        #region Metodo Query para pesquisar pelo nome ou pelo codigo na tabela Alunos_Cadastro.
 
         public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
         {
-            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
                      + Alunos_Codigo
                      + " OR Alunos_Nome LIKE" +
                      " '" + Alunos_Nome + "'";
 
-            cmd.CommandText = query;                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
-            cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);            // Adiciona um parametro para acrescentar os valores encontrados.
-            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);          // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);   // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Tabela Alunos_Imagem
+
+        #region Metodo Query Para Inserir imagem_Aluno na tabela Alunos_Imagem.
+
+        public void Query_Inserir_Imagem()
+        {
+            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel que recebe o comando para executar no mysql.      
+        }
+
+        #endregion
+
+        #region Metodo Query Para Alterar imagem_Aluno na tabela Alunos_Imagem.
+
+        public void Query_Alterar_Imagem()
+        {
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.     
+            query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, " +
+                    "Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;     // variavel recebe query do banco.
+
+            cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para acrescentar os valores encontrados.
+
         }
 
         #endregion
@@ -172,36 +179,38 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_Imagem()
         {
-            cmd.Parameters.Clear(); // INSERIDO AGORA.
-            cmd.Connection = conexao_Banco_PA.Conectar_DB();                                    // Conecta no banco
-            query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // Query que sera executada no banco.
-            cmd.CommandText = query;                                                            // Mysql Command recebe a query.
-            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                       // recebe o parametro codigo do aluno.
-            
-            Executa_Pesquisa_Imagem();                                                          // Acessa o metodo Executa_pesquisa.
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
+            query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // variavel recebe query do banco.
+            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
+
+            Executa_Pesquisa_Imagem();                                                          // Chama o metodo Executa_pesquisa.
         }
 
         #endregion
 
         #endregion
 
-        #region Metodo que limpa as variaveis da tabela Alunos_Cadastro.
+        #endregion
+
+        
+        #region Metodo que limpa as variaveis DB_PA da tabela Alunos_Cadastro.
 
         public void Limpar_Variaveis()
         {
-            Alunos_Codigo = "";
-            Alunos_Nome = "";
-            Alunos_Endereco = "";
-            Alunos_Bairro = "";
-            Alunos_Cidade = "";
-            Alunos_CEP = "";
-            Alunos_Telefone = "";
-            Alunos_Email = "";
-            Alunos_Contato_Emergencia = "";
-            Alunos_Telefone_Emergencia_1 = "";
-            Alunos_Telefone_Emergencia_2 = "";
-            Criado_Em = "";
-            Atualizado_Em = "";
+            Alunos_Codigo = "";                     // Atribui vazio na variavel.
+            Alunos_Nome = "";                       // Atribui vazio na variavel.
+            Alunos_Endereco = "";                   // Atribui vazio na variavel.
+            Alunos_Bairro = "";                     // Atribui vazio na variavel.
+            Alunos_Cidade = "";                     // Atribui vazio na variavel.
+            Alunos_CEP = "";                        // Atribui vazio na variavel.
+            Alunos_Telefone = "";                   // Atribui vazio na variavel.
+            Alunos_Email = "";                      // Atribui vazio na variavel.
+            Alunos_Contato_Emergencia = "";         // Atribui vazio na variavel.
+            Alunos_Telefone_Emergencia_1 = "";      // Atribui vazio na variavel.
+            Alunos_Telefone_Emergencia_2 = "";      // Atribui vazio na variavel.
+            Criado_Em = "";                         // Atribui vazio na variavel.
+            Atualizado_Em = "";                     // Atribui vazio na variavel.
         }
 
         #endregion
@@ -210,28 +219,28 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
-            cmd.Parameters.Clear();
+            cmd.Parameters.Clear();                                                                                         // Faz a limpeza dos parametros antes de receber novos.
 
-            if (e_cadastro == true)
+            if (e_cadastro == true)                                                                                         // Se for cadastro e nao atualizacao.
             {
-                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;
-                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
-                cmd.Parameters.Add("Atualizado_Em", MySqlDbType.Timestamp).Value = null;
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                              // Adiciona o parametro para o cadastro.
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                               // Adiciona o parametro para o cadastro.
+                cmd.Parameters.Add("Atualizado_Em", MySqlDbType.Timestamp).Value = null;                                    // Adiciona o parametro para o cadastro.
             }
             else
             {
-                cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;
+                cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;                           // Adiciona o parametro para a atualizacao do cadastro.
             }
-            cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                 // Adiciona na coluna da query
-            cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                          // O tipo da coluna (Varchar)
-            cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                // Recebe o valor de
-            cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                          // alunos_cadastro_mysql.
-            cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                              // Alunos_Bairro (nesse caso
-            cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;
-            cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;
-            cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;
+            cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                                // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;                                // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;                                      // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;        // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;  // Adiciona o parametro tando para cadastro como atualizacao.
+            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;  // Adiciona o parametro tando para cadastro como atualizacao.
         }
 
         #endregion
@@ -239,30 +248,30 @@ namespace Plantando_Alegria.MysqlDb
         #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
         public void Processa_Imagem()
         {
-            if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
-                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
+            if (Cad_Ok == "OK")                                                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
+                                                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
             {
                 FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.  
-                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados    
-                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                      // Como o banco nao recebe imagem e sim dados    
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);                                  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser
+                                                                                                                    // "lido"pelo binary reader.
 
-                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-                cmd.CommandText = query;
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                            // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.CommandText = query;                                                                            // Repassa a variavel query para os comandos do mysql.
             }
 
         }
         #endregion
-
+        
         #region Metodo que compara a ficha do aluno com a tabela Alunos_Cadastro.
         public void Compara_Ficha()
         {
-            dados_alterados = false;
+            dados_alterados = false;                                                                // Atribui falso a variavel dados alterados primeiro.
 
-            if ( caminho_foto_aluno == null )
+            if ( caminho_foto_aluno == null )                                                       // Pergunta se a variavel que recebe o caminho da foto esta vazia.
             {
-                foto_alterada = false;
+                foto_alterada = false;                                                              // Se estiver vazia atribui false na variavel de foto alterada.
             }
-
 
             if (frm_ficha_alunos.selecao2[3].ToString().Trim() == Alunos_Nome.ToString().Trim())
             {
@@ -303,10 +312,9 @@ namespace Plantando_Alegria.MysqlDb
                     else { dados_alterados = true; }
                 }
                 else { dados_alterados = true; }
-            }
-            else { dados_alterados = true; }
+            } // Faz a validacao dos campos. Se forem iguais, segue.
+            else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
 
-            
         }
             #endregion
 
@@ -314,6 +322,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Executa_Pesquisa()
         {
+            
             #region Inicia a execucao da pesquisa.
 
             try                                                     // Tenta executar o comando.
@@ -387,6 +396,7 @@ namespace Plantando_Alegria.MysqlDb
             conexao_Banco_PA.Desconectar_DB();
             
             #endregion
+
         }
 
         #endregion
@@ -424,61 +434,61 @@ namespace Plantando_Alegria.MysqlDb
         public void Verifica_Campos()
         {
 
-            while (!int.TryParse(Alunos_Codigo, out int verifica))  // Enquanto o txtbox nao for apenas numeros retorna a mensagem.
+            while (!int.TryParse(Alunos_Codigo, out int verifica))      // Enquanto o txtbox nao for apenas numeros retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_12();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Nome))                     // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Nome))                   // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_13();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Endereco))                        // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Endereco))               // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_14();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Bairro))                          // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Bairro))                 // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_15();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Cidade))                          // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Cidade))                 // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_16();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_CEP))                             // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_CEP))                    // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_17();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Telefone))                        // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Telefone))               // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_18();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Email))                           // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Email))                  // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_19();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Contato_Emergencia))              // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Contato_Emergencia))     // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_20();
                 return;
             }
-            while (string.IsNullOrEmpty(Alunos_Telefone_Emergencia_1))             // Enquanto txtbox estiver em branco retorna a mensagem.
+            while (string.IsNullOrEmpty(Alunos_Telefone_Emergencia_1))  // Enquanto txtbox estiver em branco retorna a mensagem.
             {
                 campos_validados = false;
                 encerramento.Mensagem_21();
@@ -489,18 +499,10 @@ namespace Plantando_Alegria.MysqlDb
                 Alunos_Telefone_Emergencia_2 = "NÃO INFORMADO";
             }
 
-            campos_validados = true;                                        // se passou pela validacao recebe true.
+            campos_validados = true;                                    // se passou pela validacao recebe true.
         }
 
         #endregion
-
-
-
-
-
-
-
-
 
         #region Metodo de execucao de conexao e atualizacao do Banco.
 
@@ -512,21 +514,22 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
                 conexao_Banco_PA.Desconectar_DB();
 
-                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
+                Cad_Ok = "OK";                                          // Passa o valor OK para a variavel Cad_OK.
             }
-            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
+            catch (MySqlException errodb)                               // Caso dê erro, mostra o erro do banco de dados.
             {
-                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                encerramento.Mensagem_22(errodb.Message);
                 DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
             }
 
-            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
+            conexao_Banco_PA.Desconectar_DB();                          // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
 
             
         }
 
         #endregion
+
+
 
         #region Classe de Mensagens de tela.
         public class Encerramento
@@ -637,6 +640,11 @@ namespace Plantando_Alegria.MysqlDb
             {
                 MessageBox.Show("O Campo Telefone do Contato de Emergencia não pode estar vazio.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_22(string erromsg)
+            {
+                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + erromsg,
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
