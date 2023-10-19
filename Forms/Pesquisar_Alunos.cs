@@ -37,12 +37,16 @@ namespace Plantando_Alegria.Forms
 
         #region Metodo do botao Pesquisar.
         private void btn_pesquisar_Click(object sender, EventArgs e)
-        {
-            
+        {            
             #region Instanciando objetos para a classe.
 
             DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
             DB_PA dB_PA = new DB_PA();
+
+            #endregion
+
+            #region Tratando as variaveis.
+            dB_PA.Limpar_Variaveis();
             DB_PA.Alunos_Codigo = txtb_codigo.Text;
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
        
@@ -120,9 +124,7 @@ namespace Plantando_Alegria.Forms
         private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
         {
             frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();             // Isntanciando objeto para a classe ficha do aluno.
-
             frm_ficha_alunos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
-
             frm_Ficha_Alunos.Show();                                                // Abre a tela ficha do aluno.
             this.Close();                                                           // Fecha a tela atual.
             

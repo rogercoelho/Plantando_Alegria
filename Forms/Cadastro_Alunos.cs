@@ -51,83 +51,9 @@ namespace Plantando_Alegria.Forms
         #region Metodo do Botao Adicionar Aluno
         public void btn_adicionar_aluno_Click(object sender, EventArgs e)
         {
+            DB_PA dB_PA = new DB_PA();                          // Instancia objeto para a classe DB_PA.
 
-            #region Criando variaveis.
-            DB_PA dB_PA = new DB_PA();  // Instancia objeto para a classe DB_PA.
-            int verifica;               // Variavel para verificar os campos de numeros do textbox. 
-
-            #endregion
-
-            #region Valida o conteudo dos textbox.
-
-            while (!int.TryParse(txtb_codigo.Text, out verifica))  // Enquanto o txtbox nao for apenas numeros retorna a mensagem.
-            {
-
-                MessageBox.Show("O campo de Código do Aluno aceita apenas numeros e não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_nome_aluno.Text))                     // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O campo Nome do Aluno não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_endereco.Text))                        // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Endereco do Aluno não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_bairro.Text))                          // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Bairro não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_cidade.Text))                          // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Cidade não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_cep.Text))                             // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo CEP não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_telefone.Text))                        // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O campo Telefone do Aluno não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_email.Text))                           // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Email do Aluno não pode estar vazio\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_contato_emergencia.Text))              // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Contado de Emergencia não pode estar vazio.\n");
-
-                return;
-            }
-            while (string.IsNullOrEmpty(txtb_telefone_emergencia_1.Text))             // Enquanto txtbox estiver em branco retorna a mensagem.
-            {
-                MessageBox.Show("O Campo Telefone do Contato de Emergencia não pode estar vazio.\n");
-
-                return;
-            }
-            if (txtb_telefone_emergencia_2.Text == "")
-            {
-                txtb_telefone_emergencia_2.Text = "NÃO INFORMADO";
-            }
-            #endregion
-
-            #region Passa os dados para a classe DB_PA
+            #region Repassa os dados dos campos para as variaveis DB_PA.          
 
             DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();
@@ -140,18 +66,32 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper();
             DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
+
+            #endregion      
             
-            #endregion
-            
-            dB_PA.Query_Cadastrar_Aluno();
-            
+            dB_PA.Verifica_Campos();                            // Chama o metodo que valida os campos.
+
+            if (DB_PA.campos_validados == true)                 // Se estiver validado.
+            {
+                dB_PA.Query_Cadastrar_Aluno();                  // Chama o metodo da query de cadastro de alunos.
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco.
+                dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
+                
+                if (DB_PA.e_cadastro == true)                   // Variavel que identifica que é um cadastro novo.
+                {
+                    DB_PA.e_cadastro = false;                   // Troca o valor da variavel para falso.
+                    dB_PA.Query_Inserir_Imagem();               // Chama o metodo da query de inserir imagem.
+                    dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
+                    dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
+                }
+            }
 
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.
 
             if (DB_PA.Cad_Ok == "OK")
             {
-                encerramento.Mensagem_11();
-                btn_limpar.PerformClick();  // Limpa os campos
+                encerramento.Mensagem_11();                     // Mostra a mensagem.
+                btn_limpar.PerformClick();                      // Limpa os campos
             }
             
             #endregion

@@ -1,12 +1,8 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.MysqlDb
@@ -33,13 +29,13 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Variaveis Operacionais
 
-        public static string caminho_foto_aluno;
+        public static string caminho_foto_aluno;                        // Variavel que armazena o caminho da foto do aluno.
+        public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno estao certos.
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static bool dados_alterados;                             // variavel que identifica se tem alteracoes nos dados da ficha do aluno.
-        public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto do aluno.
-        public static bool pesquisa_codigo;                             // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2
-        public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
-        public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
+        public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto da ficha do aluno.
+        public static bool pesquisa_codigo = false;                     // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2
+        public static string Cad_Ok;                                    // Variavel para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // variavel que recebe a query do banco.
         public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
         MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
@@ -68,8 +64,6 @@ namespace Plantando_Alegria.MysqlDb
                                                         "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
             cmd.CommandText = query;
             e_cadastro = true;
-            Cadastrar_Atualizar_Alunos_Cadastro();
-
         }
         #endregion
 
@@ -91,13 +85,11 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo Query Para Inserir imagem_Aluno REVISADO.
+        #region Metodo Query Para Inserir imagem_Aluno.
 
         public void Query_Inserir_Imagem()
         {
             query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel recebe query do banco.      
-            Processa_Imagem();      // chama o metodo Processa banco.
-
         }
 
         #endregion
@@ -116,7 +108,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo Query para pesquisar tudo da tabela REVISADO.
+        #region Metodo Query para pesquisar tudo da tabela.
 
         public void Pesquisar_Tudo_tbl_alunos_cadastro()
         {
@@ -126,7 +118,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
         
-        #region Metodo Query para pesquisar pelo nome do aluno REVISADO.
+        #region Metodo Query para pesquisar pelo nome do aluno.
 
         public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
         {
@@ -137,7 +129,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo Query para pesquisar pelo codigo do aluno REVISADO.
+        #region Metodo Query para pesquisar pelo codigo do aluno.
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
         {
@@ -154,7 +146,6 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
         {
-
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="     // variavel que recebe o comando para executar no mysql + o que esta escrito em ambos os labels.
                      + Alunos_Codigo
                      + " OR Alunos_Nome LIKE" +
@@ -184,6 +175,27 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo que limpa as variaveis da tabela.
+
+        public void Limpar_Variaveis()
+        {
+            Alunos_Codigo = "";
+            Alunos_Nome = "";
+            Alunos_Endereco = "";
+            Alunos_Bairro = "";
+            Alunos_Cidade = "";
+            Alunos_CEP = "";
+            Alunos_Telefone = "";
+            Alunos_Email = "";
+            Alunos_Contato_Emergencia = "";
+            Alunos_Telefone_Emergencia_1 = "";
+            Alunos_Telefone_Emergencia_2 = "";
+            Criado_Em = "";
+            Atualizado_Em = "";
+        }
+
+        #endregion
+
         #region Metodo que cadastra ou atualiza o cadastro na tabela Alunos_Cadastro REVISADO    
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
@@ -210,9 +222,6 @@ namespace Plantando_Alegria.MysqlDb
             cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;
             cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;
             cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;
-
-
-            Executa_Banco();
         }
 
         #endregion
@@ -229,153 +238,12 @@ namespace Plantando_Alegria.MysqlDb
 
                 cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
                 cmd.CommandText = query;
-                Executa_Banco();
             }
 
         }
         #endregion
 
-        #region Metodo de execucao de conexao e atualizacao do Banco REVISADO.
-
-        public void Executa_Banco()
-        {
-            try
-            {
-                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
-                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
-                conexao_Banco_PA.Desconectar_DB();
-
-                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
-            }
-            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
-            {
-                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
-            }
-
-            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
-
-            if (DB_PA.e_cadastro == true)
-            {
-                DB_PA.e_cadastro = false;
-                Query_Inserir_Imagem();
-            }
-        }
-
-        #endregion
-
-        #region Metodo que executa a pesquisa do cadastro na tabela Alunos_Cadastro.
-
-        public void Executa_Pesquisa()
-        {
-            #region Inicia a execucao da pesquisa.
-
-            try                                                     // Tenta executar o comando.
-            {
-                cmd.Connection = conexao_Banco_PA.Conectar_DB();    // Abre a conexao com o banco. 
-                dataReader = cmd.ExecuteReader();                   // Abre a execucao do datareader.
-                
-                #region Retorna a pesquisa nula.
-
-                if (!dataReader.HasRows)                            // Se o datareader nao possuir dados retornados do banco. 
-                {
-                    if (!dataReader.IsClosed)                       // Se o datareader nao estiver fechado.
-                    {
-                        dataReader.Close();                         // Encerra o data_reader.
-                        conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
-                    }
-                    encerramento.Mensagem_02();
-
-                    DB_PA.Cad_Ok = "Erro";
-
-                }
-                #endregion
-
-                #region Retorna a pesquisa com valores encontrados.
-
-                else                                                // Caso possua dados na tabela do Banco faz a tratativa.
-                {
-                                                                    // Pega do datareader e tranfere para a lista
-
-                    
-                    while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
-                    {
-
-                        lista.Clear();                              // limpa a lista para nao ter sujeita de pesquisa anterior.
-                        lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
-                                                   "  Nome | ", dataReader[1].ToString() + " | ",
-                                                   "  Endereço | ", dataReader[2].ToString() + " | ",
-                                                   "  Bairro | ", dataReader[3].ToString() + " | ",
-                                                   "  Cidade | ", dataReader[4].ToString() + " | ",
-                                                   "  CEP | ", dataReader[5].ToString() + " | ",
-                                                   "  Tel. | ", dataReader[6].ToString() + " | ",
-                                                   "  Email | ", dataReader[7].ToString() + " | ",
-                                                   "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
-                                                   "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                                   "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
-                                                   "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
-                                                   "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
-                    }    
-                
-                    Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
-
-                    if (pesquisa_codigo == true)
-                    {
-                        frm_ficha_alunos.selecao = (string)lista[0];
-                    }
-
-                }
-                #endregion
-
-                #region  Encerra o datareader se estiver aberto ainda.
-                if (!dataReader.IsClosed)
-                {
-                    dataReader.Close();
-                }
-                #endregion
-            }
-            catch (MySqlException erro_db)                          // Caso nao consiga executar os comandos do Try retorna o Catch com o erro do banco.
-            {
-                encerramento.Mensagem_04("-->" + erro_db.Message);
-            }    
-            conexao_Banco_PA.Desconectar_DB();
-            
-            #endregion
-        }
-
-        #endregion
-
-        #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
-        public void Executa_Pesquisa_Imagem()
-        {
-            try
-            {
-                dataReader = cmd.ExecuteReader();           // Executa o datareader
-
-                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
-                {
-                    dataReader.Read();                      // Faz a leitura do datareader.
-                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
-
-                }
-            }
-
-            catch (MySqlException erro_db)
-            {
-                encerramento.Mensagem_04("-->" + erro_db.Message);
-            }
-            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
-            {
-                dataReader.Close();                         // Encerra o datareader.
-                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
-
-            }
-
-        }
-        #endregion
-
-
+        #region Metodo que compara a ficha do aluno com o banco.
         public void Compara_Ficha()
         {
             dados_alterados = false;
@@ -449,8 +317,218 @@ namespace Plantando_Alegria.MysqlDb
                 encerramento.Mensagem_07();
             }
         }
+            #endregion
 
+        #region Metodo de execucao de conexao e atualizacao do Banco.
 
+        public void Executa_Banco()
+        {
+            try
+            {
+                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
+                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
+                conexao_Banco_PA.Desconectar_DB();
+
+                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
+            }
+            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
+            {
+                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
+            }
+
+            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
+
+            
+        }
+
+        #endregion
+
+        #region Metodo que executa a pesquisa do cadastro na tabela Alunos_Cadastro.
+
+        public void Executa_Pesquisa()
+        {
+            #region Inicia a execucao da pesquisa.
+
+            try                                                     // Tenta executar o comando.
+            {
+                cmd.Connection = conexao_Banco_PA.Conectar_DB();    // Abre a conexao com o banco. 
+                dataReader = cmd.ExecuteReader();                   // Abre a execucao do datareader.
+                
+                #region Retorna a pesquisa nula.
+
+                if (!dataReader.HasRows)                            // Se o datareader nao possuir dados retornados do banco. 
+                {
+                    if (!dataReader.IsClosed)                       // Se o datareader nao estiver fechado.
+                    {
+                        dataReader.Close();                         // Encerra o data_reader.
+                        conexao_Banco_PA.Desconectar_DB();           // Encerra a conexao com o banco.
+                    }
+                    encerramento.Mensagem_02();
+
+                    DB_PA.Cad_Ok = "Erro";
+
+                }
+                #endregion
+
+                #region Retorna a pesquisa com valores encontrados.
+
+                else                                                // Caso possua dados na tabela do Banco faz a tratativa.
+                {
+                                                                    // Pega do datareader e tranfere para a lista
+    
+                    lista.Clear();                                  // limpa a lista para nao ter sujeita de pesquisa anterior.
+                    
+                    while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
+                    {
+
+                        lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
+                                                   "  Nome | ", dataReader[1].ToString() + " | ",
+                                                   "  Endereço | ", dataReader[2].ToString() + " | ",
+                                                   "  Bairro | ", dataReader[3].ToString() + " | ",
+                                                   "  Cidade | ", dataReader[4].ToString() + " | ",
+                                                   "  CEP | ", dataReader[5].ToString() + " | ",
+                                                   "  Tel. | ", dataReader[6].ToString() + " | ",
+                                                   "  Email | ", dataReader[7].ToString() + " | ",
+                                                   "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
+                                                   "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
+                                                   "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
+                                                   "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
+                                                   "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                    }    
+                
+                    Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
+
+                    if (pesquisa_codigo == true)
+                    {
+                        frm_ficha_alunos.selecao = (string)lista[0];
+                    }
+
+                }
+                #endregion
+
+                #region  Encerra o datareader se estiver aberto ainda.
+                if (!dataReader.IsClosed)
+                {
+                    dataReader.Close();
+                }
+                #endregion
+            }
+            catch (MySqlException erro_db)                          // Caso nao consiga executar os comandos do Try retorna o Catch com o erro do banco.
+            {
+                encerramento.Mensagem_04("-->" + erro_db.Message);
+            }    
+            conexao_Banco_PA.Desconectar_DB();
+            
+            #endregion
+        }
+
+        #endregion
+
+        #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
+        public void Executa_Pesquisa_Imagem()
+        {
+            try
+            {
+                dataReader = cmd.ExecuteReader();           // Executa o datareader
+
+                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
+                {
+                    dataReader.Read();                      // Faz a leitura do datareader.
+                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
+
+                }
+            }
+
+            catch (MySqlException erro_db)
+            {
+                encerramento.Mensagem_04("-->" + erro_db.Message);
+            }
+            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
+            {
+                dataReader.Close();                         // Encerra o datareader.
+                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
+
+            }
+
+        }
+        #endregion
+
+        #region Verifica os dados digitadao antes do cadastro do aluno.
+
+        public void Verifica_Campos()
+        {
+
+            while (!int.TryParse(Alunos_Codigo, out int verifica))  // Enquanto o txtbox nao for apenas numeros retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_12();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Nome))                     // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_13();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Endereco))                        // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_14();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Bairro))                          // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_15();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Cidade))                          // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_16();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_CEP))                             // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_17();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Telefone))                        // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_18();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Email))                           // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_19();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Contato_Emergencia))              // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_20();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_Telefone_Emergencia_1))             // Enquanto txtbox estiver em branco retorna a mensagem.
+            {
+                campos_validados = false;
+                encerramento.Mensagem_21();
+                return;
+            }
+            if (Alunos_Telefone_Emergencia_2 == "")
+            {
+                Alunos_Telefone_Emergencia_2 = "NÃO INFORMADO";
+            }
+
+            campos_validados = true;                                        // se passou pela validacao recebe true.
+        }
+
+        #endregion
 
 
 
@@ -512,6 +590,56 @@ namespace Plantando_Alegria.MysqlDb
             public void Mensagem_11()
             {
                 MessageBox.Show("Aluno cadastrado com sucesso..\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_12()
+            {
+                MessageBox.Show("O campo de Código do Aluno aceita apenas numeros e não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_13()
+            {
+                MessageBox.Show("O campo Nome do Aluno não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_14()
+            {
+                MessageBox.Show("O Campo Endereco do Aluno não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_15()
+            {
+                MessageBox.Show("O Campo Bairro não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_16()
+            {
+                MessageBox.Show("O Campo Cidade não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_17()
+            {
+                MessageBox.Show("O Campo CEP não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_18()
+            {
+                MessageBox.Show("O campo Telefone do Aluno não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_19()
+            {
+                MessageBox.Show("O Campo Email do Aluno não pode estar vazio\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_20()
+            {
+                MessageBox.Show("O Campo Contado de Emergencia não pode estar vazio.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_21()
+            {
+                MessageBox.Show("O Campo Telefone do Contato de Emergencia não pode estar vazio.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
