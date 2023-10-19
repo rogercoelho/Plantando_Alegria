@@ -219,19 +219,17 @@ namespace Plantando_Alegria.MysqlDb
         
         #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
         public void Processa_Imagem()
-        {  
+        {
             if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
                                                                                     // Se a resposta for OK ai sim insere a imagem no banco.
             {
-                    FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
-                    BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
+                FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.  
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados    
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
 
-                    imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser "lido"pelo binary reader.
-
-
-                    cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-                    cmd.CommandText = query;
-                    Executa_Banco();
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.CommandText = query;
+                Executa_Banco();
             }
 
         }
@@ -300,10 +298,11 @@ namespace Plantando_Alegria.MysqlDb
                 {
                                                                     // Pega do datareader e tranfere para a lista
 
-
+                    
                     while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
                     {
 
+                        lista.Clear();                              // limpa a lista para nao ter sujeita de pesquisa anterior.
                         lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
                                                    "  Nome | ", dataReader[1].ToString() + " | ",
                                                    "  Endereço | ", dataReader[2].ToString() + " | ",
@@ -443,7 +442,7 @@ namespace Plantando_Alegria.MysqlDb
             else if (foto_alterada == true && dados_alterados == false)
             {
                 Query_Alterar_Imagem();
-                encerramento.Mensagem_10();
+                encerramento.Mensagem_09();
             }
             else
             {

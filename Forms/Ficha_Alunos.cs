@@ -195,8 +195,6 @@ namespace Plantando_Alegria.Forms
             MemoryStream memoryStream = new MemoryStream(imagem_byte);              // Manda para a memoria a imagem (Memorystream).
             pcb_imagem_aluno.Image = Image.FromStream(memoryStream);                // Picturebox recebe a imagem decodificada da memoria.
             pcb_imagem_aluno.Refresh();                                             // Atualiza o picturebox.
-
-            selecao = null;
         }
         #endregion
 
