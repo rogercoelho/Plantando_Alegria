@@ -13,18 +13,30 @@ namespace Plantando_Alegria
 {
     public partial class frm_tela_principal : Form
     {
+        #region Instanciando objetos.
+
+        frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();        // Instanciando objeto para a classe Cadastro_Alunos.    
+        frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();     // Instanciando objeto para a classe Consultar_Alunos.
+        frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();        // Instanciando objeto para a classe Cadastro_Planos.
+
+        #endregion
+
+        #region Metodo construtor.
         public frm_tela_principal()
         {
             InitializeComponent();
         }
 
+        #endregion
+
         #region Metodo do botao Cadastro de Alunos.
         private void btn_cadastro_alunos_Click(object sender, EventArgs e)
         {
             #region Abre o form Cadastro de alunos e fecha o principal.
-            frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();    // Instancia objeto para a classe Cadastro_Alunos.
+            
             frm_Cadastro_Alunos.Show();                                             // Mostra a tela de cadasto.
             this.Hide();                                                            // Esconde a tela principal.
+            
             #endregion
         }
         #endregion
@@ -34,8 +46,6 @@ namespace Plantando_Alegria
         {
             #region Abre o formulario de Pesquisa de alunos.
 
-            frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();     // Instancia a classe Consultar_Alunos.
-
             frm_Pesquisar_Alunos.Show();                                                // Mostra a tela de consulta
             this.Hide();                                                                // Esconde a tela principal
 
@@ -44,18 +54,18 @@ namespace Plantando_Alegria
         }
         #endregion
 
-
-
+        #region Metodo do botao Cadastro de Planos.
         private void btn_cadastro_planos_Click(object sender, EventArgs e)
         {
             #region Abre o form Cadastro de Planos e fecha o principal.
 
-          //  Cadastro_Planos cadastro_planos = new Cadastro_Planos();        // Instancia a classe Cadastro_Planos.
-          //  cadastro_planos.Show();                                         // Mostra a tela de cadastro de planos.
-            this.Hide();                                                    // Esconde a tela Principal
+            frm_Cadastro_Planos.Show();     // Mostra a tela de cadastro de planos.
+            this.Hide();                    // Esconde a tela Principal
 
             #endregion
         }
+
+        #endregion
 
         private void btn_pesquisar_plano_Click(object sender, EventArgs e)
         {
