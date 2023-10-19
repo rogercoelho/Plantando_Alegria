@@ -79,7 +79,6 @@ namespace Plantando_Alegria.MysqlDb
                                                       " WHERE Alunos_Codigo =" + Alunos_Codigo;
             cmd.CommandText = query;
             e_cadastro = false;
-            Cadastrar_Atualizar_Alunos_Cadastro();
 
         }
 
@@ -103,7 +102,6 @@ namespace Plantando_Alegria.MysqlDb
 
             cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;
 
-            Processa_Imagem();  // chama o metodo processa banco.
         }
 
         #endregion
@@ -296,26 +294,7 @@ namespace Plantando_Alegria.MysqlDb
             }
             else { dados_alterados = true; }
 
-            if (foto_alterada == true && dados_alterados == true)
-            {
-                Query_Alterar_Imagem();
-                Query_Atualizar_Cadastro();
-                encerramento.Mensagem_10();
-            }
-            else if (foto_alterada == false && dados_alterados == true)
-            {
-                Query_Atualizar_Cadastro();
-                encerramento.Mensagem_08();
-            }
-            else if (foto_alterada == true && dados_alterados == false)
-            {
-                Query_Alterar_Imagem();
-                encerramento.Mensagem_09();
-            }
-            else
-            {
-                encerramento.Mensagem_07();
-            }
+            
         }
             #endregion
 

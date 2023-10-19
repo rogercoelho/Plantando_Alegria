@@ -161,6 +161,35 @@ namespace Plantando_Alegria.Forms
 
             dB_PA.Compara_Ficha();
 
+            if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == true)
+            {
+                dB_PA.Query_Alterar_Imagem();
+                dB_PA.Processa_Imagem();
+                dB_PA.Executa_Banco();
+                dB_PA.Query_Atualizar_Cadastro();
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();
+                dB_PA.Executa_Banco();
+                encerramento.Mensagem_10();
+            }
+            else if (DB_PA.foto_alterada == false && DB_PA.dados_alterados == true)
+            {
+                dB_PA.Query_Atualizar_Cadastro();
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();
+                dB_PA.Executa_Banco();
+                encerramento.Mensagem_08();
+            }
+            else if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == false)
+            {
+                dB_PA.Query_Alterar_Imagem();
+                dB_PA.Processa_Imagem();
+                dB_PA.Executa_Banco();
+                encerramento.Mensagem_09();
+            }
+            else
+            {
+                encerramento.Mensagem_07();
+            }
+
             if (DB_PA.dados_alterados == true || DB_PA.foto_alterada == true)
             {
                 dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();

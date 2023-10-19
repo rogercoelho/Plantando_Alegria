@@ -7,7 +7,6 @@ namespace Plantando_Alegria.Forms
     public partial class frm_pesquisar_alunos : Form
     {
         
-
         #region Metodo Construtor.
         public frm_pesquisar_alunos()
         {
@@ -131,7 +130,4 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
     }
-
-
-
 }
