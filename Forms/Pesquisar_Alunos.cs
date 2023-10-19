@@ -14,10 +14,16 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
+        #region Instanciando objetos.
+    
+        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();       // Instancia o objeto para a classe frm_tela_Principal.
+
+
+        #endregion
+
         #region Metodo do Botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();       // Instancia o objeto para a classe frm_tela_Principal.
             frm_Tela_Principal.Show();                                              // Carrega a tela principal.
             this.Close();                                                           // Fecaa tela atual.
         }

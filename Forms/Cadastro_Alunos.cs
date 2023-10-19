@@ -24,7 +24,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao Voltar.
-        public void btn_voltar_Click(object sender, EventArgs e)
+        private void btn_voltar_Click(object sender, EventArgs e)
         {
             #region Abre a tela principal e fecha a atual.
             frm_Tela_Principal.Show();                                          // abre o frm tela principal
@@ -35,7 +35,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Limpar.
-        public void btn_limpar_Click(object sender, EventArgs e)
+        private void btn_limpar_Click(object sender, EventArgs e)
         {
             
             txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
@@ -55,7 +55,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Adicionar Aluno
-        public void btn_adicionar_aluno_Click(object sender, EventArgs e)
+        private void btn_adicionar_aluno_Click(object sender, EventArgs e)
         {
 
             #region Repassa os dados dos campos para as variaveis DB_PA.          
