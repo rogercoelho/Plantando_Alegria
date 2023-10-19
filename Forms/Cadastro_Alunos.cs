@@ -145,14 +145,6 @@ namespace Plantando_Alegria.Forms
             
             dB_PA.Query_Cadastrar_Aluno();
             
-            #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
-
-            //if (DB_PA.Cad_Ok == "OK")
-            //{
-            //    dB_PA.Query_Inserir_Imagem();
-            //}
-
-            #endregion
 
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.
 
