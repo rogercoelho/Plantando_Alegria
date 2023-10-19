@@ -27,6 +27,17 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Variaveis da tabela Planos_Cadastro.
+
+        public static string planos_codigo;
+        public static string planos_nome;
+        public static string planos_qtd_aulas_semana;
+        public static string planos_qtd_aulas_total;
+        public static string planos_valor_mensal;
+        public static string planos_valor_total;
+
+        #endregion
+
         #region Variaveis Operacionais
 
         public static string caminho_foto_aluno;                        // Variavel que armazena o caminho da foto do aluno.
@@ -174,7 +185,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo que limpa as variaveis da tabela.
+        #region Metodo que limpa as variaveis da tabela Alunos_Cadastro.
 
         public void Limpar_Variaveis()
         {
@@ -195,7 +206,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo que cadastra ou atualiza o cadastro na tabela Alunos_Cadastro REVISADO    
+        #region Metodo que cadastra ou atualiza o cadastro na tabela Alunos_Cadastro.    
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
@@ -242,7 +253,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
-        #region Metodo que compara a ficha do aluno com o banco.
+        #region Metodo que compara a ficha do aluno com a tabela Alunos_Cadastro.
         public void Compara_Ficha()
         {
             dados_alterados = false;
@@ -298,32 +309,6 @@ namespace Plantando_Alegria.MysqlDb
             
         }
             #endregion
-
-        #region Metodo de execucao de conexao e atualizacao do Banco.
-
-        public void Executa_Banco()
-        {
-            try
-            {
-                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
-                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
-                conexao_Banco_PA.Desconectar_DB();
-
-                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
-            }
-            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
-            {
-                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
-            }
-
-            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
-
-            
-        }
-
-        #endregion
 
         #region Metodo que executa a pesquisa do cadastro na tabela Alunos_Cadastro.
 
@@ -435,8 +420,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
-        #region Verifica os dados digitadao antes do cadastro do aluno.
-
+        #region Verifica os dados digitadao antes do cadastro do aluno na tabela Alunos_Cadastro.
         public void Verifica_Campos()
         {
 
@@ -511,6 +495,38 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
 
+
+
+
+
+
+
+
+        #region Metodo de execucao de conexao e atualizacao do Banco.
+
+        public void Executa_Banco()
+        {
+            try
+            {
+                cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
+                cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
+                conexao_Banco_PA.Desconectar_DB();
+
+                Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
+            }
+            catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
+            {
+                MessageBox.Show("Erro ao Efetuar Cadastro.\n" + errodb.Message, "Plantando Alegria - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DB_PA.Cad_Ok = "Erro";                                  // Passa o valor Erro para a variavel Cad_OK.    
+            }
+
+            conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
+
+            
+        }
+
+        #endregion
 
         #region Classe de Mensagens de tela.
         public class Encerramento
