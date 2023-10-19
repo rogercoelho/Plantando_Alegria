@@ -131,9 +131,10 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
         {
-            pesquisa_codigo = true;
+            cmd.Parameters.Clear();                                                             // VERIFICAR SE É NECESSARIO
+            pesquisa_codigo = true;                                                             // Atribui trues a variavel pesquisa pelo codigo.
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
-            cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
+            cmd.CommandText = query;                                                            // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
 
         }
