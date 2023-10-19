@@ -1,12 +1,19 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.Forms
 {
     public partial class frm_cadastro_alunos : Form
     {
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
+        #region Instanciando objetos.
+            
+        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para pa classe.
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a classe encerramento.     
+        DB_PA dB_PA = new DB_PA();                                          // Instancia objeto para a classe DB_PA.
+
+        #endregion
 
         #region Metodo Construtor.
         public frm_cadastro_alunos()
@@ -17,10 +24,9 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao Voltar.
-        private void btn_voltar_Click(object sender, EventArgs e)
+        public void btn_voltar_Click(object sender, EventArgs e)
         {
             #region Abre a tela principal e fecha a atual.
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para pa classe.
             frm_Tela_Principal.Show();                                          // abre o frm tela principal
             this.Close();                                                       // Fecha o atual.
             #endregion
@@ -51,7 +57,6 @@ namespace Plantando_Alegria.Forms
         #region Metodo do Botao Adicionar Aluno
         public void btn_adicionar_aluno_Click(object sender, EventArgs e)
         {
-            DB_PA dB_PA = new DB_PA();                          // Instancia objeto para a classe DB_PA.
 
             #region Repassa os dados dos campos para as variaveis DB_PA.          
 
@@ -108,8 +113,8 @@ namespace Plantando_Alegria.Forms
 
             if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
-                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;                            // Mostra a imagem no PictureBox.
+                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                // Pega o caminho da imagem selecionada.
+                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;              // Mostra a imagem no PictureBox.
             }
 
         }
