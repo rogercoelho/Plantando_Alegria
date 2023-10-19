@@ -10,7 +10,7 @@ namespace Plantando_Alegria.Forms
     public partial class frm_ficha_alunos : Form
     {
         #region Criando variaveis e instanciando objetos.
-        public string selecao;                                      // Variavel que recebe a selecao do checklistbox
+        public static string selecao;                                      // Variavel que recebe a selecao do checklistbox
         public static string[] selecao2;
         DB_PA dB_PA = new DB_PA();                                  // Instanciando objeto para a classe DB_PA.
         DB_PA.Encerramento encerramento = new DB_PA.Encerramento(); // Instanciando objeto para a subclasse DB_PA.Encerramento.
@@ -104,10 +104,11 @@ namespace Plantando_Alegria.Forms
             {
                 DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                              // Pega o caminho da imagem selecionada.
                 pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;                            // Mostra a imagem no PictureBox.
+                DB_PA.foto_alterada = true;
             }
         }
         #endregion
-
+        
         #region Metodo do Botao Editar.
         private void btn_editar_Click(object sender, EventArgs e)
         {
@@ -159,22 +160,13 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
 
             dB_PA.Compara_Ficha();
-            dB_PA.Query_Atualizar_Cadastro();
 
-            if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao do cadastro.
+            if (DB_PA.dados_alterados == true || DB_PA.foto_alterada == true)
             {
-                dB_PA.Query_Alterar_Imagem();
-         
+                dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();
+                dB_PA.Executa_Pesquisa();
+                Carrega_Ficha_Aluno();
             }
-
-            if (DB_PA.Cad_Ok == "OK")           // Essa é referente a atualizacao da imagem.
-            {
-                encerramento.Mensagem_06();
-            }
-
-            btn_cancelar.PerformClick();
-
-            
         }
 
         #endregion

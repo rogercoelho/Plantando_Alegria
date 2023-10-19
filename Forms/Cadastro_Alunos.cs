@@ -6,7 +6,8 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_cadastro_alunos : Form
     {
-        
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
+
         #region Metodo Construtor.
         public frm_cadastro_alunos()
         {
@@ -146,10 +147,10 @@ namespace Plantando_Alegria.Forms
             
             #region Insere a imagem na tabela Alunos_Imagem SE o cadastro for feito com sucesso.
 
-            if (DB_PA.Cad_Ok == "OK")
-            {
-                dB_PA.Query_Inserir_Imagem();
-            }
+            //if (DB_PA.Cad_Ok == "OK")
+            //{
+            //    dB_PA.Query_Inserir_Imagem();
+            //}
 
             #endregion
 
@@ -157,6 +158,7 @@ namespace Plantando_Alegria.Forms
 
             if (DB_PA.Cad_Ok == "OK")
             {
+                encerramento.Mensagem_11();
                 btn_limpar.PerformClick();  // Limpa os campos
             }
             

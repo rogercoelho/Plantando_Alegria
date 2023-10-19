@@ -4,6 +4,7 @@ using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -34,6 +35,9 @@ namespace Plantando_Alegria.MysqlDb
 
         public static string caminho_foto_aluno;
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
+        public static bool dados_alterados;                             // variavel que identifica se tem alteracoes nos dados da ficha do aluno.
+        public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto do aluno.
+        public static bool pesquisa_codigo;                             // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2
         public static int contador;                                     // Variavel para mostrar mensagem mensagem 1 ou 2.
         public static string Cad_Ok;                                    // string para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // variavel que recebe a query do banco.
@@ -69,7 +73,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
-        #region Metodo Query para Atualizar Aluno REVISADO.
+        #region Metodo Query para Atualizar Aluno.
         public void Query_Atualizar_Cadastro()
         {
             query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +
@@ -137,6 +141,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
         {
+            pesquisa_codigo = true;
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta escrito no label.
             cmd.CommandText = query;                                                        // Sintaxe do CommandText recebe a variavel str_sql que recebe a informacao de consulta no banco.
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
@@ -218,8 +223,6 @@ namespace Plantando_Alegria.MysqlDb
             if (Cad_Ok == "OK")                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
                                                                                     // Se a resposta for OK ai sim insere a imagem no banco.
             {
-                if (caminho_foto_aluno != null)
-                {
                     FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.
                     BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                                  // Como o banco nao recebe imagem e sim dados
 
@@ -229,9 +232,6 @@ namespace Plantando_Alegria.MysqlDb
                     cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
                     cmd.CommandText = query;
                     Executa_Banco();
-                }                                                                                                                // parecido com o datareader.
-
-            
             }
 
         }
@@ -243,28 +243,11 @@ namespace Plantando_Alegria.MysqlDb
         {
             try
             {
-                if (contador > 2) 
-                {
-                    contador = 0; 
-                }
-
                 cmd.Connection = conexao_Banco_PA.Conectar_DB();        // Tenta fazer a conexao com o Banco chamando o metodo Conectar_DB da classe Conexao_Banco_PA
                 cmd.ExecuteNonQuery();                                  // Comando que excuta a Query.
                 conexao_Banco_PA.Desconectar_DB();
 
                 Cad_Ok = "OK";                                    // Passa o valor OK para a variavel Cad_OK.
-                contador++;
-
-                if (contador == 1) 
-                {
-                    MessageBox.Show("Cadastro Realizado com Sucesso.\n" +
-                                    "Agora Vamos Salvar a Imagem do Aluno.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (contador == 2)
-                {
-                    encerramento.Mensagem_06();
-                    contador++;
-                }
             }
             catch (MySqlException errodb)       // Caso dê erro, mostra o erro do banco de dados.
             {
@@ -275,6 +258,11 @@ namespace Plantando_Alegria.MysqlDb
 
             conexao_Banco_PA.Desconectar_DB();  // Chama o metodo Desconectar_DB da classe Conexao_Banco_Pa. (Desconecta do banco
 
+            if (DB_PA.e_cadastro == true)
+            {
+                DB_PA.e_cadastro = false;
+                Query_Inserir_Imagem();
+            }
         }
 
         #endregion
@@ -333,6 +321,11 @@ namespace Plantando_Alegria.MysqlDb
                 
                     Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
 
+                    if (pesquisa_codigo == true)
+                    {
+                        frm_ficha_alunos.selecao = (string)lista[0];
+                    }
+
                 }
                 #endregion
 
@@ -386,6 +379,14 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Compara_Ficha()
         {
+            dados_alterados = false;
+
+            if ( caminho_foto_aluno == null )
+            {
+                foto_alterada = false;
+            }
+
+
             if (frm_ficha_alunos.selecao2[3].ToString().Trim() == Alunos_Nome.ToString().Trim())
             {
                 if (frm_ficha_alunos.selecao2[5].ToString().Trim() == Alunos_Endereco.ToString().Trim())
@@ -406,22 +407,54 @@ namespace Plantando_Alegria.MysqlDb
                                             {
                                                 if (frm_ficha_alunos.selecao2[21].ToString().Trim() == Alunos_Telefone_Emergencia_2.ToString().Trim())
                                                 {
-                                                    encerramento.Mensagem_07();
+
                                                 }
+                                                else { dados_alterados = true; }
                                             }
+                                            else { dados_alterados = true; }
                                         }
+                                        else { dados_alterados = true; }
                                     }
+                                    else { dados_alterados = true; }
                                 }
+                                else { dados_alterados = true; }
                             }
+                            else { dados_alterados = true; }
                         }
+                        else { dados_alterados = true; }
                     }
+                    else { dados_alterados = true; }
                 }
+                else { dados_alterados = true; }
+            }
+            else { dados_alterados = true; }
+
+            if (foto_alterada == true && dados_alterados == true)
+            {
+                Query_Alterar_Imagem();
+                Query_Atualizar_Cadastro();
+                encerramento.Mensagem_10();
+            }
+            else if (foto_alterada == false && dados_alterados == true)
+            {
+                Query_Atualizar_Cadastro();
+                encerramento.Mensagem_08();
+            }
+            else if (foto_alterada == true && dados_alterados == false)
+            {
+                Query_Alterar_Imagem();
+                encerramento.Mensagem_10();
+            }
+            else
+            {
+                encerramento.Mensagem_07();
             }
         }
 
 
 
-        
+
+
         #region Classe de Mensagens de tela.
         public class Encerramento
         {
@@ -455,12 +488,32 @@ namespace Plantando_Alegria.MysqlDb
             public void Mensagem_06()
             {
                 MessageBox.Show("A imagem foi salva com sucesso.\n" +
-                                    "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                "Cadastro do Aluno finalizado.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             public void Mensagem_07()
             {
-                MessageBox.Show("Nao houve alteração nos dados do aluno.\n" +
-                                    "Verificando se houve alteração da foto.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nao houve alterações na ficha do aluno.\n" +
+                                "Não existe nada para salvar!.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_08()
+            {
+                MessageBox.Show("Os dados da ficha do aluno foram atualizados com sucesso.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_09()
+            {
+                MessageBox.Show("A foto do aluno foi atualizada com sucesso.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_10()
+            {
+                MessageBox.Show("Os dados e a foto do aluno foram atualizados com sucesso.\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_11()
+            {
+                MessageBox.Show("Aluno cadastrado com sucesso..\n",
+                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion

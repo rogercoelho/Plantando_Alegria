@@ -121,7 +121,7 @@ namespace Plantando_Alegria.Forms
         {
             frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();             // Isntanciando objeto para a classe ficha do aluno.
 
-            frm_Ficha_Alunos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
+            frm_ficha_alunos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
 
             frm_Ficha_Alunos.Show();                                                // Abre a tela ficha do aluno.
             this.Close();                                                           // Fecha a tela atual.
