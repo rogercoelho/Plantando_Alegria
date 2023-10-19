@@ -9,11 +9,17 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_alunos : Form
     {
-        #region Criando variaveis e instanciando objetos.
+        #region Instanciando objetos.
+
+        DB_PA dB_PA = new DB_PA();                                          // Instanciando objeto para a classe DB_PA.
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a subclasse DB_PA.Encerramento.    
+        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
+
+        #endregion
+
+        #region Variaveis operacionais.
         public static string selecao;                                      // Variavel que recebe a selecao do checklistbox
         public static string[] selecao2;
-        DB_PA dB_PA = new DB_PA();                                  // Instanciando objeto para a classe DB_PA.
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento(); // Instanciando objeto para a subclasse DB_PA.Encerramento.
 
         #endregion
 
@@ -32,9 +38,8 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Voltar.
-        private void btn_voltar_Click(object sender, EventArgs e)
+        public void btn_voltar_Click(object sender, EventArgs e)
         {
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
             frm_Tela_Principal.Show();                                          // Abre a tela principal.
             this.Close();                                                       // fecha a atual.
         }
