@@ -3,6 +3,7 @@ using Org.BouncyCastle.Bcpg;
 using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -47,13 +48,16 @@ namespace Plantando_Alegria.MysqlDb
         public static string caminho_foto_aluno;                        // Variavel que armazena o caminho da foto do aluno.
         public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno e do plano estao certos.
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
-        public static bool dados_alterados;                             // variavel que identifica se tem alteracoes nos dados da ficha do aluno.
-        public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto da ficha do aluno.
-        public static bool pesquisa_codigo = false;                     // variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
+        public static bool dados_alterados;                             // Variavel que identifica se tem alteracoes nos dados da ficha do aluno.
+        public static bool foto_alterada;                               // Variavel que identifica se tem alteracoes na foto da ficha do aluno.
+        public static bool pesquisa_codigo = false;                     // Variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
+        public static bool pesquisa_codigo_plano = false;               // Variavel que identifica que a pesquisa foi feita pelo codigo do plano para jogar direto para selecao2.
+        public static bool pesquisar_planos = false;                    // Variavel que chama a parte de pesquisar planos do metodo executa_pesquisa.
+        public static bool pesquisar_alunos = false;                    // Variavel que chama a parte de pesquisar alunos do metodo executa_pesquisa.
         public static string Cad_Ok;                                    // Variavel para a limpeza do textbox e mostrar o checklistbox.
-        public string query;                                            // variavel que recebe a query do banco.
-        public static byte[] imagem_byte;                               // variavel que retorna em bytes a imagem.
-        MySqlDataReader dataReader;                                     // variavel que armazena a leitura do banco.
+        public string query;                                            // Variavel que recebe a query do banco.
+        public static byte[] imagem_byte;                               // Variavel que retorna em bytes a imagem.
+        MySqlDataReader dataReader;                                     // Variavel que armazena a leitura do banco.
 
         #endregion
 
@@ -219,6 +223,61 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
+        #region Metodo Query para pesquisar tudo da tabela Planos_Cadastro.
+
+        public void Pesquisar_Tudo_tbl_planos_cadastro()
+        {
+            query = "SELECT * from Planos_Cadastro";    // Variavel ira receber a query.         
+            cmd.CommandText = query;                    // Repassa a variavel query para os comandos do mysql.
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo codigo do plano na tabela Planos_Cadastro.
+
+        public void Pesquisar_pelo_Codigo_tbl_planos_cadastro()
+        {
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
+            pesquisa_codigo = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
+            query = "SELECT * from Planos_Cadastro WHERE Planos_Codigo LIKE " + 
+                    "'" + planos_codigo + "'";                                                  // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.Add("@Planos_Codigo", MySqlDbType.VarChar).Value = planos_codigo;    // Adiciona um parametro para acrescentar os valores encontrados.
+
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo nome do plano na tabela Planos_Cadastro.
+
+        public void Pesquisar_Pelo_Nome_tbl_planos_cadastro()
+        {
+            cmd.Parameters.Clear();
+
+            query = "SELECT * from Planos_Cadastro WHERE Planos_Nome LIKE" + 
+                    "'" + planos_nome + "'";                                                        // Variavel ira receber a query. + o que esta na variavel.       
+            cmd.CommandText = query;                                                                // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Planos_Nome", planos_nome);                               // Adiciona um parametro para acrescentar os valores encontrados
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo nome ou pelo codigo na tabela Planos_Cadastro.
+
+        public void Pesquisar_pelo_Nome_Codigo_tbl_planos_cadastro()
+        {
+            query = "SELECT * from Planos_Cadastro WHERE Planos_Codigo LIKE" +    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                    "'" + planos_codigo + "'" + " OR Planos_Nome LIKE" +
+                    "'" + planos_nome + "'";
+
+            cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Planos_codigo", Alunos_Codigo);   // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Planos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
+
         #endregion
 
         #endregion
@@ -240,6 +299,19 @@ namespace Plantando_Alegria.MysqlDb
             Alunos_Telefone_Emergencia_2 = "";      // Atribui vazio na variavel.
             Criado_Em = "";                         // Atribui vazio na variavel.
             Atualizado_Em = "";                     // Atribui vazio na variavel.
+        }
+
+        #endregion
+
+        #region Metodo que limpa as variaveis DP_PA da tabela Planos_Cadastro.
+        public void Limpa_Variaveis_Plano()
+        {
+            planos_codigo = "";
+            planos_nome = "";
+            planos_qtd_aulas_semana = "";
+            planos_qtd_aulas_total = "";
+            planos_valor_mensal = "";
+            planos_valor_total = "";
         }
 
         #endregion
@@ -403,7 +475,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Metodo que executa a pesquisa do cadastro na tabela Alunos_Cadastro.
+        #region Metodo que executa a pesquisa na tabela Alunos_Cadastro ou Planos_Cadastro.
 
         public void Executa_Pesquisa()
         {
@@ -435,34 +507,69 @@ namespace Plantando_Alegria.MysqlDb
 
                 else                                                // Caso possua dados na tabela do Banco faz a tratativa.
                 {
-                                                                    // Pega do datareader e tranfere para a lista
-    
+                    // Pega do datareader e tranfere para a lista
+
                     lista.Clear();                                  // limpa a lista para nao ter sujeita de pesquisa anterior.
-                    
-                    while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
-                    {
 
-                        lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
-                                                   "  Nome | ", dataReader[1].ToString() + " | ",
-                                                   "  Endereço | ", dataReader[2].ToString() + " | ",
-                                                   "  Bairro | ", dataReader[3].ToString() + " | ",
-                                                   "  Cidade | ", dataReader[4].ToString() + " | ",
-                                                   "  CEP | ", dataReader[5].ToString() + " | ",
-                                                   "  Tel. | ", dataReader[6].ToString() + " | ",
-                                                   "  Email | ", dataReader[7].ToString() + " | ",
-                                                   "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
-                                                   "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                                   "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
-                                                   "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
-                                                   "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
-                    }    
-                
-                    Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
+                    #region Parte que pesquisa Planos.
 
-                    if (pesquisa_codigo == true)
+                    if (pesquisar_planos == true)
                     {
-                        frm_ficha_alunos.selecao = (string)lista[0];
+                        while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
+                        {
+
+                            lista.Add(string.Join(null, "Cod_Plano. | ", dataReader[0].ToString() + " | ",
+                                                       "  Nome_Plano | ", dataReader[1].ToString() + " | ",
+                                                       "  Qtd_Aulas_Semana| ", dataReader[2].ToString() + " | ",
+                                                       "  Qtd_Aulas_Total | ", dataReader[3].ToString() + " | ",
+                                                       "  Valor_Mensal_Plano | ", dataReader[4].ToString().Replace("." ,",") + " | ",
+                                                       "  Valor_Anual_Plano | ", dataReader[5].ToString().Replace(".",",") + " | ",
+                                                       "  Situação_Plano | ", dataReader[6].ToString() + " | "));
+                        }
+                        Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
                     }
+                    pesquisar_planos = false;
+
+                    if (pesquisa_codigo_plano == true)
+                    {
+                       //INSERIR FICHA DO PLANO.
+                    }
+
+                    #endregion
+
+                    #region Parte que pesquisa Alunos.
+
+                    if (pesquisar_alunos == true)
+                    {
+                        while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
+                        {
+
+                            lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
+                                                       "  Nome | ", dataReader[1].ToString() + " | ",
+                                                       "  Endereço | ", dataReader[2].ToString() + " | ",
+                                                       "  Bairro | ", dataReader[3].ToString() + " | ",
+                                                       "  Cidade | ", dataReader[4].ToString() + " | ",
+                                                       "  CEP | ", dataReader[5].ToString() + " | ",
+                                                       "  Tel. | ", dataReader[6].ToString() + " | ",
+                                                       "  Email | ", dataReader[7].ToString() + " | ",
+                                                       "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
+                                                       "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
+                                                       "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
+                                                       "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
+                                                       "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                        }
+
+                        Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
+
+                        if (pesquisa_codigo == true)
+                        {
+                            frm_ficha_alunos.selecao = (string)lista[0];
+                        }
+                        pesquisar_alunos = false;
+                    }
+
+                    #endregion
+
 
                 }
                 #endregion
@@ -760,6 +867,11 @@ namespace Plantando_Alegria.MysqlDb
             {
                 MessageBox.Show("Plano " + planos_codigo + " de nome " + planos_nome + " cadastrado com sucesso.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_30()
+            {
+                MessageBox.Show("A pesquisa irá efetuar a busca pelo código OU pelo nome do plano.\n",
+                                "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion

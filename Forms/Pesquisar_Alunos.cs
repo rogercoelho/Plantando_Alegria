@@ -49,6 +49,7 @@ namespace Plantando_Alegria.Forms
             dB_PA.Limpar_Variaveis();
             DB_PA.Alunos_Codigo = txtb_codigo.Text;
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
+            DB_PA.pesquisar_alunos = true;
        
             #endregion
 
