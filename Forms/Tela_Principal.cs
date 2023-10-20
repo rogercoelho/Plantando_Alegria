@@ -63,16 +63,19 @@ namespace Plantando_Alegria
 
         #endregion
 
+        #region Metodo do botao Pesquisar Planos.
         public void btn_pesquisar_plano_Click(object sender, EventArgs e)
         {
-            #region Abre o Form Consulta de Planos e Fecha o principal.
+            #region Abre o Form Pesquisa de Planos e Fecha o principal.
 
-           // Consultar_Planos consultar_Planos = new Consultar_Planos();     // Instancia objeto para a classe Consultar Planos.
-           // consultar_Planos.Show();                                        // Mostra a tela Consultar Planos.
-            this.Hide();                                                    // Fecha a tela.
+            frm_pesquisar_planos frm_Pesquisar_Planos = new frm_pesquisar_planos(); // Instanciando objeto para a classe frm_pesquisar_planos.
+            frm_Pesquisar_Planos.Show();                                            // Mostra a tela de pesquisar planos.
+            this.Hide();                                                            // Fecha a tela.
 
             #endregion
         }
+
+        #endregion
 
         #region Metodo do Botao Sair.
         public void btn_sair_Click(object sender, EventArgs e)
