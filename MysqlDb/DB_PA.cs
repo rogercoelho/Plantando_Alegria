@@ -4,8 +4,10 @@ using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Plantando_Alegria.MysqlDb
 {
@@ -43,7 +45,7 @@ namespace Plantando_Alegria.MysqlDb
         #region Variaveis Operacionais
 
         public static string caminho_foto_aluno;                        // Variavel que armazena o caminho da foto do aluno.
-        public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno estao certos.
+        public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno e do plano estao certos.
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static bool dados_alterados;                             // variavel que identifica se tem alteracoes nos dados da ficha do aluno.
         public static bool foto_alterada;                               // variavel que identifica se tem alteracoes na foto da ficha do aluno.
@@ -562,39 +564,44 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Verifica_Campos_Plano()
         {
+            frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();
+            campos_validados = true;
+
             while (string.IsNullOrEmpty (planos_codigo))
             {
                 encerramento.Mensagem_23();
+                campos_validados = false;
                 return;
             }
             while (string.IsNullOrEmpty (planos_nome))
             {
-                encerramento.Mensagem_24(); 
+                encerramento.Mensagem_24();
+                campos_validados = false;
                 return;
             }
             while (!int.TryParse(planos_qtd_aulas_semana, out int verifica))
             {
                 encerramento.Mensagem_25();
+                campos_validados = false;
+                frm_Cadastro_Planos.txtb_qtd_aulas_semana.Focus();
                 return;
             }
             while (!int.TryParse(planos_qtd_aulas_total, out int verifica))
             {
                 encerramento.Mensagem_26();
+                campos_validados = false;
                 return;
             }
             while (!double.TryParse(planos_valor_mensal, out double verifica))
             {
                 encerramento.Mensagem_27();
-                return;
-            }
-            while(!double.TryParse(planos_valor_mensal, out double verifica))
-            {
-                encerramento.Mensagem_28();
+                campos_validados = false;
                 return;
             }
             while (!double.TryParse(planos_valor_total, out double verifica))
             {
-                encerramento.Mensagem_29();
+                encerramento.Mensagem_28();
+                campos_validados = false;
                 return;
             }
         }
@@ -741,20 +748,15 @@ namespace Plantando_Alegria.MysqlDb
             }
             public void Mensagem_27()
             {
-                MessageBox.Show("O Campo Nome do Plano não pode estar vazio.\n",
+                MessageBox.Show("O Campo Valor Mensal do Plano aceita apenas valor e não pode estar vazio.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             public void Mensagem_28()
             {
-                MessageBox.Show("O Campo Valor Mensal do Plano aceita apenas valor e não pode estar vazio.\n",
-                                "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            public void Mensagem_29()
-            {
                 MessageBox.Show("O Campo Valor Total do Plano aceita apenas valor e não pode estar vazio.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            public void Mensagem_30()
+            public void Mensagem_29()
             {
                 MessageBox.Show("Plano " + planos_codigo + " de nome " + planos_nome + " cadastrado com sucesso.\n",
                                 "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);

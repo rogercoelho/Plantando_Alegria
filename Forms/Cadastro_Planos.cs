@@ -46,6 +46,7 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
+        #region Metodo do botão adicionar plano.
         private void btn_adicionar_plano_Click(object sender, EventArgs e)
         {
             #region Repassando os valores do textbox para as variaveis.
@@ -60,14 +61,21 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             dB_PA.Verifica_Campos_Plano();
-            dB_PA.Cadastra_Plano();
-            dB_PA.Executa_Banco();
-            if (DB_PA.Cad_Ok == "OK")
-            {
-                encerramento.Mensagem_30();
-                btn_limpar.PerformClick();
-            }
 
+            if (DB_PA.campos_validados == true)
+            {
+                dB_PA.Cadastra_Plano();
+                dB_PA.Executa_Banco();
+                if (DB_PA.Cad_Ok == "OK")
+                {
+                    encerramento.Mensagem_29();
+                    btn_limpar.PerformClick();
+                }
+            }
+        
         }
+
+        #endregion
+
     }
 }

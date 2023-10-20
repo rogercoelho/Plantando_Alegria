@@ -243,12 +243,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_limpar;
-        private System.Windows.Forms.TextBox txtb_valor_total_plano;
-        private System.Windows.Forms.TextBox txtb_valor_mensal_plano;
-        private System.Windows.Forms.TextBox txtb_qtd_aulas_total;
-        private System.Windows.Forms.TextBox txtb_qtd_aulas_semana;
-        private System.Windows.Forms.TextBox txtb_nome_plano;
-        private System.Windows.Forms.TextBox txtb_codigo_plano;
         private System.Windows.Forms.Label lbl_valor_total;
         private System.Windows.Forms.Button btn_adicionar_plano;
         private System.Windows.Forms.Label lbl_valor_mensal;
@@ -258,5 +252,11 @@
         private System.Windows.Forms.Label lbl_cadastro_alunos;
         private System.Windows.Forms.Button btn_voltar;
         private System.Windows.Forms.Label lbl_cod_plano;
+        public System.Windows.Forms.TextBox txtb_valor_total_plano;
+        public System.Windows.Forms.TextBox txtb_valor_mensal_plano;
+        public System.Windows.Forms.TextBox txtb_qtd_aulas_total;
+        public System.Windows.Forms.TextBox txtb_qtd_aulas_semana;
+        public System.Windows.Forms.TextBox txtb_nome_plano;
+        public System.Windows.Forms.TextBox txtb_codigo_plano;
     }
 }
