@@ -404,6 +404,8 @@ namespace Plantando_Alegria.MysqlDb
         #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
         public void Executa_Pesquisa_Imagem()
         {
+            cmd.Connection = conexao_Banco_PA.Conectar_DB(); // Conecta no banco para realizar a pesquisa.
+
             try
             {
                 dataReader = cmd.ExecuteReader();           // Executa o datareader

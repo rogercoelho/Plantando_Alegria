@@ -12,7 +12,6 @@ namespace Plantando_Alegria.Forms
 
         DB_PA dB_PA = new DB_PA();                                          // Instanciando objeto para a classe DB_PA.
         DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a subclasse DB_PA.Encerramento.    
-        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
 
         #endregion
 
@@ -30,22 +29,23 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo de execucao ao carregar Tela.
-        private void frm_ficha_alunos_Load(object sender, EventArgs e)
+        public void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
             Carrega_Ficha_Aluno();
         }
         #endregion
 
         #region Metodo do Botao Voltar.
-        private void btn_voltar_Click(object sender, EventArgs e)
+        public void btn_voltar_Click(object sender, EventArgs e)
         {
+            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
             frm_Tela_Principal.Show();                                          // Abre a tela principal.
             this.Close();                                                       // fecha a atual.
         }
         #endregion
 
         #region Metodo do Botao Cancelar.
-        private void btn_cancelar_Click(object sender, EventArgs e)
+        public void btn_cancelar_Click(object sender, EventArgs e)
         {
             #region Controle dos botoes e textbox.
 
@@ -82,7 +82,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Limpar.
-        private void btn_limpar_Click(object sender, EventArgs e)
+        public void btn_limpar_Click(object sender, EventArgs e)
         {
             txtb_nome_aluno.Clear();                                            // Limpa o textbox.
             txtb_endereco.Clear();                                              // Limpa o textbox.
@@ -99,7 +99,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao de Alterar Imagem.
-        private void btn_alterar_imagem_Click(object sender, EventArgs e)
+        public void btn_alterar_imagem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
             openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filta os tipos de arquivos permitidos.
@@ -112,9 +112,9 @@ namespace Plantando_Alegria.Forms
             }
         }
         #endregion
-        
+
         #region Metodo do Botao Editar.
-        private void btn_editar_Click(object sender, EventArgs e)
+        public void btn_editar_Click(object sender, EventArgs e)
         {
             #region Controle dos botoes e textbox.
 
@@ -148,7 +148,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao Salvar
-        private void btn_salvar_Click(object sender, EventArgs e)
+        public void btn_salvar_Click(object sender, EventArgs e)
         {
             #region Atribui valor para as variaveis.
             
@@ -218,7 +218,7 @@ namespace Plantando_Alegria.Forms
 
         #region Metodo que carrega a ficha do aluno.
 
-        private void Carrega_Ficha_Aluno()
+        public void Carrega_Ficha_Aluno()
         {
             char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
             selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);    // Selecao2 recebe de selecao com os caracteres removidos.

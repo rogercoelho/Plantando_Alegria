@@ -9,7 +9,6 @@ namespace Plantando_Alegria.Forms
     {
         #region Instanciando objetos.
             
-        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para pa classe.
         DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a classe encerramento.     
         DB_PA dB_PA = new DB_PA();                                          // Instancia objeto para a classe DB_PA.
 
@@ -24,9 +23,11 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao Voltar.
-        private void btn_voltar_Click(object sender, EventArgs e)
+        public void btn_voltar_Click(object sender, EventArgs e)
         {
             #region Abre a tela principal e fecha a atual.
+        
+            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para pa classe.
             frm_Tela_Principal.Show();                                          // abre o frm tela principal
             this.Close();                                                       // Fecha o atual.
             #endregion
@@ -35,9 +36,9 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Limpar.
-        private void btn_limpar_Click(object sender, EventArgs e)
+        public void btn_limpar_Click(object sender, EventArgs e)
         {
-            
+
             txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
             txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
             txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
@@ -55,7 +56,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do Botao Adicionar Aluno
-        private void btn_adicionar_aluno_Click(object sender, EventArgs e)
+        public void btn_adicionar_aluno_Click(object sender, EventArgs e)
         {
 
             #region Repassa os dados dos campos para as variaveis DB_PA.          
@@ -105,7 +106,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao inserir imagem.
-        private void btn_inserir_imagem_Click(object sender, EventArgs e)
+        public void btn_inserir_imagem_Click(object sender, EventArgs e)
         {
             
             OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
@@ -124,7 +125,7 @@ namespace Plantando_Alegria.Forms
         #region Metodos para a Foto Padrao.
 
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
-        private void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.
+        public void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.
         {
             foto_padrao();                      // caminho onde a foto esta armazenada.
         }

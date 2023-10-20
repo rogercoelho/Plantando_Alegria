@@ -16,16 +16,15 @@ namespace Plantando_Alegria.Forms
 
         #region Instanciando objetos.
     
-        frm_tela_principal frm_Tela_Principal = new frm_tela_principal();       // Instancia o objeto para a classe frm_tela_Principal.
         DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
         DB_PA dB_PA = new DB_PA();
-        frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();             // Isntanciando objeto para a classe ficha do aluno.    
 
         #endregion
 
         #region Metodo do Botao Voltar.
-        private void btn_voltar_Click(object sender, EventArgs e)
+        public void btn_voltar_Click(object sender, EventArgs e)
         {
+            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();       // Instancia o objeto para a classe frm_tela_Principal.
             frm_Tela_Principal.Show();                                              // Carrega a tela principal.
             this.Close();                                                           // Fecaa tela atual.
         }
@@ -33,7 +32,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metddo do Botao Limpar.
-        private void btn_limpar_Click(object sender, EventArgs e)
+        public void btn_limpar_Click(object sender, EventArgs e)
         {
             txtb_codigo.Clear();                // Faz a limpeza do txtb_codigo.
             txtb_nome_aluno.Clear();            // Faz a limpeza do txtb_nome_aluno.
@@ -43,7 +42,7 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo do botao Pesquisar.
-        private void btn_pesquisar_Click(object sender, EventArgs e)
+        public void btn_pesquisar_Click(object sender, EventArgs e)
         {            
 
             #region Tratando as variaveis.
@@ -122,8 +121,9 @@ namespace Plantando_Alegria.Forms
         #endregion
 
         #region Metodo de selecao do checklistbox.
-        private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
+        public void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();             // Isntanciando objeto para a classe ficha do aluno.    
             frm_ficha_alunos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
             frm_Ficha_Alunos.Show();                                                // Abre a tela ficha do aluno.
             this.Close();                                                           // Fecha a tela atual.
