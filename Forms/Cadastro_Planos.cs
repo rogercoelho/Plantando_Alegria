@@ -1,13 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using Plantando_Alegria.MysqlDb;
+﻿using Plantando_Alegria.MysqlDb;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.Forms
@@ -17,6 +9,7 @@ namespace Plantando_Alegria.Forms
         #region Instanciando Objetos
 
         frm_tela_principal frm_tela_Principal = new frm_tela_principal();
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
         DB_PA dB_PA = new DB_PA();
 
         #endregion
@@ -55,6 +48,25 @@ namespace Plantando_Alegria.Forms
 
         private void btn_adicionar_plano_Click(object sender, EventArgs e)
         {
+            #region Repassando os valores do textbox para as variaveis.
+
+            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper();
+            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper();
+            DB_PA.planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.ToUpper();
+            DB_PA.planos_qtd_aulas_total = txtb_qtd_aulas_total.Text.ToUpper();
+            DB_PA.planos_valor_mensal = txtb_valor_mensal_plano.Text.ToUpper().Replace(",", ".");
+            DB_PA.planos_valor_total = txtb_valor_total_plano.Text.ToUpper().Replace(",", ".");
+
+            #endregion
+
+            dB_PA.Verifica_Campos_Plano();
+            dB_PA.Cadastra_Plano();
+            dB_PA.Executa_Banco();
+            if (DB_PA.Cad_Ok == "OK")
+            {
+                encerramento.Mensagem_30();
+                btn_limpar.PerformClick();
+            }
 
         }
     }
