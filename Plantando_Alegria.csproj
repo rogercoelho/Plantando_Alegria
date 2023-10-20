@@ -125,6 +125,12 @@
     <Compile Include="Forms\Pesquisar_Alunos.Designer.cs">
       <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Pesquisar_Planos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Pesquisar_Planos.Designer.cs">
+      <DependentUpon>Pesquisar_Planos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tela_Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pesquisar_Alunos.resx">
       <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pesquisar_Planos.resx">
+      <DependentUpon>Pesquisar_Planos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tela_Principal.resx">
       <DependentUpon>Tela_Principal.cs</DependentUpon>
