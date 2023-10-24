@@ -72,6 +72,7 @@
             this.chkbox_resultado.Name = "chkbox_resultado";
             this.chkbox_resultado.Size = new System.Drawing.Size(495, 244);
             this.chkbox_resultado.TabIndex = 56;
+            this.chkbox_resultado.SelectedIndexChanged += new System.EventHandler(this.chkbox_resultado_SelectedIndexChanged);
             // 
             // btn_voltar
             // 

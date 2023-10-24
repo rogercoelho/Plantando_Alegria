@@ -48,9 +48,10 @@ namespace Plantando_Alegria.MysqlDb
         public static string caminho_foto_aluno;                        // Variavel que armazena o caminho da foto do aluno.
         public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno e do plano estao certos.
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
+        public static bool e_log;                                       // Variavel que executa o cadastro na tabela de log do aluno.
         public static bool dados_alterados;                             // Variavel que identifica se tem alteracoes nos dados da ficha do aluno.
         public static bool foto_alterada;                               // Variavel que identifica se tem alteracoes na foto da ficha do aluno.
-        public static bool pesquisa_codigo = false;                     // Variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
+        public static bool pesquisa_codigo_aluno = false;               // Variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
         public static bool pesquisa_codigo_plano = false;               // Variavel que identifica que a pesquisa foi feita pelo codigo do plano para jogar direto para selecao2.
         public static bool pesquisar_planos = false;                    // Variavel que chama a parte de pesquisar planos do metodo executa_pesquisa.
         public static bool pesquisar_alunos = false;                    // Variavel que chama a parte de pesquisar alunos do metodo executa_pesquisa.
@@ -85,6 +86,19 @@ namespace Plantando_Alegria.MysqlDb
                                                         "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
             cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
             e_cadastro = true;              // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
+        }
+        #endregion
+
+        #region Metodo Query Inserir Log do cadastro de Alunos.
+        public void Log_Query_Cadastrar_Aluno()
+        {
+            cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
+
+            query = "INSERT INTO Alunos_Cadastro_log VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
+                                                        "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
+                                                        "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
+                                                        "@Alunos_Telefone_Emergencia_2, @Atualizado_Em)";
+            cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
         }
         #endregion
 
@@ -131,7 +145,7 @@ namespace Plantando_Alegria.MysqlDb
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
         {
             cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
-            pesquisa_codigo = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
+            pesquisa_codigo_aluno = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
             cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
             cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
@@ -238,7 +252,7 @@ namespace Plantando_Alegria.MysqlDb
         public void Pesquisar_pelo_Codigo_tbl_planos_cadastro()
         {
             cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
-            pesquisa_codigo = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
+            pesquisa_codigo_aluno = true;                                                             // Atribui true a variavel pesquisa pelo codigo.
             query = "SELECT * from Planos_Cadastro WHERE Planos_Codigo LIKE " + 
                     "'" + planos_codigo + "'";                                                  // variavel que recebe o comando para executar no mysql + o que esta na variavel.
             cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
@@ -471,6 +485,26 @@ namespace Plantando_Alegria.MysqlDb
             cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;        // Adiciona o parametro tando para cadastro como atualizacao.
             cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;  // Adiciona o parametro tando para cadastro como atualizacao.
             cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;  // Adiciona o parametro tando para cadastro como atualizacao.
+
+            
+            if (e_log == true)
+            {
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                                  // Adiciona o parametro para o cadastro.
+                cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                                // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;                                // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;                                      // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;        // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;  // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;  // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;                               // Adiciona o parametro para a atualizacao do cadastro.
+
+                e_log = false;
+            }
         }
 
         #endregion
@@ -561,7 +595,7 @@ namespace Plantando_Alegria.MysqlDb
 
                         Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
 
-                        if (pesquisa_codigo == true)
+                        if (pesquisa_codigo_aluno == true)
                         {
                             frm_ficha_alunos.selecao = (string)lista[0];
                         }

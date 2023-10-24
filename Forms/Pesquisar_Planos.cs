@@ -125,8 +125,18 @@ namespace Plantando_Alegria.Forms
             #endregion
         }
 
+
         #endregion
 
+        #region Metodo do Checklistbox.
+        private void chkbox_resultado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            frm_ficha_planos frm_Ficha_Planos = new frm_ficha_planos();             // Isntanciando objeto para a classe ficha do aluno.    
+            frm_ficha_planos.selecao = chkbox_resultado.SelectedItem.ToString();    // Variavel selecao recebe o item selecionado do checklistbox.
+            frm_Ficha_Planos.Show();                                                // Abre a tela ficha do aluno.
+            this.Close();                                                           // Fecha a tela atual.
+        }
 
+        #endregion
     }
 }

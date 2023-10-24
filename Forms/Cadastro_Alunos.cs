@@ -90,6 +90,11 @@ namespace Plantando_Alegria.Forms
                     dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
                     dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
                 }
+
+                DB_PA.e_log = true;                             // Atribui True a variavel para registrar o log.
+                dB_PA.Log_Query_Cadastrar_Aluno();              // Chama o metodo Query Cadastrar log.
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco
+                dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
             }
 
             #region Em caso de cadasto realizado com sucesso, limpa os textbox.

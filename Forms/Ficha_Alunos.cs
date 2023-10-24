@@ -185,6 +185,10 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Query_Atualizar_Cadastro();                                       // Chama o metodo da query dos dados.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
+                DB_PA.e_log = true;
+                dB_PA.Log_Query_Cadastrar_Aluno();
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();
+                dB_PA.Executa_Banco();
                 encerramento.Mensagem_08();                                             // mostra mensagem.
             }
             else if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == false)     // Se alterou so a foto.
@@ -199,9 +203,12 @@ namespace Plantando_Alegria.Forms
                 encerramento.Mensagem_07();                                             // mostra mensagem.
             }
 
+
             #endregion
 
             #region Carrega a alteracao na ficha do aluno.
+
+            btn_limpar.PerformClick();
 
             if (DB_PA.dados_alterados == true || DB_PA.foto_alterada == true)           // Se foi alterado.
             {
