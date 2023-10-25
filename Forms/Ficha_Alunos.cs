@@ -1,5 +1,7 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
+using System.Data.OleDb;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -185,10 +187,10 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Query_Atualizar_Cadastro();                                       // Chama o metodo da query dos dados.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                DB_PA.e_log = true;
-                dB_PA.Log_Query_Cadastrar_Aluno();
-                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();
-                dB_PA.Executa_Banco();
+                DB_PA.e_log = true;                                                     // Atribui true na variavel que chama o log.
+                dB_PA.Log_Query_Cadastrar_Aluno();                                      // Chama o metodo da query do log
+                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
+                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
                 encerramento.Mensagem_08();                                             // mostra mensagem.
             }
             else if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == false)     // Se alterou so a foto.
@@ -250,6 +252,14 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
+        private void btn_historico_Click(object sender, EventArgs e)
+        {
+            frm_historico frm_Historico = new frm_historico();
+            frm_historico.volta_ficha_aluno = true;
+            DB_PA.Alunos_Codigo = selecao2[1];
+            frm_Historico.Show();
+            this.Close();
+        }
     }
 }
 

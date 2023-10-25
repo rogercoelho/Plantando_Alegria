@@ -59,6 +59,7 @@
             this.btn_editar = new System.Windows.Forms.Button();
             this.btn_salvar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
+            this.btn_historico = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).BeginInit();
             this.SuspendLayout();
             // 
@@ -412,12 +413,28 @@
             this.btn_cancelar.Visible = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
+            // btn_historico
+            // 
+            this.btn_historico.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_historico.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_historico.FlatAppearance.BorderSize = 2;
+            this.btn_historico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_historico.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_historico.Location = new System.Drawing.Point(280, 510);
+            this.btn_historico.Name = "btn_historico";
+            this.btn_historico.Size = new System.Drawing.Size(94, 35);
+            this.btn_historico.TabIndex = 81;
+            this.btn_historico.Text = "Historico";
+            this.btn_historico.UseVisualStyleBackColor = false;
+            this.btn_historico.Click += new System.EventHandler(this.btn_historico_Click);
+            // 
             // frm_ficha_alunos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 557);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_historico);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_salvar);
             this.Controls.Add(this.btn_editar);
@@ -492,5 +509,6 @@
         private System.Windows.Forms.Button btn_editar;
         private System.Windows.Forms.Button btn_salvar;
         private System.Windows.Forms.Button btn_cancelar;
+        private System.Windows.Forms.Button btn_historico;
     }
 }

@@ -125,6 +125,12 @@
     <Compile Include="Forms\Ficha_Planos.Designer.cs">
       <DependentUpon>Ficha_Planos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Historico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Historico.Designer.cs">
+      <DependentUpon>Historico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Pesquisar_Alunos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ficha_Planos.resx">
       <DependentUpon>Ficha_Planos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Historico.resx">
+      <DependentUpon>Historico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pesquisar_Alunos.resx">
       <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
