@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dtgrid_historico = new System.Windows.Forms.DataGridView();
             this.lbl_historico_alteracoes = new System.Windows.Forms.Label();
             this.btn_voltar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgrid_historico)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dtgrid_historico
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 83);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1077, 382);
-            this.dataGridView1.TabIndex = 0;
+            this.dtgrid_historico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgrid_historico.Location = new System.Drawing.Point(12, 83);
+            this.dtgrid_historico.Name = "dtgrid_historico";
+            this.dtgrid_historico.Size = new System.Drawing.Size(1077, 382);
+            this.dtgrid_historico.TabIndex = 0;
             // 
             // lbl_historico_alteracoes
             // 
@@ -74,11 +74,11 @@
             this.ClientSize = new System.Drawing.Size(1105, 568);
             this.Controls.Add(this.btn_voltar);
             this.Controls.Add(this.lbl_historico_alteracoes);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dtgrid_historico);
             this.Name = "frm_historico";
             this.Text = "Historico";
             this.Load += new System.EventHandler(this.Historico_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgrid_historico)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,7 +86,7 @@
 
         #endregion
 
-        public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView dtgrid_historico;
         private System.Windows.Forms.Label lbl_historico_alteracoes;
         private System.Windows.Forms.Button btn_voltar;
     }

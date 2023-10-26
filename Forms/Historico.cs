@@ -17,10 +17,7 @@ namespace Plantando_Alegria.Forms
     {
         public static bool volta_ficha_aluno;
         public static bool volta_ficha_plano;
-        public string query;
-        Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();    
-        MySqlCommand cmd = new MySqlCommand();    
-        DataTable dataTable = new DataTable();
+        DB_PA dB_PA = new DB_PA();
             
 
 
@@ -51,26 +48,26 @@ namespace Plantando_Alegria.Forms
 
         }
 
+        #region Metodo que executa ao carregar a tela
+
         private void Historico_Load(object sender, EventArgs e)
-        { 
-            cmd.Connection = conexao_Banco_PA.Conectar_DB();
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        {
+            
+            if (volta_ficha_aluno == true)
+            {
+                dB_PA.Executa_Pesquisa_Log();
+                dtgrid_historico.DataSource = dB_PA.log;
 
-            conexao_Banco_PA.Conectar_DB();
-            query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo =" + DB_PA.Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
-            cmd.CommandText = query;                                                                            // Repassa a variavel query para os comandos do mysql.
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);
+            }
+            else if (volta_ficha_plano == true)
+            {
 
-            //preenche o datatable via dataadapter
-            dataAdapter.Fill(dataTable);
-
-            //atribui o datatable ao datagridview para exibir o resultado
-            dataGridView1.DataSource = dataTable;
-
-            cmd.Connection.Close();
-
+            }
         }
 
+        #endregion
+
+        #region Metodo do Botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
             if (volta_ficha_aluno == true)
@@ -90,6 +87,8 @@ namespace Plantando_Alegria.Forms
 
             }
         }
+
+        #endregion
     }
 }
 

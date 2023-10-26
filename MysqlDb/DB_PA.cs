@@ -51,7 +51,6 @@ namespace Plantando_Alegria.MysqlDb
         public static bool campos_validados;                            // Variavel que valida se os campos do cadastro do aluno e do plano estao certos.
         public static bool e_cadastro;                                  // Variavel que identifica se é um novo cadastro ou atualizacao.
         public static bool e_log;                                       // Variavel que executa o cadastro na tabela de log do aluno.
-        public static string[] log;
         public static bool dados_alterados;                             // Variavel que identifica se tem alteracoes nos dados da ficha do aluno.
         public static bool foto_alterada;                               // Variavel que identifica se tem alteracoes na foto da ficha do aluno.
         public static bool pesquisa_codigo_aluno = false;               // Variavel que identifica que a pesquisa foi feita pelo codigo para jogar direto para selecao2.
@@ -61,12 +60,13 @@ namespace Plantando_Alegria.MysqlDb
         public static string Cad_Ok;                                    // Variavel para a limpeza do textbox e mostrar o checklistbox.
         public string query;                                            // Variavel que recebe a query do banco.
         public static byte[] imagem_byte;                               // Variavel que retorna em bytes a imagem.
+        public object log;                                              // Objeto que recebe o historico do plano ou do aluno.
         MySqlDataReader dataReader;                                     // Variavel que armazena a leitura do banco.
         #endregion
 
         #region Instanciando Objetos.
                                                                         // Comunica com os forms.
-        DataTable dataTable = new DataTable();
+        DataTable dataTable = new DataTable();                          // Instanciando objeto datatable que recebe a tabela do banco.
         Encerramento encerramento = new Encerramento();                 // Instanciando objeto para a classe encerramento.
         public List<object> lista = new List<object>();                 // Instanciando objeto da classe List. Vai receber o datareader em uma lista
         Conexao_Banco_PA conexao_Banco_PA = new Conexao_Banco_PA();     // Instanciando objeto da classe conexao_banco_PA. Para conectar e desconectar do banco.
@@ -290,23 +290,6 @@ namespace Plantando_Alegria.MysqlDb
             cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
             cmd.Parameters.AddWithValue("@Planos_codigo", Alunos_Codigo);   // Adiciona um parametro para acrescentar os valores encontrados.
             cmd.Parameters.AddWithValue("@Planos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
-        }
-
-        #endregion
-
-
-        #endregion
-
-        #region Tabela Alunos_Cadastro_log
-
-        #region Metodo Query para pesquisar pelo codigo do aluno na tabela Alunos_Cadastro_log.
-
-        public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro_log()
-        {
-            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
-            query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo =" + Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
-            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
-           // cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
         }
 
         #endregion
@@ -768,7 +751,32 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo que executa pesquisa do log de mudancas ( HISTORICO ).
 
+        public void Executa_Pesquisa_Log()
+        {
+            if (frm_historico.volta_ficha_aluno == true)
+            {
+                query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo =" + DB_PA.Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+
+            }
+            else if (frm_historico.volta_ficha_plano == true)
+            {
+                query = "SELECT * from Planos_Cadastro_log WHERE Planos_Codigo =" + DB_PA.planos_codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+            }
+            
+            
+            frm_historico frm_Historico = new frm_historico();          // Instanciando objeto para a classe frm_historico.
+            cmd.Connection = conexao_Banco_PA.Conectar_DB();            // Conecta no banco de dados da PA.
+            cmd.CommandText = query;                                    // Repassa a query para o mysqlcommand.
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);   // Instanciando objeto dataadapter que faz a consulta no mysql.
+            dataAdapter.Fill(dataTable);                                // dataadapter preenche o datatable.
+            log = dataTable;                                            // objeto log recebe o datatable.
+            cmd.Connection.Close();                                     // Encerra a conexao.
+        }
+
+
+        #endregion
 
 
         #region Classe de Mensagens de tela.
