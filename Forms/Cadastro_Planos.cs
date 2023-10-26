@@ -64,8 +64,12 @@ namespace Plantando_Alegria.Forms
 
             if (DB_PA.campos_validados == true)
             {
-                dB_PA.Cadastra_Plano();
+                DB_PA.Cad_Ok = "";
+                dB_PA.Cadastrar_Plano();
                 dB_PA.Executa_Banco();
+                dB_PA.Log_Query_Cadastrar_Plano();
+                dB_PA.Executa_Banco();
+
                 if (DB_PA.Cad_Ok == "OK")
                 {
                     encerramento.Mensagem_29();

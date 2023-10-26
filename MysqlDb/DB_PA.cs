@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Bcpg;
 using Plantando_Alegria.Forms;
 using System;
@@ -92,19 +93,6 @@ namespace Plantando_Alegria.MysqlDb
         }
         #endregion
 
-        #region Metodo Query Inserir Log do cadastro de Alunos.
-        public void Log_Query_Cadastrar_Aluno()
-        {
-            cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
-
-            query = "INSERT INTO Alunos_Cadastro_log VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
-                                                        "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
-                                                        "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
-                                                        "@Alunos_Telefone_Emergencia_2, @Atualizado_Em)";
-            cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
-        }
-        #endregion
-
         #region Metodo Query para Atualizar Aluno na tabela Alunos_Cadastro.
         public void Query_Atualizar_Cadastro()
         {
@@ -175,6 +163,23 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Tabela Alunos_Cadastro_log
+
+        #region Metodo Query Inserir Log do cadastro de Alunos.
+        public void Log_Query_Cadastrar_Aluno()
+        {
+            cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
+
+            query = "INSERT INTO Alunos_Cadastro_log VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
+                                                        "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
+                                                        "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
+                                                        "@Alunos_Telefone_Emergencia_2, @Atualizado_Em)";
+            cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
+        }
+        #endregion
+
+        #endregion
+        
         #region Tabela Alunos_Imagem
 
         #region Metodo Query Para Inserir imagem_Aluno na tabela Alunos_Imagem.
@@ -219,7 +224,7 @@ namespace Plantando_Alegria.MysqlDb
         #region Tabela Planos_Cadastro.
 
         #region Metodo Query para cadastrar plano na tabela Planos_Cadastro.
-        public void Cadastra_Plano()
+        public void Cadastrar_Plano()
         {
             cmd.Parameters.Clear();                                                     // Limpa os parametros para receber novos.
             
@@ -295,6 +300,34 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
 
+        #endregion
+
+
+        #region Tabela Planos_Cadastro_log
+
+        #region Metodo Query Inserir Log do cadastro de Planos.
+        public void Log_Query_Cadastrar_Plano()
+        {
+            cmd.Parameters.Clear();                                                             // Limpa os parametros para receber novos.
+
+            query = "Insert into Planos_Cadastro_log (Planos_Codigo, Planos_Nome, " +
+                    "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total, " +
+                    "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo," +
+                    " Atualizado_Em) Values (?,?,?,?,?,?,?,?)";                                   // sintaxe de insercao do banco.
+
+            cmd.CommandText = query;                                                            // sintaxe da CommandText recebe o valor da variavel
+            cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);                       // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                           // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);          // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);            // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);                  // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);                    // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                               // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.Add ("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;  // Adiciona um parametro para inserir os valores encontrados.
+
+        }
+
+        #endregion
         #endregion
 
         #endregion

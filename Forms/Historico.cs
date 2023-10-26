@@ -52,17 +52,8 @@ namespace Plantando_Alegria.Forms
 
         private void Historico_Load(object sender, EventArgs e)
         {
-            
-            if (volta_ficha_aluno == true)
-            {
                 dB_PA.Executa_Pesquisa_Log();
                 dtgrid_historico.DataSource = dB_PA.log;
-
-            }
-            else if (volta_ficha_plano == true)
-            {
-
-            }
         }
 
         #endregion
