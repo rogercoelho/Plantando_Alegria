@@ -60,23 +60,40 @@ namespace Plantando_Alegria.Forms
 
             #endregion
 
+            #region Valida os campos do cadastro do plano.
+            
             dB_PA.Verifica_Campos_Plano();
+
+            #endregion
+
+            #region Se foram validados cadastra o plano e registra o log.
 
             if (DB_PA.campos_validados == true)
             {
-                DB_PA.Cad_Ok = "";
-                dB_PA.Cadastrar_Plano();
+                #region Cadastra os dados do plano.
+                dB_PA.Query_Cadastrar_Plano();
+                dB_PA.Cadastrar_Atualizar_Planos_Cadastro();
                 dB_PA.Executa_Banco();
-                dB_PA.Log_Query_Cadastrar_Plano();
-                dB_PA.Executa_Banco();
+                #endregion
 
+                #region Se cadastro voltar ok grava o log.
                 if (DB_PA.Cad_Ok == "OK")
                 {
+                    DB_PA.e_log = true;
+                    dB_PA.Log_Query_Cadastrar_Plano();
+                    dB_PA.Cadastrar_Atualizar_Planos_Cadastro();
+                    dB_PA.Executa_Banco();
+
+                    if (DB_PA.Cad_Ok == "OK")
+                    {
                     encerramento.Mensagem_29();
                     btn_limpar.PerformClick();
+                    }
                 }
+                #endregion
             }
-        
+
+            #endregion
         }
 
         #endregion

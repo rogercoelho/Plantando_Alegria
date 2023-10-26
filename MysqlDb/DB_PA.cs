@@ -87,7 +87,7 @@ namespace Plantando_Alegria.MysqlDb
             query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
                                                         "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
                                                         "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
-                                                        "@Alunos_Telefone_Emergencia_2, @Criado_Em, @Atualizado_Em)";
+                                                        "@Alunos_Telefone_Emergencia_2)";
             cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
             e_cadastro = true;              // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
         }
@@ -101,7 +101,7 @@ namespace Plantando_Alegria.MysqlDb
                                                       " Alunos_Telefone = @Alunos_Telefone, Alunos_Email = Alunos_Email, " +
                                                       " Alunos_Contato_Emergencia = @Alunos_Contato_Emergencia, " +
                                                       " Alunos_Telefone_Emergencia_1 = @Alunos_Telefone_Emergencia_1," +
-                                                      " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2, Atualizado_Em = @Atualizado_em" +
+                                                      " Alunos_telefone_Emergencia_2 = @Alunos_Telefone_Emergencia_2" +
                                                       " WHERE Alunos_Codigo =" + Alunos_Codigo;
             cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
             e_cadastro = false;         // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
@@ -224,7 +224,7 @@ namespace Plantando_Alegria.MysqlDb
         #region Tabela Planos_Cadastro.
 
         #region Metodo Query para cadastrar plano na tabela Planos_Cadastro.
-        public void Cadastrar_Plano()
+        public void Query_Cadastrar_Plano()
         {
             cmd.Parameters.Clear();                                                     // Limpa os parametros para receber novos.
             
@@ -232,16 +232,6 @@ namespace Plantando_Alegria.MysqlDb
                     "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total, " +
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo)" +
                     "Values (?,?,?,?,?,?,?)";                                           // sintaxe de insercao do banco.
-            
-            cmd.CommandText = query;                                                    // sintaxe da CommandText recebe o valor da variavel
-            cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);               // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                   // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);  // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);    // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);          // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto.
-            cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);            // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto..
-            cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                       // Adiciona um parametro para inserir os valores encontrados.
-
         }
         #endregion
 
@@ -302,7 +292,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-
         #region Tabela Planos_Cadastro_log
 
         #region Metodo Query Inserir Log do cadastro de Planos.
@@ -314,17 +303,6 @@ namespace Plantando_Alegria.MysqlDb
                     "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total, " +
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo," +
                     " Atualizado_Em) Values (?,?,?,?,?,?,?,?)";                                   // sintaxe de insercao do banco.
-
-            cmd.CommandText = query;                                                            // sintaxe da CommandText recebe o valor da variavel
-            cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);                       // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                           // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);          // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);            // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);                  // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);                    // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                               // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.Add ("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;  // Adiciona um parametro para inserir os valores encontrados.
-
         }
 
         #endregion
@@ -504,12 +482,6 @@ namespace Plantando_Alegria.MysqlDb
             if (e_cadastro == true)                                                                                         // Se for cadastro e nao atualizacao.
             {
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                              // Adiciona o parametro para o cadastro.
-                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                               // Adiciona o parametro para o cadastro.
-                cmd.Parameters.Add("Atualizado_Em", MySqlDbType.Timestamp).Value = null;                                    // Adiciona o parametro para o cadastro.
-            }
-            else
-            {
-                cmd.Parameters.Add("@Atualizado_em", MySqlDbType.Timestamp).Value = DateTime.Now;                           // Adiciona o parametro para a atualizacao do cadastro.
             }
             cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
             cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
@@ -541,6 +513,40 @@ namespace Plantando_Alegria.MysqlDb
 
                 e_log = false;
             }
+        }
+
+        #endregion
+
+        #region Metodo que cadastra ou atualiza o cadastro na tabela Planos_Cadastro.
+
+        public void Cadastrar_Atualizar_Planos_Cadastro()
+        {
+            if (e_log == true)
+            {
+                cmd.CommandText = query;                                                            // sintaxe da CommandText recebe o valor da variavel
+                cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);                       // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                           // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);          // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);            // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);                  // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);                    // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                               // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para inserir os valores encontrados.
+                e_log = false;
+            }
+            else
+            {
+            cmd.CommandText = query;                                                    // sintaxe da CommandText recebe o valor da variavel
+            cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);               // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                   // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);  // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);    // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);          // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto.
+            cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);            // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto..
+            cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                       // Adiciona um parametro para inserir os valores encontrados.
+
+            }
+
         }
 
         #endregion
@@ -624,9 +630,7 @@ namespace Plantando_Alegria.MysqlDb
                                                        "  Email | ", dataReader[7].ToString() + " | ",
                                                        "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
                                                        "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                                       "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | ",
-                                                       "  Cadastro Criado Em | ", dataReader[11].ToString() + " | ",
-                                                       "  Cadastro Atualizado Em | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                                                       "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                         }
 
                         Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
@@ -674,6 +678,8 @@ namespace Plantando_Alegria.MysqlDb
                                                                                                                     // "lido"pelo binary reader.
 
                 cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                            // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                       // Define a data de insercao da imagem.
+                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = null;                           // define a data de atualizacao da imagem.
                 cmd.CommandText = query;                                                                            // Repassa a variavel query para os comandos do mysql.
             }
 

@@ -73,40 +73,53 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();
             DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
 
-            #endregion      
-            
+            #endregion
+
+            #region Valida os campos do cadastro do aluno.
+
             dB_PA.Verifica_Campos();                            // Chama o metodo que valida os campos.
 
+            #endregion
+
+            #region Se foram validados Cadastra o aluno, insere a imagem e registra o log.
             if (DB_PA.campos_validados == true)                 // Se estiver validado.
             {
+                #region Cadastra os dados do aluno.
                 dB_PA.Query_Cadastrar_Aluno();                  // Chama o metodo da query de cadastro de alunos.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco.
                 dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
+
+                #endregion
+
+                #region Insere a imagem do aluno.
                 
-                if (DB_PA.e_cadastro == true)                   // Variavel que identifica que é um cadastro novo.
+                DB_PA.e_cadastro = false;                   // Troca o valor da variavel para falso.
+                dB_PA.Query_Inserir_Imagem();               // Chama o metodo da query de inserir imagem.
+                dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
+                dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
+
+                #endregion
+
+                #region Se cadastro voltar OK Grava o log.
+                if (DB_PA.Cad_Ok == "OK")
                 {
-                    DB_PA.e_cadastro = false;                   // Troca o valor da variavel para falso.
-                    dB_PA.Query_Inserir_Imagem();               // Chama o metodo da query de inserir imagem.
-                    dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
-                    dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
+                    DB_PA.e_log = true;                             // Atribui True a variavel para registrar o log.
+                    dB_PA.Log_Query_Cadastrar_Aluno();              // Chama o metodo Query Cadastrar log.
+                    dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco
+                    dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
+
+                    if (DB_PA.Cad_Ok == "OK")
+                    {
+                        encerramento.Mensagem_11();                     // Mostra a mensagem.
+                        btn_limpar.PerformClick();                      // Limpa os campos
+
+                    }
+
                 }
-
-                DB_PA.e_log = true;                             // Atribui True a variavel para registrar o log.
-                dB_PA.Log_Query_Cadastrar_Aluno();              // Chama o metodo Query Cadastrar log.
-                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco
-                dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
+                #endregion
             }
 
-            #region Em caso de cadasto realizado com sucesso, limpa os textbox.
-
-            if (DB_PA.Cad_Ok == "OK")
-            {
-                encerramento.Mensagem_11();                     // Mostra a mensagem.
-                btn_limpar.PerformClick();                      // Limpa os campos
-            }
-            
             #endregion
-
         }
         #endregion
 
@@ -127,7 +140,7 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
-        #region Metodos para a Foto Padrao.
+        #region Metodo para a Foto Padrao.
 
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
         public void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.

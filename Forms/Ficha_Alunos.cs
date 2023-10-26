@@ -168,7 +168,10 @@ namespace Plantando_Alegria.Forms
 
             #endregion
 
+            #region Valida os campos da ficha do aluno.
             dB_PA.Compara_Ficha();              // Chama o metodo de validacao dos campos.
+
+            #endregion
 
             #region Verifica o que foi alterado e executa a mudanca.
 
