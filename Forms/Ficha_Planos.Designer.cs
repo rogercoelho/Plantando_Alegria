@@ -271,7 +271,6 @@
             // btn_salvar
             // 
             this.btn_salvar.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_salvar.Enabled = false;
             this.btn_salvar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btn_salvar.FlatAppearance.BorderSize = 2;
             this.btn_salvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -287,7 +286,6 @@
             // btn_cancelar
             // 
             this.btn_cancelar.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_cancelar.Enabled = false;
             this.btn_cancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btn_cancelar.FlatAppearance.BorderSize = 2;
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -299,6 +297,7 @@
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Visible = false;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // frm_ficha_planos
             // 

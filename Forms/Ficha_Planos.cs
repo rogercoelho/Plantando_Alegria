@@ -56,7 +56,7 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
-        #region Metodo que carrega a ficha do plano
+        #region Metodo que carrega a ficha do plano.
         public void Carrega_Ficha_Plano()
         {
             char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
@@ -72,7 +72,7 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
-        #region Metodo do Botao Editar
+        #region Metodo do Botao Editar.
         private void btn_editar_Click(object sender, EventArgs e)
         {
             txtb_nome_plano.Enabled = true;
@@ -87,6 +87,26 @@ namespace Plantando_Alegria.Forms
             btn_salvar.Visible = true;
             btn_cancelar.Visible = true;
             btn_limpar.Visible = true;
+        }
+        #endregion
+
+        #region Metodo do Botao Cancelar.
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            txtb_codigo_plano.Enabled = false;
+            txtb_nome_plano.Enabled = false;
+            txtb_qtd_aulas_semana.Enabled = false;
+            txtb_qtd_aulas_total.Enabled = false;
+            txtb_valor_mensal_plano.Enabled = false;
+            txtb_valor_total_plano.Enabled = false;
+            txtb_situacao_plano.Visible = true;
+            cbbox_situacao_plano.Visible = false;
+            btn_cancelar.Visible = false;
+            btn_limpar.Visible = false;
+            btn_salvar.Visible = false;
+            btn_editar.Visible = true;
+            btn_voltar.Visible = true;
+            Carrega_Ficha_Plano();
         }
         #endregion
     }
