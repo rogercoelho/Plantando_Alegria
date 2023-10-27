@@ -36,7 +36,7 @@
             this.txtb_nome_plano = new System.Windows.Forms.TextBox();
             this.txtb_codigo_plano = new System.Windows.Forms.TextBox();
             this.lbl_valor_total = new System.Windows.Forms.Label();
-            this.btn_adicionar_plano = new System.Windows.Forms.Button();
+            this.btn_historico = new System.Windows.Forms.Button();
             this.lbl_valor_mensal = new System.Windows.Forms.Label();
             this.lbl_qtd_aulas_total = new System.Windows.Forms.Label();
             this.lbl_qtd_aulas_semana = new System.Windows.Forms.Label();
@@ -48,6 +48,8 @@
             this.btn_editar = new System.Windows.Forms.Button();
             this.txtb_situacao_plano = new System.Windows.Forms.TextBox();
             this.cbbox_situacao_plano = new System.Windows.Forms.ComboBox();
+            this.btn_salvar = new System.Windows.Forms.Button();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_limpar
@@ -57,12 +59,13 @@
             this.btn_limpar.FlatAppearance.BorderSize = 2;
             this.btn_limpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_limpar.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_limpar.Location = new System.Drawing.Point(266, 345);
+            this.btn_limpar.Location = new System.Drawing.Point(541, 345);
             this.btn_limpar.Name = "btn_limpar";
             this.btn_limpar.Size = new System.Drawing.Size(79, 35);
             this.btn_limpar.TabIndex = 85;
             this.btn_limpar.Text = "Limpar";
             this.btn_limpar.UseVisualStyleBackColor = false;
+            this.btn_limpar.Visible = false;
             this.btn_limpar.Click += new System.EventHandler(this.btn_limpar_Click);
             // 
             // txtb_valor_total_plano
@@ -124,19 +127,19 @@
             this.lbl_valor_total.TabIndex = 78;
             this.lbl_valor_total.Text = "Valor Total do Plano";
             // 
-            // btn_adicionar_plano
+            // btn_historico
             // 
-            this.btn_adicionar_plano.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_adicionar_plano.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_adicionar_plano.FlatAppearance.BorderSize = 2;
-            this.btn_adicionar_plano.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_adicionar_plano.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_adicionar_plano.Location = new System.Drawing.Point(392, 341);
-            this.btn_adicionar_plano.Name = "btn_adicionar_plano";
-            this.btn_adicionar_plano.Size = new System.Drawing.Size(147, 35);
-            this.btn_adicionar_plano.TabIndex = 77;
-            this.btn_adicionar_plano.Text = "Adicionar Plano";
-            this.btn_adicionar_plano.UseVisualStyleBackColor = false;
+            this.btn_historico.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_historico.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_historico.FlatAppearance.BorderSize = 2;
+            this.btn_historico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_historico.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_historico.Location = new System.Drawing.Point(242, 345);
+            this.btn_historico.Name = "btn_historico";
+            this.btn_historico.Size = new System.Drawing.Size(90, 35);
+            this.btn_historico.TabIndex = 77;
+            this.btn_historico.Text = "Histórico";
+            this.btn_historico.UseVisualStyleBackColor = false;
             // 
             // lbl_valor_mensal
             // 
@@ -265,12 +268,47 @@
             this.cbbox_situacao_plano.TabIndex = 90;
             this.cbbox_situacao_plano.Visible = false;
             // 
+            // btn_salvar
+            // 
+            this.btn_salvar.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_salvar.Enabled = false;
+            this.btn_salvar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_salvar.FlatAppearance.BorderSize = 2;
+            this.btn_salvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_salvar.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_salvar.Location = new System.Drawing.Point(369, 345);
+            this.btn_salvar.Name = "btn_salvar";
+            this.btn_salvar.Size = new System.Drawing.Size(70, 35);
+            this.btn_salvar.TabIndex = 91;
+            this.btn_salvar.Text = "Salvar";
+            this.btn_salvar.UseVisualStyleBackColor = false;
+            this.btn_salvar.Visible = false;
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_cancelar.Enabled = false;
+            this.btn_cancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_cancelar.FlatAppearance.BorderSize = 2;
+            this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar.Location = new System.Drawing.Point(445, 345);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(90, 35);
+            this.btn_cancelar.TabIndex = 92;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = false;
+            this.btn_cancelar.Visible = false;
+            // 
             // frm_ficha_planos
             // 
+            this.AcceptButton = this.btn_historico;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 410);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_cancelar);
+            this.Controls.Add(this.btn_salvar);
             this.Controls.Add(this.cbbox_situacao_plano);
             this.Controls.Add(this.txtb_situacao_plano);
             this.Controls.Add(this.btn_editar);
@@ -283,7 +321,7 @@
             this.Controls.Add(this.txtb_nome_plano);
             this.Controls.Add(this.txtb_codigo_plano);
             this.Controls.Add(this.lbl_valor_total);
-            this.Controls.Add(this.btn_adicionar_plano);
+            this.Controls.Add(this.btn_historico);
             this.Controls.Add(this.lbl_valor_mensal);
             this.Controls.Add(this.lbl_qtd_aulas_total);
             this.Controls.Add(this.lbl_qtd_aulas_semana);
@@ -311,7 +349,7 @@
         public System.Windows.Forms.TextBox txtb_nome_plano;
         public System.Windows.Forms.TextBox txtb_codigo_plano;
         private System.Windows.Forms.Label lbl_valor_total;
-        private System.Windows.Forms.Button btn_adicionar_plano;
+        private System.Windows.Forms.Button btn_historico;
         private System.Windows.Forms.Label lbl_valor_mensal;
         private System.Windows.Forms.Label lbl_qtd_aulas_total;
         private System.Windows.Forms.Label lbl_qtd_aulas_semana;
@@ -323,5 +361,7 @@
         private System.Windows.Forms.Button btn_editar;
         public System.Windows.Forms.TextBox txtb_situacao_plano;
         private System.Windows.Forms.ComboBox cbbox_situacao_plano;
+        private System.Windows.Forms.Button btn_salvar;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

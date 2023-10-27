@@ -33,8 +33,6 @@ namespace Plantando_Alegria.Forms
             frm_Tela_Principal.Show();
             this.Close();
         }
-
-
         #endregion
 
         #region Metodo do Botao Limpar
@@ -74,6 +72,7 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
+        #region Metodo do Botao Editar
         private void btn_editar_Click(object sender, EventArgs e)
         {
             txtb_nome_plano.Enabled = true;
@@ -83,7 +82,12 @@ namespace Plantando_Alegria.Forms
             txtb_valor_total_plano.Enabled = true;
             txtb_situacao_plano.Visible = false;
             cbbox_situacao_plano.Visible = true;
-
+            btn_voltar.Visible = false;
+            btn_editar.Visible = false;
+            btn_salvar.Visible = true;
+            btn_cancelar.Visible = true;
+            btn_limpar.Visible = true;
         }
+        #endregion
     }
 }
