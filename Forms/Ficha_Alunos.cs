@@ -30,13 +30,6 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
-        #region Metodo de execucao ao carregar Tela.
-        public void frm_ficha_alunos_Load(object sender, EventArgs e)
-        {
-            Carrega_Ficha_Aluno();
-        }
-        #endregion
-
         #region Metodo do Botao Voltar.
         public void btn_voltar_Click(object sender, EventArgs e)
         {
@@ -228,6 +221,24 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
+        #region Metodo do Botao Historico.
+        private void btn_historico_Click(object sender, EventArgs e)
+        {
+            frm_historico frm_Historico = new frm_historico();
+            frm_historico.volta_ficha_aluno = true;
+            DB_PA.Alunos_Codigo = selecao2[1];
+            frm_Historico.Show();
+            this.Close();
+        }
+        #endregion
+
+        #region Metodo de execucao ao carregar Tela.
+        public void frm_ficha_alunos_Load(object sender, EventArgs e)
+        {
+            Carrega_Ficha_Aluno();
+        }
+        #endregion
+
         #region Metodo que carrega a ficha do aluno.
 
         public void Carrega_Ficha_Aluno()
@@ -255,14 +266,6 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
-        private void btn_historico_Click(object sender, EventArgs e)
-        {
-            frm_historico frm_Historico = new frm_historico();
-            frm_historico.volta_ficha_aluno = true;
-            DB_PA.Alunos_Codigo = selecao2[1];
-            frm_Historico.Show();
-            this.Close();
-        }
     }
 }
 
