@@ -39,11 +39,11 @@ namespace Plantando_Alegria.MysqlDb
 
         public static string planos_codigo;                 // Variavel que comunica com o textbox.
         public static string planos_nome;                   // Variavel que comunica com o textbox.
-        public static string planos_qtd_aulas_semana;          // Variavel que comunica com o textbox.
-        public static string planos_qtd_aulas_total;           // Variavel que comunica com o textbox.
+        public static string planos_qtd_aulas_semana;       // Variavel que comunica com o textbox.
+        public static string planos_qtd_aulas_total;        // Variavel que comunica com o textbox.
         public static string planos_valor_mensal;           // Variavel que comunica com o textbox.
         public static string planos_valor_total;            // Variavel que comunica com o textbox.
-
+        public static string planos_situacao;               // Variavel que comunica com o combobox.
         #endregion
 
         #region Variaveis Operacionais
@@ -345,7 +345,7 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo que compara a ficha do aluno com a tabela Alunos_Cadastro.
-        public void Compara_Ficha()
+        public void Compara_Ficha_Aluno()
         {
             dados_alterados = false;                                                                // Atribui falso a variavel dados alterados primeiro.
 
@@ -791,17 +791,16 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo que executa pesquisa do log de mudancas ( HISTORICO ).
-
         public void Executa_Pesquisa_Log()
         {
             if (frm_historico.volta_ficha_aluno == true)
             {
-                query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo =" + DB_PA.Alunos_Codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo =" + DB_PA.Alunos_Codigo.Trim();      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
 
             }
             else if (frm_historico.volta_ficha_plano == true)
             {
-                query = "SELECT * from Planos_Cadastro_log WHERE Planos_Codigo =" + DB_PA.planos_codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                query = "SELECT * from Planos_Cadastro_log WHERE Planos_Codigo LIKE" + "'" + DB_PA.planos_codigo.Trim() + "'";      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
             }
             
             
@@ -813,8 +812,6 @@ namespace Plantando_Alegria.MysqlDb
             log = dataTable;                                            // objeto log recebe o datatable.
             cmd.Connection.Close();                                     // Encerra a conexao.
         }
-
-
         #endregion
 
 

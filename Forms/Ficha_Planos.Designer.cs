@@ -140,6 +140,7 @@
             this.btn_historico.TabIndex = 77;
             this.btn_historico.Text = "Histórico";
             this.btn_historico.UseVisualStyleBackColor = false;
+            this.btn_historico.Click += new System.EventHandler(this.btn_historico_Click);
             // 
             // lbl_valor_mensal
             // 
@@ -282,6 +283,7 @@
             this.btn_salvar.Text = "Salvar";
             this.btn_salvar.UseVisualStyleBackColor = false;
             this.btn_salvar.Visible = false;
+            this.btn_salvar.Click += new System.EventHandler(this.btn_salvar_Click);
             // 
             // btn_cancelar
             // 

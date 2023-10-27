@@ -142,7 +142,7 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
-        #region Metodo do botao Salvar
+        #region Metodo do botao Salvar.
         public void btn_salvar_Click(object sender, EventArgs e)
         {
             #region Atribui valor para as variaveis.
@@ -162,7 +162,7 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             #region Valida os campos da ficha do aluno.
-            dB_PA.Compara_Ficha();              // Chama o metodo de validacao dos campos.
+            dB_PA.Compara_Ficha_Aluno();              // Chama o metodo de validacao dos campos.
 
             #endregion
 
