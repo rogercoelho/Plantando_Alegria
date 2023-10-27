@@ -19,6 +19,12 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
+        #region Instanciando objetos.
+
+        DB_PA dB_PA = new DB_PA();
+        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
+        #endregion
+
         #region Metodo Construtor
         public frm_ficha_planos()
         {
@@ -99,6 +105,13 @@ namespace Plantando_Alegria.Forms
         }
         #endregion
 
+        #region Metodo de execucao ao carregar tela.
+        private void frm_ficha_planos_Load(object sender, EventArgs e)
+        {
+            Carrega_Ficha_Plano();
+        }
+        #endregion
+
         #region Metodo que carrega a ficha do plano.
         public void Carrega_Ficha_Plano()
         {
@@ -115,13 +128,6 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
-        #region Metodo de execucao ao carregar tela.
-        private void frm_ficha_planos_Load(object sender, EventArgs e)
-        {
-            Carrega_Ficha_Plano();
-        }
-        #endregion
-
         #region Metodo do Botao Salvar.
         private void btn_salvar_Click(object sender, EventArgs e)
         {
@@ -135,7 +141,31 @@ namespace Plantando_Alegria.Forms
             DB_PA.planos_situacao = cbbox_situacao_plano.SelectedItem.ToString();
             #endregion
 
+            #region Valida os campos da Ficha do Plano.
 
+            dB_PA.Compara_Ficha_Planos();
+
+            #endregion
+
+            #region Verifica o que foi alterado e executa a mudanca.
+
+            if (DB_PA.dados_alterados == true)
+            {
+                dB_PA.Query_Atualizar_Cadastro_Plano();
+                dB_PA.Cadastrar_Atualizar_Planos_Cadastro();
+                dB_PA.Executa_Banco();
+                DB_PA.e_log = true;
+                dB_PA.Log_Query_Cadastrar_Plano();
+                dB_PA.Cadastrar_Atualizar_Planos_Cadastro();
+                dB_PA.Executa_Banco();
+                Carrega_Ficha_Plano();
+            }
+            else
+            {
+                encerramento.Mensagem_31();
+            }
+
+            #endregion
 
         }
         #endregion

@@ -173,14 +173,14 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Query_Alterar_Imagem();                                           // Chama o metodo da query da imagem.
                 dB_PA.Processa_Imagem();                                                // Chama o metodo que trata a imagem.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                dB_PA.Query_Atualizar_Cadastro();                                       // Chama o metodo da query dos dados.
+                dB_PA.Query_Atualizar_Cadastro_Aluno();                                 // Chama o metodo da query dos dados.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
                 encerramento.Mensagem_10();                                             // mostra mensagem.
             }
             else if (DB_PA.foto_alterada == false && DB_PA.dados_alterados == true)     // Se alterou so os dados
             {
-                dB_PA.Query_Atualizar_Cadastro();                                       // Chama o metodo da query dos dados.
+                dB_PA.Query_Atualizar_Cadastro_Aluno();                                 // Chama o metodo da query dos dados.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
                 DB_PA.e_log = true;                                                     // Atribui true na variavel que chama o log.

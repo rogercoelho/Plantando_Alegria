@@ -94,7 +94,7 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query para Atualizar Aluno na tabela Alunos_Cadastro.
-        public void Query_Atualizar_Cadastro()
+        public void Query_Atualizar_Cadastro_Aluno()
         {
             query = "UPDATE Alunos_Cadastro SET Alunos_Nome = @Alunos_Nome, Alunos_Endereco = @Alunos_Endereco, Alunos_Bairro = @Alunos_Bairro," +      // Variavel ira receber a query.
                                                       " Alunos_Cidade = @Alunos_Cidade, Alunos_CEP = @Alunos_CEP, " +
@@ -233,6 +233,21 @@ namespace Plantando_Alegria.MysqlDb
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo)" +
                     "Values (?,?,?,?,?,?,?)";                                           // sintaxe de insercao do banco.
         }
+        #endregion
+
+        #region Metodo Query para atualizar planos na tabela Plano_Cadastro.
+
+        public void Query_Atualizar_Cadastro_Plano()
+        {
+            query = "UPDATE Planos_Cadastro SET Planos_Nome = @planos_nome, Planos_Qtd_Aulas_Semana = @qtd_aulas_semana, " +                 // Variavel ira receber a query.
+                                              " Planos_Qtd_Aulas_Total = @qtd_aulas_total, Planos_Valor_Mensal = @valor_mensal," +
+                                              " Planos_Valor_Total = @valor_total, Planos_Ativo = @ativo_plano " +
+                                              " WHERE Planos_Codigo LIKE" + "'" + planos_codigo.Trim() + "'";
+            cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
+            e_cadastro = false;         // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
+
+        }
+
         #endregion
 
         #region Metodo Query para pesquisar tudo da tabela Planos_Cadastro.
@@ -397,8 +412,42 @@ namespace Plantando_Alegria.MysqlDb
             else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
 
         }
-            #endregion
-        
+        #endregion
+
+        #region Metodo que compara a ficha do Plano com a tabela Planos_Cadastro.
+        public void Compara_Ficha_Planos()
+        {
+            dados_alterados = false;                                                                // Atribui falso a variavel dados alterados primeiro.
+
+            if (frm_ficha_planos.selecao2[3].ToString().Trim() == planos_nome.ToString().Trim())
+            {
+                if (frm_ficha_planos.selecao2[5].ToString().Trim() == planos_qtd_aulas_semana.ToString().Trim())
+                {
+                    if (frm_ficha_planos.selecao2[7].ToString().Trim() == planos_qtd_aulas_total.ToString().Trim())
+                    {
+                        if (frm_ficha_planos.selecao2[9].ToString().Trim() == planos_valor_mensal.ToString().Trim())
+                        {
+                            if (frm_ficha_planos.selecao2[11].ToString().Trim() == planos_valor_total.ToString().Trim())
+                            {
+                                if (frm_ficha_planos.selecao2[13].ToString().Trim() == planos_situacao.ToString().Trim())
+                                {  
+                                }
+                                else { dados_alterados = true; }
+                            }
+                            else { dados_alterados = true; }
+                        }
+                        else { dados_alterados = true; }
+                    }
+                    else { dados_alterados = true; }
+                }
+                else { dados_alterados = true; }
+            }                                                                                       // Faz a validacao dos campos. Se forem iguais, segue.
+            else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
+
+        }
+        #endregion
+
+
         #region Verifica os dados digitados antes do cadastro do aluno na tabela Alunos_Cadastro.
         public void Verifica_Campos()
         {
@@ -521,6 +570,8 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Cadastrar_Atualizar_Planos_Cadastro()
         {
+            cmd.Parameters.Clear();
+
             if (e_log == true)
             {
                 cmd.CommandText = query;                                                            // sintaxe da CommandText recebe o valor da variavel
@@ -530,7 +581,7 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);            // Adiciona um parametro para inserir os valores encontrados.
                 cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);                  // Adiciona um parametro para inserir os valores encontrados.
                 cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);                    // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                               // Adiciona um parametro para inserir os valores encontrados.
+                cmd.Parameters.AddWithValue("@ativo_plano", planos_situacao);                       // Adiciona um parametro para inserir os valores encontrados.
                 cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para inserir os valores encontrados.
                 e_log = false;
             }
@@ -543,7 +594,7 @@ namespace Plantando_Alegria.MysqlDb
             cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);    // Adiciona um parametro para inserir os valores encontrados.
             cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);          // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto.
             cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);            // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto..
-            cmd.Parameters.AddWithValue("@ativo_plano", "ATIVO");                       // Adiciona um parametro para inserir os valores encontrados.
+            cmd.Parameters.AddWithValue("@ativo_plano", planos_situacao);               // Adiciona um parametro para inserir os valores encontrados.
 
             }
 
@@ -969,6 +1020,11 @@ namespace Plantando_Alegria.MysqlDb
             {
                 MessageBox.Show("A pesquisa irá efetuar a busca pelo código OU pelo nome do plano.\n",
                                 "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            public void Mensagem_31()
+            {
+                MessageBox.Show("Nao houve alterações na ficha do plano.\n" +
+                                "Não existe nada para salvar!.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion
