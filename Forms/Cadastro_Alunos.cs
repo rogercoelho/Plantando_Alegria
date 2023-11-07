@@ -9,8 +9,8 @@ namespace Plantando_Alegria.Forms
     {
         #region Instanciando objetos.
             
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a classe encerramento.     
-        DB_PA dB_PA = new DB_PA();                                          // Instancia objeto para a classe DB_PA.
+        Mensagens mensagens = new Mensagens();  // Instanciando objeto para a classe mensagens.     
+        DB_PA dB_PA = new DB_PA();              // Instancia objeto para a classe DB_PA.
 
         #endregion
 
@@ -61,28 +61,28 @@ namespace Plantando_Alegria.Forms
 
             #region Repassa os dados dos campos para as variaveis DB_PA.          
 
-            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();
-            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();
-            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();
-            DB_PA.Alunos_Email = txtb_email.Text.ToUpper();
-            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper();
-            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper();
-            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper();
-            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper();
-            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper();
-            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();
-            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();
+            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();                                   // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();                                 // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();                               // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Email = txtb_email.Text.ToUpper();                                     // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper();                               // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper();                                   // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper();                                   // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper();                                         // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper();           // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();     // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();     // Variavel recebe o valor do textbox.
 
             #endregion
 
             #region Valida os campos do cadastro do aluno.
 
-            dB_PA.Verifica_Campos();                            // Chama o metodo que valida os campos.
+            dB_PA.Verifica_Campos();    // Chama o metodo que valida os campos.
 
             #endregion
 
             #region Se foram validados Cadastra o aluno, insere a imagem e registra o log.
-            if (DB_PA.campos_validados == true)                 // Se estiver validado.
+            if (DB_PA.campos_validados == true)     // Se estiver validado.
             {
                 #region Cadastra os dados do aluno.
                 dB_PA.Query_Cadastrar_Aluno();                  // Chama o metodo da query de cadastro de alunos.
@@ -110,8 +110,8 @@ namespace Plantando_Alegria.Forms
 
                     if (DB_PA.Cad_Ok == "OK")
                     {
-                        encerramento.Mensagem_11();                     // Mostra a mensagem.
-                        btn_limpar.PerformClick();                      // Limpa os campos
+                        mensagens.Mensagem_11();                     // Mostra a mensagem.
+                        btn_limpar.PerformClick();                   // Limpa os campos
 
                     }
 
@@ -128,7 +128,7 @@ namespace Plantando_Alegria.Forms
         {
             
             OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
-            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filta os tipos de arquivos permitidos.
+            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filtra os tipos de arquivos permitidos.
 
             if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
             {
@@ -143,17 +143,17 @@ namespace Plantando_Alegria.Forms
         #region Metodo para a Foto Padrao.
 
         #region Metodo que carrega a foto padrao caso nao seja inserido imagem do aluno.
-        public void frm_cadastro_alunos_Load(object sender, EventArgs e)           // Metodo que é carregado quando o sistema é iniciado.
+        public void frm_cadastro_alunos_Load(object sender, EventArgs e)    // Metodo que é carregado quando o sistema é iniciado.
         {
-            foto_padrao();                      // caminho onde a foto esta armazenada.
+            foto_padrao();  // Chama o metodo do caminho onde a foto esta armazenada.
         }
         #endregion
 
         #region Metodo do caminho da foto padrao.
         public void foto_padrao()
         {
-            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;      // Carrega a foto padrao na picturebox.
-            DB_PA.caminho_foto_aluno = "Resources/maquina_fotografica.png";                       // caminho onde a foto esta armazenada.
+            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;  // Carrega a foto padrao na picturebox.
+            DB_PA.caminho_foto_aluno = "Resources/maquina_fotografica.png";     // caminho onde a foto esta armazenada.
 
         }
         #endregion

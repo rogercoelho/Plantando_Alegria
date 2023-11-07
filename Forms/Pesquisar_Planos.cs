@@ -16,8 +16,8 @@ namespace Plantando_Alegria.Forms
     {
         #region Instanciando Objetos.
 
-        DB_PA dB_PA = new DB_PA();
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
+        DB_PA dB_PA = new DB_PA();              // Isntancia objeto para a classe DB_PA.
+        Mensagens mensagens = new Mensagens();  // Instancia objeto para a clase mensagens.
 
         #endregion
 
@@ -32,18 +32,18 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();
-            frm_Tela_Principal.Show();
-            this.Close();
+            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para o form tela principal.
+            frm_Tela_Principal.Show();                                          // Abre a tela principal.
+            this.Close();                                                       // Fecha esta tela.
         }
         #endregion
 
         #region Metodo do botao Limpar
         private void btn_limpar_Click(object sender, EventArgs e)
         {
-            txtb_codigo_plano.Clear();
-            txtb_nome_plano.Clear();
-            chkbox_resultado.Items.Clear();
+            txtb_codigo_plano.Clear();          // Limpa o textbox.
+            txtb_nome_plano.Clear();            // Limpa o textbox.
+            chkbox_resultado.Items.Clear();     // Limpa o checklistbox.
         }
 
         #endregion
@@ -53,10 +53,10 @@ namespace Plantando_Alegria.Forms
         {
 
             #region Tratando as variaveis.
-            dB_PA.Limpa_Variaveis_Plano();
-            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper();
-            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper();
-            DB_PA.pesquisar_planos = true;
+            dB_PA.Limpa_Variaveis_Plano();                          // Chama o metodo que limpa as variaveis do plano.
+            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper(); // Variavel planos_codigo recebe novo valor.
+            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper();     // Variavel planos_nome recebe novvo valor.
+            DB_PA.pesquisar_planos = true;                          // Atribui true a variavel pesquisar_planos.
 
             #endregion
 
@@ -65,44 +65,44 @@ namespace Plantando_Alegria.Forms
             if (txtb_codigo_plano.Text == "" && txtb_nome_plano.Text == "")       // Pesquisa com os campos em branco.
             {
 
-                encerramento.Mensagem_01();                                   // Da um aviso que retorna tudo da tabela.
+                mensagens.Mensagem_01();                    // Da um aviso que retorna tudo da tabela.
 
-                dB_PA.Pesquisar_Tudo_tbl_planos_cadastro();
+                dB_PA.Pesquisar_Tudo_tbl_planos_cadastro(); // Chama o metodo que pesquisa todos os planos
             }
 
             #endregion
 
             #region Retorna a pesquisa pelo codigo.
 
-            else if (txtb_nome_plano.Text == "" && txtb_codigo_plano.Text != "")                                 // Faz a busca pelo Codigo_Aluno.
+            else if (txtb_nome_plano.Text == "" && txtb_codigo_plano.Text != "")    // Faz a busca pelo Codigo_Aluno.
             {
-                dB_PA.Pesquisar_pelo_Codigo_tbl_planos_cadastro();
+                dB_PA.Pesquisar_pelo_Codigo_tbl_planos_cadastro();                  // Chama o metodo que pesquisa pelo codigo do plano.
             }
 
             #endregion
 
             #region Retorna a pesquisa pelo nome.
 
-            else if (txtb_codigo_plano.Text == "" && txtb_nome_plano.Text != "")                                        // Faz a busca pelo label Nome Aluno
+            else if (txtb_codigo_plano.Text == "" && txtb_nome_plano.Text != "")    // Faz a busca pelo label Nome Aluno
             {
-                dB_PA.Pesquisar_Pelo_Nome_tbl_planos_cadastro();
+                dB_PA.Pesquisar_Pelo_Nome_tbl_planos_cadastro();                    // Chama o metodo que pesquisa pelo nome do plano.
             }
 
             #endregion
 
             #region Retorna a pesquisa pelo nome ou pelo codigo.
 
-            else if (txtb_nome_plano.Text != "" && txtb_codigo_plano.Text != "")      // Se a pesquisa tiver dados em ambos os campos.
+            else if (txtb_nome_plano.Text != "" && txtb_codigo_plano.Text != "")    // Se a pesquisa tiver dados em ambos os campos.
             {
-                encerramento.Mensagem_30();                                       // Informa que a pesquisa vai retornar valores de ambos os campos.
-                dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_planos_cadastro();
+                mensagens.Mensagem_30();                                            // Informa que a pesquisa vai retornar valores de ambos os campos.
+                dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_planos_cadastro();             // Chama o metodo que pesquisa pelo nome e pelo codigo do plano.
             }
 
             #endregion
 
             #region Inicia a execucao da pesquisa.
 
-            dB_PA.Executa_Pesquisa();
+            dB_PA.Executa_Pesquisa();   // Chama o metodo que executa a pesquisa.
 
             #endregion
 
@@ -114,12 +114,12 @@ namespace Plantando_Alegria.Forms
 
                 chkbox_resultado.Items.Clear();                             // Limpa o checklistbox para incluir valores novos.
                 chkbox_resultado.Items.AddRange(dB_PA.lista.ToArray());     // Passa os itens da variavel resultado para um array e depois adiciona do checklistbox.
-                encerramento.Mensagem_03();
-                DB_PA.Cad_Ok = null;
+                mensagens.Mensagem_03();                                    // Mostra mesnagem em tela.
+                DB_PA.Cad_Ok = null;                                        // Atribui null a variavel Cad_OK.
             }
             else
             {
-                btn_limpar.PerformClick();
+                btn_limpar.PerformClick();                                  // Executa o metodo do botao limpar.
             }
 
             #endregion

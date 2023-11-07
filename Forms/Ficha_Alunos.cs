@@ -13,13 +13,13 @@ namespace Plantando_Alegria.Forms
         #region Instanciando objetos.
 
         DB_PA dB_PA = new DB_PA();                                          // Instanciando objeto para a classe DB_PA.
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();         // Instanciando objeto para a subclasse DB_PA.Encerramento.    
+        Mensagens mensagens = new Mensagens();                              // Instanciando objeto para a classe mensagens.    
 
         #endregion
 
         #region Variaveis operacionais.
-        public static string selecao;                                      // Variavel que recebe a selecao do checklistbox
-        public static string[] selecao2;
+        public static string selecao;       // Variavel que recebe a selecao do checklistbox
+        public static string[] selecao2;    // Array de variavei que recebe a pesquisa selecionada.            
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace Plantando_Alegria.Forms
 
             #endregion
 
-            Carrega_Ficha_Aluno();
+            Carrega_Ficha_Aluno();          // Chama o metodo que carrega a ficha do aluno.
 
         }
         #endregion
@@ -176,7 +176,7 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Query_Atualizar_Cadastro_Aluno();                                 // Chama o metodo da query dos dados.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                encerramento.Mensagem_10();                                             // mostra mensagem.
+                mensagens.Mensagem_10();                                                // mostra mensagem.
             }
             else if (DB_PA.foto_alterada == false && DB_PA.dados_alterados == true)     // Se alterou so os dados
             {
@@ -187,18 +187,18 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Log_Query_Cadastrar_Aluno();                                      // Chama o metodo da query do log
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                encerramento.Mensagem_08();                                             // mostra mensagem.
+                mensagens.Mensagem_08();                                                // mostra mensagem.
             }
             else if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == false)     // Se alterou so a foto.
             {
                 dB_PA.Query_Alterar_Imagem();                                           // Chama o metodo da query da imagem.
                 dB_PA.Processa_Imagem();                                                // Chama o metodo que trata a imagem.
                 dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                encerramento.Mensagem_09();                                             // mostra mensagem.
+                mensagens.Mensagem_09();                                                // mostra mensagem.
             }
             else                                                                        // Sem alteracoes.
             {
-                encerramento.Mensagem_07();                                             // mostra mensagem.
+                mensagens.Mensagem_07();                                                // mostra mensagem.
             }
 
 
@@ -216,7 +216,7 @@ namespace Plantando_Alegria.Forms
             }
             #endregion
 
-            btn_cancelar.PerformClick();        // Trava os botoes novamente.
+            btn_cancelar.PerformClick();            // Trava os botoes novamente.
         }
 
         #endregion
@@ -224,18 +224,18 @@ namespace Plantando_Alegria.Forms
         #region Metodo do Botao Historico.
         private void btn_historico_Click(object sender, EventArgs e)
         {
-            frm_historico frm_Historico = new frm_historico();
-            frm_historico.volta_ficha_aluno = true;
-            DB_PA.Alunos_Codigo = selecao2[1];
-            frm_Historico.Show();
-            this.Close();
+            frm_historico frm_Historico = new frm_historico();      // Instancia objeto para o frm_historico.
+            frm_historico.volta_ficha_aluno = true;                 // Atribui true a variavel volta_ficha_aluno.
+            DB_PA.Alunos_Codigo = selecao2[1];                      // Variavel Alunos codigo recebe o valor da variavel selecao2 posicao 1
+            frm_Historico.Show();                                   // Abre o form historico.
+            this.Close();                                           // fecha a tela.
         }
         #endregion
 
         #region Metodo de execucao ao carregar Tela.
         public void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
-            Carrega_Ficha_Aluno();
+            Carrega_Ficha_Aluno();      // Chama o metodo que carrega a ficha do aluno.
         }
         #endregion
 

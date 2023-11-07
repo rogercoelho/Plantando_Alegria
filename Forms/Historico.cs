@@ -15,45 +15,28 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_historico : Form
     {
-        public static bool volta_ficha_aluno;
-        public static bool volta_ficha_plano;
-        DB_PA dB_PA = new DB_PA();
-            
+        #region Variaveis operacionais.
+        public static bool volta_ficha_aluno;   // Cria variavel para validar o metodo de voltar ficha do aluno.
+        public static bool volta_ficha_plano;   // Cria variavel para validar o metodo de voltar a ficha do plano.
+        #endregion
 
+        #region Instanciando Objetos.
+        DB_PA dB_PA = new DB_PA();              // Instancia objeto para a classe DB_PA.
+        #endregion
 
+        #region Metodo Construtor.
         public frm_historico()
         {
             InitializeComponent();
-
-            //// propriedades do datagridview
-
-            //dataGridView1.ColumnCount = 12;
-            //dataGridView1.Columns[0].HeaderText = "Codigo do Aluno";
-            //dataGridView1.Columns[1].HeaderText = "Nome do Aluno";
-            //dataGridView1.Columns[2].HeaderText = "Endereco";
-            //dataGridView1.Columns[3].HeaderText = "Bairro";
-            //dataGridView1.Columns[4].HeaderText = "Cidade";
-            //dataGridView1.Columns[5].HeaderText = "CEP";
-            //dataGridView1.Columns[6].HeaderText = "Telefone";
-            //dataGridView1.Columns[7].HeaderText = "Email";
-            //dataGridView1.Columns[8].HeaderText = "Contato de Emergencia";
-            //dataGridView1.Columns[9].HeaderText = "Telefone de Emergencia 1";
-            //dataGridView1.Columns[10].HeaderText = "Telefone de Emergencia 2";
-            //dataGridView1.Columns[11].HeaderText = "Atualizado Em";
-            //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Modo de selecao
-
-
-
         }
+        #endregion
 
         #region Metodo que executa ao carregar a tela
 
         private void Historico_Load(object sender, EventArgs e)
         {
-                dB_PA.Executa_Pesquisa_Log();
-                dtgrid_historico.DataSource = dB_PA.log;
+                dB_PA.Executa_Pesquisa_Log();               // Chama o metodo que executa a pesquisa.
+                dtgrid_historico.DataSource = dB_PA.log;    // Datagrid recebe o conteudo do objeto log.
         }
 
         #endregion
@@ -61,20 +44,20 @@ namespace Plantando_Alegria.Forms
         #region Metodo do Botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
-            if (volta_ficha_aluno == true)
+            if (volta_ficha_aluno == true)  // Se a variavel volta_ficha_aluno for true.
             {
-                volta_ficha_aluno = false;
-                frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos();
-                frm_Ficha_Alunos.Show();
-                this.Close();
+                volta_ficha_aluno = false;                                  // Atribui false a variavel volta_ficha_aluno.
+                frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos(); // Instancia objeto para a tela fiha_alunos.
+                frm_Ficha_Alunos.Show();                                    // Abre a tela da ficha do aluno.
+                this.Close();                                               // Fecha a tela atual.
 
             }
-            else if (volta_ficha_plano == true)
+            else if (volta_ficha_plano == true) // Se a variavel volta_ficha_plano for true.
             {
-                volta_ficha_plano = false;
-                frm_ficha_planos frm_Ficha_Planos = new frm_ficha_planos();
-                frm_Ficha_Planos.Show();
-                this.Close();
+                volta_ficha_plano = false;                                  // Atribui false a variavel volta_ficha_plano.
+                frm_ficha_planos frm_Ficha_Planos = new frm_ficha_planos(); // Instancia objeto para a tela ficha_planos.
+                frm_Ficha_Planos.Show();                                    // Abre a tela ficha de planos.
+                this.Close();                                               // Fecha a tela atual.
 
             }
         }

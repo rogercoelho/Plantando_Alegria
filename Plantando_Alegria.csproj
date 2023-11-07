@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="MysqlDb\Conexao_Banco_PA.cs" />
     <Compile Include="MysqlDb\DB_PA.cs" />
+    <Compile Include="MysqlDb\Mensagens.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Cadastro_Alunos.resx">

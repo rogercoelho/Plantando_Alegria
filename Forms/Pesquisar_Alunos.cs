@@ -16,8 +16,8 @@ namespace Plantando_Alegria.Forms
 
         #region Instanciando objetos.
     
-        DB_PA.Encerramento encerramento = new DB_PA.Encerramento();
-        DB_PA dB_PA = new DB_PA();
+        Mensagens mensagens = new Mensagens();      // Instanciando objeto para a classe mensagens.
+        DB_PA dB_PA = new DB_PA();                  // Instanciando objeto para a classe DB_PA.
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace Plantando_Alegria.Forms
 
         #endregion
 
-        #region Metddo do Botao Limpar.
+        #region Metodo do Botao Limpar.
         public void btn_limpar_Click(object sender, EventArgs e)
         {
             txtb_codigo.Clear();                // Faz a limpeza do txtb_codigo.
@@ -46,39 +46,39 @@ namespace Plantando_Alegria.Forms
         {            
 
             #region Tratando as variaveis.
-            dB_PA.Limpar_Variaveis();
-            DB_PA.Alunos_Codigo = txtb_codigo.Text;
-            DB_PA.Alunos_Nome = txtb_nome_aluno.Text;
-            DB_PA.pesquisar_alunos = true;
+            dB_PA.Limpar_Variaveis();                       // Chama o metodo de limpar as variaveis.
+            DB_PA.Alunos_Codigo = txtb_codigo.Text;         // Variavel alunos_codigo recebe novo valor do txtbox.
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text;       // Variavel alunos_nome recebe novo valor do txtbox.
+            DB_PA.pesquisar_alunos = true;                  // Atribui true a variavel pesquisar_alunos.
        
             #endregion
 
             #region Retorna todas as informacoes da tabela.
 
-            if (txtb_codigo.Text == "" && txtb_nome_aluno.Text == "")       // Pesquisa com os campos em branco.
+            if (txtb_codigo.Text == "" && txtb_nome_aluno.Text == "")   // Pesquisa com os campos em branco.
             {
                   
-                encerramento.Mensagem_01();                                   // Da um aviso que retorna tudo da tabela.
+                mensagens.Mensagem_01();                                // Da um aviso que retorna tudo da tabela.
 
-                dB_PA.Pesquisar_Tudo_tbl_alunos_cadastro();
+                dB_PA.Pesquisar_Tudo_tbl_alunos_cadastro();             // Chama o metodo de pesquisar tudo.
             }
 
             #endregion
 
             #region Retorna a pesquisa pelo nome.
 
-            else if (txtb_codigo.Text == "" && txtb_nome_aluno.Text != "")                                        // Faz a busca pelo label Nome Aluno
+            else if (txtb_codigo.Text == "" && txtb_nome_aluno.Text != "")      // Faz a busca pelo label Nome Aluno
             {
-                dB_PA.Pesquisar_Pelo_Nome_tbl_alunos_cadastro();
+                dB_PA.Pesquisar_Pelo_Nome_tbl_alunos_cadastro();                // Chama o metodo de pesquisar pelo nome.
             }
 
             #endregion
 
             #region Retorna a pesquisa pelo codigo.
 
-            else if (txtb_nome_aluno.Text == "" && txtb_codigo.Text != "")                                 // Faz a busca pelo Codigo_Aluno.
+            else if (txtb_nome_aluno.Text == "" && txtb_codigo.Text != "")      // Faz a busca pelo Codigo_Aluno.
             {
-                dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();
+                dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();              // Chama o metodo de pesquisar pelo codigo.
             }
 
             #endregion
@@ -87,15 +87,15 @@ namespace Plantando_Alegria.Forms
 
             else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text != "")      // Se a pesquisa tiver dados em ambos os campos.
             {
-                encerramento.Mensagem_05();                                       // Informa que a pesquisa vai retornar valores de ambos os campos.
-                dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro();
+                mensagens.Mensagem_05();                                        // Informa que a pesquisa vai retornar valores de ambos os campos.
+                dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro();         // Chama o metodo que pesquisa pelo nome e pelo codigo.
             }
 
             #endregion
 
             #region Inicia a execucao da pesquisa.
 
-            dB_PA.Executa_Pesquisa();
+            dB_PA.Executa_Pesquisa();   // Chama o metodo que executa a pesquisa.
 
             #endregion
 
@@ -107,12 +107,12 @@ namespace Plantando_Alegria.Forms
 
             chkbox_resultado.Items.Clear();                             // Limpa o checklistbox para incluir valores novos.
             chkbox_resultado.Items.AddRange(dB_PA.lista.ToArray());     // Passa os itens da variavel resultado para um array e depois adiciona do checklistbox.
-            encerramento.Mensagem_03();
+            mensagens.Mensagem_03();                                    // Informa mensagem em tela.
 
             }
             else
             {
-                btn_limpar.PerformClick();
+                btn_limpar.PerformClick();                              // Executa o metodo do botao limpar.
             }
 
             #endregion
