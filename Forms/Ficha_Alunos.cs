@@ -207,7 +207,7 @@ namespace Plantando_Alegria.Forms
             #region Carrega a alteracao na ficha do aluno.
 
             DB_PA.pesquisar_alunos = true;
-            dB_PA.Limpar_Variaveis();
+            dB_PA.Limpar_Variaveis_Alunos();
             DB_PA.Alunos_Codigo = txtb_codigo.Text.Trim();
             btn_limpar.PerformClick();
 

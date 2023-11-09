@@ -63,7 +63,6 @@ namespace Plantando_Alegria.Forms
             btn_salvar.Visible = false;                 // Altera a visibilidade do botao.                      
             btn_editar.Visible = true;                  // Altera a visibilidade do botao.                      
             btn_voltar.Visible = true;                  // Altera a visibilidade do botao.                      
-            Carrega_Ficha_Plano();                      // Chama o metodo de carregar a ficha do plano.
         }
         #endregion
 
@@ -117,13 +116,13 @@ namespace Plantando_Alegria.Forms
         {
             char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
             selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);    // Selecao2 recebe de selecao com os caracteres removidos.
-            txtb_codigo_plano.Text = selecao2[1].ToString();                            // Textbox recebe o valor da variavel selecao na posicao 1.
-            txtb_nome_plano.Text = selecao2[3].ToString();                              // Textbox recebe o valor da variavel selecao na posicao 3.
-            txtb_qtd_aulas_semana.Text = selecao2[5].ToString();                        // Textbox recebe o valor da variavel selecao na posicao 5.
-            txtb_qtd_aulas_total.Text = selecao2[7].ToString();                         // Textbox recebe o valor da variavel selecao na posicao 7.
-            txtb_valor_mensal_plano.Text = selecao2[9].ToString();                      // Textbox recebe o valor da variavel selecao na posicao 9.
-            txtb_valor_total_plano.Text = selecao2[11].ToString();                      // Textbox recebe o valor da variavel selecao na posicao 11.
-            txtb_situacao_plano.Text = selecao2[13].ToString();                         // Textbox recebe o valor da variavel selecao na posicao 13.
+            txtb_codigo_plano.Text = selecao2[1].ToString().Trim();                     // Textbox recebe o valor da variavel selecao na posicao 1.
+            txtb_nome_plano.Text = selecao2[3].ToString().Trim();                       // Textbox recebe o valor da variavel selecao na posicao 3.
+            txtb_qtd_aulas_semana.Text = selecao2[5].ToString().Trim();                 // Textbox recebe o valor da variavel selecao na posicao 5.
+            txtb_qtd_aulas_total.Text = selecao2[7].ToString().Trim();                  // Textbox recebe o valor da variavel selecao na posicao 7.
+            txtb_valor_mensal_plano.Text = selecao2[9].ToString().Trim();               // Textbox recebe o valor da variavel selecao na posicao 9.
+            txtb_valor_total_plano.Text = selecao2[11].ToString().Trim();               // Textbox recebe o valor da variavel selecao na posicao 11.
+            txtb_situacao_plano.Text = selecao2[13].ToString().Trim();                  // Textbox recebe o valor da variavel selecao na posicao 13.
         }
 
         #endregion
@@ -132,13 +131,20 @@ namespace Plantando_Alegria.Forms
         private void btn_salvar_Click(object sender, EventArgs e)
         {
             #region Atribui valor para as variaveis.
-            DB_PA.planos_codigo = txtb_codigo_plano.Text.Trim();                    // Variavel recebe o valor do textbox.
-            DB_PA.planos_nome = txtb_nome_plano.Text.Trim();                        // Variavel recebe o valor do textbox.
-            DB_PA.planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.Trim();      // Variavel recebe o valor do textbox.
-            DB_PA.planos_qtd_aulas_total = txtb_qtd_aulas_total.Text.Trim();        // Variavel recebe o valor do textbox.
-            DB_PA.planos_valor_mensal = txtb_valor_mensal_plano.Text.Trim();        // Variavel recebe o valor do textbox.
-            DB_PA.planos_valor_total = txtb_valor_total_plano.Text.Trim();          // Variavel recebe o valor do textbox.
-            DB_PA.planos_situacao = cbbox_situacao_plano.SelectedItem.ToString();   // Variavel recebe o valor do combobox.
+            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper().Trim();                  // Variavel recebe o valor do textbox.
+            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper().Trim();                      // Variavel recebe o valor do textbox.
+            DB_PA.planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.ToUpper().Trim();    // Variavel recebe o valor do textbox.
+            DB_PA.planos_qtd_aulas_total = txtb_qtd_aulas_total.Text.ToUpper().Trim();      // Variavel recebe o valor do textbox.
+            DB_PA.planos_valor_mensal = txtb_valor_mensal_plano.Text.ToUpper().Trim();      // Variavel recebe o valor do textbox.
+            DB_PA.planos_valor_total = txtb_valor_total_plano.Text.ToUpper().Trim();        // Variavel recebe o valor do textbox.
+            
+            while (cbbox_situacao_plano.SelectedItem == null)                               // Se nao for escolhida uma opcao no combobox.
+            {
+                mensagens.Mensagem_32();                                                    // Mostra a mensagem
+                return;                                                                     // Retorna.
+            }
+            
+            DB_PA.planos_situacao = cbbox_situacao_plano.SelectedItem.ToString();           // Variavel recebe o valor do combobox.
             #endregion
 
             #region Valida os campos da Ficha do Plano.
@@ -158,12 +164,30 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Log_Query_Cadastrar_Plano();              // Chama o metodo da query do log do plano.
                 dB_PA.Cadastrar_Atualizar_Planos_Cadastro();    // Chama o metodo dos parametros do log do plano.
                 dB_PA.Executa_Banco();                          // Chama o metodo que executa a atualizacao do banco.
-                Carrega_Ficha_Plano();                          // Chama o metodo que carrega a ficha do plano novamente.
             }
             else
             {
                 mensagens.Mensagem_31();                        // Mostra a mensagem na tela.
             }
+
+            #endregion
+
+            #region Carrega a alteracao na ficha do Plano.
+
+            DB_PA.pesquisar_planos = true;                          // Atribui true na variavel para fazer nova pesquisa.
+            DB_PA.pesquisa_codigo_plano = true;                     // Atribui true na variavel para usar a pesquisa pelo codigo.
+            dB_PA.Limpa_Variaveis_Planos();                         // Limpa as variaveis da tabela Planos_Cadastro.
+            DB_PA.planos_codigo = txtb_codigo_plano.Text;           // Variaveu planos_codigo recebe o codigo do plano.
+
+            if (DB_PA.dados_alterados == true)                      // Se os dados foram alterados.
+            {
+                dB_PA.Pesquisar_pelo_Codigo_tbl_planos_cadastro();  // Chama o metodo que pesquisa pelo codigo do plano
+                dB_PA.Executa_Pesquisa();                           // Chama o metodo que executa a pesquisa.
+                Carrega_Ficha_Plano();                              // Recarrega a ficha do plano.
+                DB_PA.dados_alterados = false;                      // Atribui falso a variavel dados_alterados.
+            }
+
+            btn_cancelar.PerformClick();
 
             #endregion
 

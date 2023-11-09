@@ -166,6 +166,11 @@ namespace Plantando_Alegria.MysqlDb
             MessageBox.Show("Nao houve alterações na ficha do plano.\n" +
                             "Não existe nada para salvar!.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public void Mensagem_32()
+        {
+            MessageBox.Show("Não é possível deixar a situação do plano em branco.\n" +
+                            "Por favor, selecione ATIVO ou INATIVO.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
     }
 }

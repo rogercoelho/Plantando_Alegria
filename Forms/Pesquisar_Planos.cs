@@ -53,10 +53,8 @@ namespace Plantando_Alegria.Forms
         {
 
             #region Tratando as variaveis.
-            dB_PA.Limpa_Variaveis_Plano();                          // Chama o metodo que limpa as variaveis do plano.
-            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper(); // Variavel planos_codigo recebe novo valor.
-            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper();     // Variavel planos_nome recebe novvo valor.
-            DB_PA.pesquisar_planos = true;                          // Atribui true a variavel pesquisar_planos.
+            dB_PA.Limpa_Variaveis_Planos();                                 // Chama o metodo que limpa as variaveis do plano.
+            DB_PA.pesquisar_planos = true;                                  // Atribui true a variavel pesquisar_planos.
 
             #endregion
 

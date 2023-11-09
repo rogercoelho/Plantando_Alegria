@@ -46,7 +46,7 @@ namespace Plantando_Alegria.Forms
         {            
 
             #region Tratando as variaveis.
-            dB_PA.Limpar_Variaveis();                       // Chama o metodo de limpar as variaveis.
+            dB_PA.Limpar_Variaveis_Alunos();                // Chama o metodo de limpar as variaveis.
             DB_PA.Alunos_Codigo = txtb_codigo.Text;         // Variavel alunos_codigo recebe novo valor do txtbox.
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;       // Variavel alunos_nome recebe novo valor do txtbox.
             DB_PA.pesquisar_alunos = true;                  // Atribui true a variavel pesquisar_alunos.
