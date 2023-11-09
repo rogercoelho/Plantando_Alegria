@@ -147,17 +147,17 @@ namespace Plantando_Alegria.Forms
         {
             #region Atribui valor para as variaveis.
             
-            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();                                 // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();                               // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Email = txtb_email.Text.ToUpper();                                     // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper();                               // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper();                                         // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper();           // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper();     // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper();     // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper().Trim();                                 // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper().Trim();                               // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Email = txtb_email.Text.ToUpper().Trim();                                     // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper().Trim();                               // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper().Trim();                                         // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper().Trim();           // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper().Trim();     // Repassa o valor do textbox para a variavel.
+            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper().Trim();     // Repassa o valor do textbox para a variavel.
 
             #endregion
 
@@ -206,13 +206,18 @@ namespace Plantando_Alegria.Forms
 
             #region Carrega a alteracao na ficha do aluno.
 
+            DB_PA.pesquisar_alunos = true;
+            dB_PA.Limpar_Variaveis();
+            DB_PA.Alunos_Codigo = txtb_codigo.Text.Trim();
             btn_limpar.PerformClick();
 
             if (DB_PA.dados_alterados == true || DB_PA.foto_alterada == true)           // Se foi alterado.
             {
+                
                 dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();                      // Chama o metodo para pesquisar pelo codigo.
                 dB_PA.Executa_Pesquisa();                                               // Chama o metodo que executa a pesquisa.
                 Carrega_Ficha_Aluno();                                                  // Chama o metodo que carrega a ficha do aluno.
+                DB_PA.dados_alterados = false;
             }
             #endregion
 

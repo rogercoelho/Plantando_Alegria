@@ -33,8 +33,6 @@ namespace Plantando_Alegria.MysqlDb
         public static string Alunos_Contato_Emergencia;         // Variavel que comunica com o textbox.
         public static string Alunos_Telefone_Emergencia_1;      // Variavel que comunica com o textbox.
         public static string Alunos_Telefone_Emergencia_2;      // Variavel que comunica com o textbox.
-        public static string Criado_Em;                         // Variavel que tecebe a data do cadastro.
-        public static string Atualizado_Em;                     // Variavel que atualiza a data do cadastro.
 
         #endregion
 
@@ -53,15 +51,12 @@ namespace Plantando_Alegria.MysqlDb
             Alunos_Contato_Emergencia = "";         // Atribui vazio na variavel.
             Alunos_Telefone_Emergencia_1 = "";      // Atribui vazio na variavel.
             Alunos_Telefone_Emergencia_2 = "";      // Atribui vazio na variavel.
-            Criado_Em = "";                         // Atribui vazio na variavel.
-            Atualizado_Em = "";                     // Atribui vazio na variavel.
         }
 
         #endregion
-
+        
         #region Metodos de Query do banco.
 
-        
         #region Metodo Query para Cadastrar Aluno na tabela Alunos_Cadastro.
 
         public void Query_Cadastrar_Aluno()
@@ -76,7 +71,6 @@ namespace Plantando_Alegria.MysqlDb
             e_cadastro = true;              // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
         }
         #endregion
-
         
         #region Metodo Query para Atualizar Aluno na tabela Alunos_Cadastro.
         public void Query_Atualizar_Cadastro_Aluno()
@@ -94,7 +88,6 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
-
         
         #region Metodo Query para pesquisar tudo da tabela Alunos_Cadastro.
 
@@ -105,8 +98,7 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
-        
-        
+                
         #region Metodo Query para pesquisar pelo nome do aluno na tabela Alunos_Cadastro.
 
         public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
@@ -118,7 +110,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        
         #region Metodo Query para pesquisar pelo codigo do aluno na tabela Alunos_Cadastro.
 
         public void Pesquisar_pelo_Codigo_tbl_alunos_cadastro()
@@ -132,8 +123,7 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
-        
-        
+                
         #region Metodo Query para pesquisar pelo nome ou pelo codigo na tabela Alunos_Cadastro.
 
         public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
@@ -150,7 +140,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        
         #region Metodo Query Inserir Log do cadastro de Alunos.
         public void Log_Query_Cadastrar_Aluno()
         {
@@ -215,7 +204,7 @@ namespace Plantando_Alegria.MysqlDb
                     else { dados_alterados = true; }
                 }
                 else { dados_alterados = true; }
-            } // Faz a validacao dos campos. Se forem iguais, segue.
+            }                                                                                       // Faz a validacao dos campos. Se forem iguais, segue.
             else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
 
         }
@@ -340,7 +329,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #endregion
-
 
         #region Variaveis da tabela Planos_Cadastro.
 
@@ -530,7 +518,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-
         #region Metodo que limpa as variaveis DP_PA da tabela Planos_Cadastro.
         public void Limpa_Variaveis_Plano()
         {
@@ -543,7 +530,6 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
-
 
         #region Metodo que compara a ficha do Plano com a tabela Planos_Cadastro.
         public void Compara_Ficha_Planos()
@@ -577,9 +563,6 @@ namespace Plantando_Alegria.MysqlDb
 
         }
         #endregion
-
-
-        
 
         #region Metodo que cadastra ou atualiza o cadastro na tabela Planos_Cadastro.
 
