@@ -71,9 +71,13 @@ namespace Plantando_Alegria.Forms
             if (DB_PA.campos_validados == true)
             {
                 #region Cadastra os dados do plano.
+                DB_PA.e_cadastro = true;                        // Atribui true na variavel para cadastrar a situacao do plano.
+                DB_PA.planos_situacao = "ATIVO";
                 dB_PA.Query_Cadastrar_Plano();                  // Chama o metodo da query de cadastrar plano.
                 dB_PA.Cadastrar_Atualizar_Planos_Cadastro();    // Chama o metodo dos parametros da atualizacao do plano.
                 dB_PA.Executa_Banco();                          // Chama o metodo que executa a atualizacao do banco.
+                DB_PA.e_cadastro = false;                       // Atribui false a variavel é cadastro.
+
                 #endregion
 
                 #region Se cadastro voltar ok grava o log.
@@ -86,8 +90,9 @@ namespace Plantando_Alegria.Forms
 
                     if (DB_PA.Cad_Ok == "OK")
                     {
-                    mensagens.Mensagem_29();    // Mostra a mensagem na tela.
-                    btn_limpar.PerformClick();  // Executa o metodo do botao limpar.
+                        mensagens.Mensagem_29();    // Mostra a mensagem na tela.
+                        btn_limpar.PerformClick();  // Executa o metodo do botao limpar.
+                        DB_PA.Cad_Ok = null;        // atribui null para resetar a variavel.
                     }
                 }
                 #endregion

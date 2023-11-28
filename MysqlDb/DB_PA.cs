@@ -1,17 +1,9 @@
-﻿using Google.Protobuf;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Bcpg;
+﻿using MySql.Data.MySqlClient;
 using Plantando_Alegria.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Plantando_Alegria.MysqlDb
 {
@@ -190,7 +182,7 @@ namespace Plantando_Alegria.MysqlDb
                             {
                                 if (frm_ficha_alunos.selecao2[13].ToString().Trim() == Alunos_Telefone.ToString().Trim())
                                 {
-                                    if (frm_ficha_alunos.selecao2[15].ToString().Trim() == Alunos_Email.ToString().Trim())
+                                    if (frm_ficha_alunos.selecao2[15].ToString() == Alunos_Email.ToString())
                                     {
                                         if (frm_ficha_alunos.selecao2[17].ToString().Trim() == Alunos_Contato_Emergencia.ToString().Trim())
                                         {
@@ -396,96 +388,12 @@ namespace Plantando_Alegria.MysqlDb
                     else { dados_alterados = true; }
                 }
                 else { dados_alterados = true; }
-            }                                                                                       // Faz a validacao dos campos. Se forem iguais, segue.
+            } // Faz a validacao dos campos. Se forem iguais, segue.
             else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
 
         }
         #endregion
         
-        #region Metodo que cadastra ou atualiza o cadastro na tabela Planos_Cadastro.
-
-        public void Cadastrar_Atualizar_Planos_Cadastro()
-        {
-            cmd.Parameters.Clear();
-
-            if (e_log == true)
-            {
-                cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);                       // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                           // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);          // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);            // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);                  // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);                    // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.AddWithValue("@ativo_plano", planos_situacao);                       // Adiciona um parametro para inserir os valores encontrados.
-                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para inserir os valores encontrados.
-                e_log = false;
-                cmd.CommandText = query;                                                            // sintaxe da CommandText recebe o valor da variavel
-            }
-            else
-            {
-            cmd.Parameters.AddWithValue("@planos_codigo", planos_codigo);               // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@planos_nome", planos_nome);                   // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_semana", planos_qtd_aulas_semana);  // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@qtd_aulas_total", planos_qtd_aulas_total);    // Adiciona um parametro para inserir os valores encontrados.
-            cmd.Parameters.AddWithValue("@valor_mensal", planos_valor_mensal);          // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto.
-            cmd.Parameters.AddWithValue("@valor_total", planos_valor_total);            // Adiciona um parametro para inserir os valores encontrados substituindo a virgula por ponto..
-            cmd.Parameters.AddWithValue("@ativo_plano", planos_situacao);               // Adiciona um parametro para inserir os valores encontrados.
-            cmd.CommandText = query;                                                    // sintaxe da CommandText recebe o valor da variavel
-
-            }
-
-        }
-
-        #endregion
-        
-        #region Metodo que valida os dados da tabela Planos_Cadastro.
-
-        public void Verifica_Campos_Plano()
-        {
-            frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();
-            campos_validados = true;
-
-            while (string.IsNullOrEmpty (planos_codigo))
-            {
-                mensagens.Mensagem_23();
-                campos_validados = false;
-                return;
-            }
-            while (string.IsNullOrEmpty (planos_nome))
-            {
-                mensagens.Mensagem_24();
-                campos_validados = false;
-                return;
-            }
-            while (!int.TryParse(planos_qtd_aulas_semana, out int verifica))
-            {
-                mensagens.Mensagem_25();
-                campos_validados = false;
-                frm_Cadastro_Planos.txtb_qtd_aulas_semana.Focus();
-                return;
-            }
-            while (!int.TryParse(planos_qtd_aulas_total, out int verifica))
-            {
-                mensagens.Mensagem_26();
-                campos_validados = false;
-                return;
-            }
-            while (!double.TryParse(planos_valor_mensal, out double verifica))
-            {
-                mensagens.Mensagem_27();
-                campos_validados = false;
-                return;
-            }
-            while (!double.TryParse(planos_valor_total, out double verifica))
-            {
-                mensagens.Mensagem_28();
-                campos_validados = false;
-                return;
-            }
-        }
-
-        #endregion
-
         #region Metodos de Query do Banco
 
         #region Metodo Query para cadastrar plano na tabela Planos_Cadastro.
@@ -493,10 +401,12 @@ namespace Plantando_Alegria.MysqlDb
         {
             cmd.Parameters.Clear();                                                     // Limpa os parametros para receber novos.
             
-            query = "Insert into Planos_Cadastro (Planos_Codigo, Planos_Nome, " +
-                    "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total, " +
+            query = "Insert into Planos_Cadastro (Planos_Codigo, Planos_Nome," +
+                    "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total," +
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo)" +
                     "Values (?,?,?,?,?,?,?)";                                           // sintaxe de insercao do banco.
+            
+            cmd.CommandText = query;
         }
         #endregion
 
@@ -507,9 +417,10 @@ namespace Plantando_Alegria.MysqlDb
             query = "UPDATE Planos_Cadastro SET Planos_Nome = @planos_nome, Planos_Qtd_Aulas_Semana = @qtd_aulas_semana, " +                 // Variavel ira receber a query.
                                               " Planos_Qtd_Aulas_Total = @qtd_aulas_total, Planos_Valor_Mensal = @valor_mensal," +
                                               " Planos_Valor_Total = @valor_total, Planos_Ativo = @ativo_plano " +
-                                              " WHERE Planos_Codigo LIKE" + "'" + planos_codigo.Trim() + "'";
+                                              " WHERE Planos_Codigo LIKE" + "'" + planos_codigo+"'";
+
             cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
-            e_cadastro = false;         // Atribui true para a variavel e_cadastro. Identifica que é cadastro e nao atualizacao.
+            e_cadastro = false;         // Atribui false para a variavel e_cadastro para entender que é atualizacao.
 
         }
 
@@ -570,6 +481,78 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #endregion
+        
+        #region Metodo que valida os dados da tabela Planos_Cadastro.
+
+        public void Verifica_Campos_Plano()
+        {
+            frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();
+            campos_validados = true;
+
+            while (string.IsNullOrEmpty (planos_codigo))
+            {
+                mensagens.Mensagem_23();
+                campos_validados = false;
+                return;
+            }
+            while (string.IsNullOrEmpty (planos_nome))
+            {
+                mensagens.Mensagem_24();
+                campos_validados = false;
+                return;
+            }
+            while (!int.TryParse(planos_qtd_aulas_semana, out int verifica))
+            {
+                mensagens.Mensagem_25();
+                campos_validados = false;
+                return;
+            }
+            while (!int.TryParse(planos_qtd_aulas_total, out int verifica))
+            {
+                mensagens.Mensagem_26();
+                campos_validados = false;
+                return;
+            }
+            while (!double.TryParse(planos_valor_mensal, out double verifica))
+            {
+                mensagens.Mensagem_27();
+                campos_validados = false;
+                return;
+            }
+            while (!double.TryParse(planos_valor_total, out double verifica))
+            {
+                mensagens.Mensagem_28();
+                campos_validados = false;
+                return;
+            }
+        }
+
+        #endregion
+        
+        #region Metodo que cadastra ou atualiza o cadastro na tabela Planos_Cadastro.
+
+        public void Cadastrar_Atualizar_Planos_Cadastro()
+        {
+            cmd.Parameters.Clear();
+
+            cmd.Parameters.Add("@Planos_Codigo", MySqlDbType.VarChar).Value = planos_codigo;
+            cmd.Parameters.Add("@Planos_Nome", MySqlDbType.VarChar).Value = planos_nome;
+            cmd.Parameters.Add("@Planos_Qtd_Aulas_Semana", MySqlDbType.Int32).Value = planos_qtd_aulas_semana;
+            cmd.Parameters.Add("@Planos_Qtd_Aulas_Total", MySqlDbType.Int32).Value = planos_qtd_aulas_total;
+            cmd.Parameters.Add("@Planos_Valor_Mensal", MySqlDbType.Double).Value = planos_valor_mensal;
+            cmd.Parameters.Add("@Planos_Valor_Total", MySqlDbType.Double).Value = planos_valor_total;
+            cmd.Parameters.Add("@Planos_Ativo", MySqlDbType.VarChar).Value = planos_situacao;
+
+
+            if (e_log == true)
+            {
+                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para inserir os valores encontrados.
+                e_log = false;
+            }
+        }
+
+        #endregion
+
 
         #endregion
 
@@ -770,6 +753,8 @@ namespace Plantando_Alegria.MysqlDb
             if (Cad_Ok == "OK")                                                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
                                                                                                                     // Se a resposta for OK ai sim insere a imagem no banco.
             {
+                cmd.Parameters.Clear();                                                                             // Limpa os parametros do cmd.
+
                 FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.  
                 BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                      // Como o banco nao recebe imagem e sim dados    
                 imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);                                  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser
@@ -815,6 +800,8 @@ namespace Plantando_Alegria.MysqlDb
                     "Planos_Qtd_Aulas_Semana,Planos_Qtd_Aulas_Total, " +
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo," +
                     " Atualizado_Em) Values (?,?,?,?,?,?,?,?)";                                   // sintaxe de insercao do banco.
+            
+            cmd.CommandText = query;
         }
 
         #endregion

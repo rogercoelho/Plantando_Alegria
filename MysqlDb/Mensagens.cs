@@ -171,6 +171,10 @@ namespace Plantando_Alegria.MysqlDb
             MessageBox.Show("Não é possível deixar a situação do plano em branco.\n" +
                             "Por favor, selecione ATIVO ou INATIVO.\n", "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
+        public void Mensagem_33()
+        {
+            MessageBox.Show("Os dados da ficha do plano foram atualizados com sucesso.\n",
+                            "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

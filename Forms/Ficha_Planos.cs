@@ -131,6 +131,7 @@ namespace Plantando_Alegria.Forms
         private void btn_salvar_Click(object sender, EventArgs e)
         {
             #region Atribui valor para as variaveis.
+            
             DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper().Trim();                  // Variavel recebe o valor do textbox.
             DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper().Trim();                      // Variavel recebe o valor do textbox.
             DB_PA.planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.ToUpper().Trim();    // Variavel recebe o valor do textbox.
@@ -164,6 +165,7 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Log_Query_Cadastrar_Plano();              // Chama o metodo da query do log do plano.
                 dB_PA.Cadastrar_Atualizar_Planos_Cadastro();    // Chama o metodo dos parametros do log do plano.
                 dB_PA.Executa_Banco();                          // Chama o metodo que executa a atualizacao do banco.
+                mensagens.Mensagem_33();                        // mostra a mensagem.
             }
             else
             {
@@ -174,9 +176,9 @@ namespace Plantando_Alegria.Forms
 
             #region Carrega a alteracao na ficha do Plano.
 
+            dB_PA.Limpa_Variaveis_Planos();                         // Limpa as variaveis da tabela Planos_Cadastro.
             DB_PA.pesquisar_planos = true;                          // Atribui true na variavel para fazer nova pesquisa.
             DB_PA.pesquisa_codigo_plano = true;                     // Atribui true na variavel para usar a pesquisa pelo codigo.
-            dB_PA.Limpa_Variaveis_Planos();                         // Limpa as variaveis da tabela Planos_Cadastro.
             DB_PA.planos_codigo = txtb_codigo_plano.Text;           // Variaveu planos_codigo recebe o codigo do plano.
 
             if (DB_PA.dados_alterados == true)                      // Se os dados foram alterados.

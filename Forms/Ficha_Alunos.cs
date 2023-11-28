@@ -145,6 +145,7 @@ namespace Plantando_Alegria.Forms
         #region Metodo do botao Salvar.
         public void btn_salvar_Click(object sender, EventArgs e)
         {
+            
             #region Atribui valor para as variaveis.
             
             DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
