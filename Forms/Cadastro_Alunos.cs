@@ -88,16 +88,18 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Query_Cadastrar_Aluno();                  // Chama o metodo da query de cadastro de alunos.
                 dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();    // Chama o metodo que prepara os dados para o banco.
                 dB_PA.Executa_Banco();                          // Chama o metodo que grava no banco.
+                DB_PA.e_cadastro = false;                   // Troca o valor da variavel para falso.
 
                 #endregion
 
-                #region Insere a imagem do aluno.
-                
-                DB_PA.e_cadastro = false;                   // Troca o valor da variavel para falso.
-                dB_PA.Query_Inserir_Imagem();               // Chama o metodo da query de inserir imagem.
-                dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
-                dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
+                #region Se o cadastro voltar OK insere a imagem do aluno.
 
+                if (DB_PA.Cad_Ok == "OK")                       // Se o cadastro foi criado com sucesso.
+                {
+                    dB_PA.Query_Inserir_Imagem();               // Chama o metodo da query de inserir imagem.
+                    dB_PA.Processa_Imagem();                    // chama o metodo que prepara a imagem para o banco.
+                    dB_PA.Executa_Banco();                      // chama o metodo que grava no banco.
+                }
                 #endregion
 
                 #region Se cadastro voltar OK Grava o log.

@@ -74,7 +74,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
         
-        #region Metodos de Query do banco.
+        #region Metodos de Query do Banco de Dados.
 
         #region Metodo Query para Cadastrar Aluno na tabela Alunos_Cadastro.
 
@@ -293,24 +293,28 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Cadastrar_Atualizar_Alunos_Cadastro()
         {
-            cmd.Parameters.Clear();                                                                                         // Faz a limpeza dos parametros antes de receber novos.
+            cmd.Parameters.Clear();                                                                                             // Faz a limpeza dos parametros antes de receber novos.
 
-            if (e_cadastro == true)                                                                                         // Se for cadastro e nao atualizacao.
+            #region Parametros para cadastro / atualizacao na Tabela Alunos_Cadastro.
+
+            if (e_cadastro == true)                                                                                             // Se for cadastro e nao atualizacao.
             {
-                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                              // Adiciona o parametro para o cadastro.
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                                  // Adiciona o parametro para o cadastro.
+                cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                                // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;                                // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;                                      // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;        // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;  // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;  // Adiciona o parametro tando para cadastro como atualizacao.
             }
-            cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Bairro", MySqlDbType.VarChar).Value = Alunos_Bairro;                                // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Cidade", MySqlDbType.VarChar).Value = Alunos_Cidade;                                // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_CEP", MySqlDbType.VarChar).Value = Alunos_CEP;                                      // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Contato_Emergencia", MySqlDbType.VarChar).Value = Alunos_Contato_Emergencia;        // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_1", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_1;  // Adiciona o parametro tando para cadastro como atualizacao.
-            cmd.Parameters.Add("@Alunos_Telefone_Emergencia_2", MySqlDbType.VarChar).Value = Alunos_Telefone_Emergencia_2;  // Adiciona o parametro tando para cadastro como atualizacao.
 
-            
+            #endregion
+
+            #region Paramentros para Cadstro do LOG na tabela Alunos_Cadastro_Log.
             if (e_log == true)
             {
                 cmd.Parameters.Clear();
@@ -329,12 +333,115 @@ namespace Plantando_Alegria.MysqlDb
 
                 e_log = false;
             }
+            #endregion
+
         }
 
         #endregion
 
         #endregion
+
+        #region Tabela Alunos_Imagem
+
+        #region Metodos de Query do banco.
+
+        #region Metodo Query Para Inserir imagem_Aluno na tabela Alunos_Imagem.
+
+        public void Query_Inserir_Imagem()
+        {
+            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel que recebe o comando para executar no mysql.      
+        }
+
+        #endregion
+
+        #region Metodo Query Para Alterar imagem_Aluno na tabela Alunos_Imagem.
+
+        public void Query_Alterar_Imagem()
+        {
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.     
+            query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, " +
+                    "Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;     // variavel recebe query do banco.
+
+            cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para acrescentar os valores encontrados.
+
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pela imagem na tabela Alunos_imagem.
+
+        public void Pesquisar_Imagem()
+        {
+            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
+            query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // variavel recebe query do banco.
+            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
+
+            Executa_Pesquisa_Imagem();                                                          // Chama o metodo Executa_pesquisa.
+        }
+
+        #endregion
         
+        #endregion
+
+        #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
+        public void Processa_Imagem()
+        {
+            if (Cad_Ok == "OK")                                                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
+                                                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
+            {
+                cmd.Parameters.Clear();                                                                             // Limpa os parametros do cmd.
+
+                FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.  
+                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                      // Como o banco nao recebe imagem e sim dados    
+                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);                                  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser
+                                                                                                                    // "lido"pelo binary reader.
+                #region Parametros do banco de imagem
+                cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;
+                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                            // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
+                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                       // Define a data de insercao da imagem.
+                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = null;                           // define a data de atualizacao da imagem.
+                cmd.CommandText = query;                                                                            // Repassa a variavel query para os comandos do mysql.
+                #endregion
+            }
+
+        }
+        #endregion
+        
+        #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
+        public void Executa_Pesquisa_Imagem()
+        {
+            cmd.Connection = conexao_Banco_PA.Conectar_DB(); // Conecta no banco para realizar a pesquisa.
+
+            try
+            {
+                dataReader = cmd.ExecuteReader();           // Executa o datareader
+
+                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
+                {
+                    dataReader.Read();                      // Faz a leitura do datareader.
+                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
+
+                }
+            }
+
+            catch (MySqlException erro_db)
+            {
+                mensagens.Mensagem_04("-->" + erro_db.Message);
+            }
+            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
+            {
+                dataReader.Close();                         // Encerra o datareader.
+                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
+
+            }
+
+        }
+        #endregion
+
+        #endregion
+        
+
         #region Tabela Planos_Cadastro
 
         #region Variaveis da tabela Planos_Cadastro.
@@ -406,7 +513,6 @@ namespace Plantando_Alegria.MysqlDb
                     "Planos_Valor_Mensal, Planos_Valor_Total, Planos_Ativo)" +
                     "Values (?,?,?,?,?,?,?)";                                           // sintaxe de insercao do banco.
             
-            cmd.CommandText = query;
         }
         #endregion
 
@@ -419,7 +525,6 @@ namespace Plantando_Alegria.MysqlDb
                                               " Planos_Valor_Total = @valor_total, Planos_Ativo = @ativo_plano " +
                                               " WHERE Planos_Codigo LIKE" + "'" + planos_codigo+"'";
 
-            cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
             e_cadastro = false;         // Atribui false para a variavel e_cadastro para entender que é atualizacao.
 
         }
@@ -534,21 +639,38 @@ namespace Plantando_Alegria.MysqlDb
         public void Cadastrar_Atualizar_Planos_Cadastro()
         {
             cmd.Parameters.Clear();
+            cmd.CommandText = query;    // Repassa a variavel query para os comandos do mysql.
 
-            cmd.Parameters.Add("@Planos_Codigo", MySqlDbType.VarChar).Value = planos_codigo;
-            cmd.Parameters.Add("@Planos_Nome", MySqlDbType.VarChar).Value = planos_nome;
-            cmd.Parameters.Add("@Planos_Qtd_Aulas_Semana", MySqlDbType.Int32).Value = planos_qtd_aulas_semana;
-            cmd.Parameters.Add("@Planos_Qtd_Aulas_Total", MySqlDbType.Int32).Value = planos_qtd_aulas_total;
-            cmd.Parameters.Add("@Planos_Valor_Mensal", MySqlDbType.Double).Value = planos_valor_mensal;
-            cmd.Parameters.Add("@Planos_Valor_Total", MySqlDbType.Double).Value = planos_valor_total;
-            cmd.Parameters.Add("@Planos_Ativo", MySqlDbType.VarChar).Value = planos_situacao;
+            #region Parametros para cadastro / atualizacao da tabela Planos_Cadastro
 
+            if (e_cadastro == true)
+            {
+                cmd.Parameters.Add("@Planos_Codigo", MySqlDbType.VarChar).Value = planos_codigo;
+                cmd.Parameters.Add("@Planos_Nome", MySqlDbType.VarChar).Value = planos_nome;
+                cmd.Parameters.Add("@Planos_Qtd_Aulas_Semana", MySqlDbType.Int32).Value = planos_qtd_aulas_semana;
+                cmd.Parameters.Add("@Planos_Qtd_Aulas_Total", MySqlDbType.Int32).Value = planos_qtd_aulas_total;
+                cmd.Parameters.Add("@Planos_Valor_Mensal", MySqlDbType.Double).Value = planos_valor_mensal;
+                cmd.Parameters.Add("@Planos_Valor_Total", MySqlDbType.Double).Value = planos_valor_total;
+                cmd.Parameters.Add("@Planos_Ativo", MySqlDbType.VarChar).Value = planos_situacao;
 
+            }
+            #endregion
+
+            #region Parametros para cadastro do LOG na tabela Planos_Cadastro_log.
             if (e_log == true)
             {
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@Planos_Codigo", MySqlDbType.VarChar).Value = planos_codigo;
+                cmd.Parameters.Add("@Planos_Nome", MySqlDbType.VarChar).Value = planos_nome;
+                cmd.Parameters.Add("@Planos_Qtd_Aulas_Semana", MySqlDbType.Int32).Value = planos_qtd_aulas_semana;
+                cmd.Parameters.Add("@Planos_Qtd_Aulas_Total", MySqlDbType.Int32).Value = planos_qtd_aulas_total;
+                cmd.Parameters.Add("@Planos_Valor_Mensal", MySqlDbType.Double).Value = planos_valor_mensal;
+                cmd.Parameters.Add("@Planos_Valor_Total", MySqlDbType.Double).Value = planos_valor_total;
+                cmd.Parameters.Add("@Planos_Ativo", MySqlDbType.VarChar).Value = planos_situacao;
                 cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para inserir os valores encontrados.
                 e_log = false;
             }
+            #endregion
         }
 
         #endregion
@@ -673,104 +795,6 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
-        #region Tabela Alunos_Imagem
-
-        #region Metodos de Query do banco.
-
-        #region Metodo Query Para Inserir imagem_Aluno na tabela Alunos_Imagem.
-
-        public void Query_Inserir_Imagem()
-        {
-            query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel que recebe o comando para executar no mysql.      
-        }
-
-        #endregion
-
-        #region Metodo Query Para Alterar imagem_Aluno na tabela Alunos_Imagem.
-
-        public void Query_Alterar_Imagem()
-        {
-            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.     
-            query = "UPDATE Alunos_Imagem SET Imagem = @Imagem, " +
-                    "Atualizado_Em = @Atualizado_Em WHERE Alunos_Codigo =" + Alunos_Codigo;     // variavel recebe query do banco.
-
-            cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;   // Adiciona um parametro para acrescentar os valores encontrados.
-
-        }
-
-        #endregion
-
-        #region Metodo Query para pesquisar pela imagem na tabela Alunos_imagem.
-
-        public void Pesquisar_Imagem()
-        {
-            cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
-            query = "SELECT Imagem FROM Alunos_Imagem WHERE Alunos_Codigo =" + Alunos_Codigo;   // variavel recebe query do banco.
-            cmd.CommandText = query;                                                            // Repassa a variavel query para os comandos do mysql.
-            cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;      // Adiciona um parametro para acrescentar os valores encontrados.
-
-            Executa_Pesquisa_Imagem();                                                          // Chama o metodo Executa_pesquisa.
-        }
-
-        #endregion
-        
-        #endregion
-
-        #region Metodo que executa a pesquisa da imagem na tabela Alunos_imagem.
-        public void Executa_Pesquisa_Imagem()
-        {
-            cmd.Connection = conexao_Banco_PA.Conectar_DB(); // Conecta no banco para realizar a pesquisa.
-
-            try
-            {
-                dataReader = cmd.ExecuteReader();           // Executa o datareader
-
-                if (dataReader.HasRows)                     // Se tiver retorno de resultado.
-                {
-                    dataReader.Read();                      // Faz a leitura do datareader.
-                    imagem_byte = (byte[])dataReader[0];    // imagem byte recebe o array de bytes do datareader.
-
-                }
-            }
-
-            catch (MySqlException erro_db)
-            {
-                mensagens.Mensagem_04("-->" + erro_db.Message);
-            }
-            if (!dataReader.IsClosed)                       // Se o datareader estiver aberto.
-            {
-                dataReader.Close();                         // Encerra o datareader.
-                conexao_Banco_PA.Desconectar_DB();          // Desconecta do banco.
-
-            }
-
-        }
-        #endregion
-        
-        #region Metodo que cadastra ou atualiza a imagem na tabela Alunos_Imagem.
-        public void Processa_Imagem()
-        {
-            if (Cad_Ok == "OK")                                                                                     // Aqui pergunta se as informacoes do aluno foram cadastradas primeiro.
-                                                                                                                    // Se a resposta for OK ai sim insere a imagem no banco.
-            {
-                cmd.Parameters.Clear();                                                                             // Limpa os parametros do cmd.
-
-                FileStream arquivo_imagem = new FileStream(caminho_foto_aluno, FileMode.Open, FileAccess.Read);     // Aqui utiliza o filestream para tratar a foto.  
-                BinaryReader binary_reader = new BinaryReader(arquivo_imagem);                                      // Como o banco nao recebe imagem e sim dados    
-                imagem_byte = binary_reader.ReadBytes((int)arquivo_imagem.Length);                                  // variavel imagem_byte recebe o conteudo do arquivo_imagem depois de ser
-                                                                                                                    // "lido"pelo binary reader.
-
-                cmd.Parameters.Add("@Imagem", MySqlDbType.LongBlob).Value = imagem_byte;                            // O tipo da coluna (longblob) Recebe o valor de alunos_imagem_mysql.
-                cmd.Parameters.Add("@Criado_Em", MySqlDbType.Timestamp).Value = DateTime.Now;                       // Define a data de insercao da imagem.
-                cmd.Parameters.Add("@Atualizado_Em", MySqlDbType.Timestamp).Value = null;                           // define a data de atualizacao da imagem.
-                cmd.CommandText = query;                                                                            // Repassa a variavel query para os comandos do mysql.
-            }
-
-        }
-        #endregion
-
-        #endregion
-
         #region Tabela Alunos_Cadastro_Log.
 
         #region Metodo Query para inserir Log na Tabela Alunos_Cadastro_Log.
@@ -791,7 +815,7 @@ namespace Plantando_Alegria.MysqlDb
 
         #region Tabela Planos_Cadastro_Log.
 
-        #region Metodo Query Inserir Log do cadastro de Planos.
+        #region Metodo Query Inserir Log na tabela Planos_Cadastro_Log.
         public void Log_Query_Cadastrar_Plano()
         {
             cmd.Parameters.Clear();                                                             // Limpa os parametros para receber novos.
@@ -856,6 +880,7 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
+
 
 
         #region Metodos comentados que serao usados depois.
