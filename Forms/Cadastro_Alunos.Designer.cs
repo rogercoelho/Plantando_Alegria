@@ -61,12 +61,14 @@
             this.pcb_imagem_aluno = new System.Windows.Forms.PictureBox();
             this.lbl_cpf = new System.Windows.Forms.Label();
             this.txtb_cpf = new System.Windows.Forms.TextBox();
+            this.lbl_nome_responsavel = new System.Windows.Forms.Label();
+            this.txtb_nome_responsavel = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).BeginInit();
             this.SuspendLayout();
             // 
             // txtb_telefone_emergencia_2
             // 
-            this.txtb_telefone_emergencia_2.Location = new System.Drawing.Point(483, 357);
+            this.txtb_telefone_emergencia_2.Location = new System.Drawing.Point(483, 383);
             this.txtb_telefone_emergencia_2.Name = "txtb_telefone_emergencia_2";
             this.txtb_telefone_emergencia_2.Size = new System.Drawing.Size(134, 20);
             this.txtb_telefone_emergencia_2.TabIndex = 11;
@@ -76,7 +78,7 @@
             this.lbl_tel_emergencia_2.AutoSize = true;
             this.lbl_tel_emergencia_2.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_tel_emergencia_2.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_tel_emergencia_2.Location = new System.Drawing.Point(459, 355);
+            this.lbl_tel_emergencia_2.Location = new System.Drawing.Point(459, 381);
             this.lbl_tel_emergencia_2.Name = "lbl_tel_emergencia_2";
             this.lbl_tel_emergencia_2.Size = new System.Drawing.Size(18, 20);
             this.lbl_tel_emergencia_2.TabIndex = 28;
@@ -87,7 +89,7 @@
             this.lbl_tel_emergencia_1.AutoSize = true;
             this.lbl_tel_emergencia_1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_tel_emergencia_1.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_tel_emergencia_1.Location = new System.Drawing.Point(294, 355);
+            this.lbl_tel_emergencia_1.Location = new System.Drawing.Point(294, 381);
             this.lbl_tel_emergencia_1.Name = "lbl_tel_emergencia_1";
             this.lbl_tel_emergencia_1.Size = new System.Drawing.Size(18, 20);
             this.lbl_tel_emergencia_1.TabIndex = 26;
@@ -95,7 +97,7 @@
             // 
             // txtb_cep
             // 
-            this.txtb_cep.Location = new System.Drawing.Point(666, 239);
+            this.txtb_cep.Location = new System.Drawing.Point(666, 265);
             this.txtb_cep.Name = "txtb_cep";
             this.txtb_cep.Size = new System.Drawing.Size(79, 20);
             this.txtb_cep.TabIndex = 6;
@@ -105,7 +107,7 @@
             this.lbl_cep.AutoSize = true;
             this.lbl_cep.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_cep.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cep.Location = new System.Drawing.Point(624, 241);
+            this.lbl_cep.Location = new System.Drawing.Point(624, 267);
             this.lbl_cep.Name = "lbl_cep";
             this.lbl_cep.Size = new System.Drawing.Size(36, 20);
             this.lbl_cep.TabIndex = 27;
@@ -113,7 +115,7 @@
             // 
             // txtb_cidade
             // 
-            this.txtb_cidade.Location = new System.Drawing.Point(407, 239);
+            this.txtb_cidade.Location = new System.Drawing.Point(407, 265);
             this.txtb_cidade.Name = "txtb_cidade";
             this.txtb_cidade.Size = new System.Drawing.Size(211, 20);
             this.txtb_cidade.TabIndex = 5;
@@ -123,7 +125,7 @@
             this.lbl_cidade.AutoSize = true;
             this.lbl_cidade.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_cidade.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cidade.Location = new System.Drawing.Point(341, 241);
+            this.lbl_cidade.Location = new System.Drawing.Point(341, 267);
             this.lbl_cidade.Name = "lbl_cidade";
             this.lbl_cidade.Size = new System.Drawing.Size(60, 20);
             this.lbl_cidade.TabIndex = 24;
@@ -134,7 +136,7 @@
             this.lbl_bairro.AutoSize = true;
             this.lbl_bairro.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_bairro.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_bairro.Location = new System.Drawing.Point(19, 241);
+            this.lbl_bairro.Location = new System.Drawing.Point(19, 267);
             this.lbl_bairro.Name = "lbl_bairro";
             this.lbl_bairro.Size = new System.Drawing.Size(52, 20);
             this.lbl_bairro.TabIndex = 19;
@@ -147,7 +149,7 @@
             this.btn_limpar.FlatAppearance.BorderSize = 2;
             this.btn_limpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_limpar.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_limpar.Location = new System.Drawing.Point(545, 407);
+            this.btn_limpar.Location = new System.Drawing.Point(545, 433);
             this.btn_limpar.Name = "btn_limpar";
             this.btn_limpar.Size = new System.Drawing.Size(130, 35);
             this.btn_limpar.TabIndex = 15;
@@ -162,7 +164,7 @@
             this.btn_adicionar_aluno.FlatAppearance.BorderSize = 2;
             this.btn_adicionar_aluno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_adicionar_aluno.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_adicionar_aluno.Location = new System.Drawing.Point(273, 407);
+            this.btn_adicionar_aluno.Location = new System.Drawing.Point(273, 433);
             this.btn_adicionar_aluno.Name = "btn_adicionar_aluno";
             this.btn_adicionar_aluno.Size = new System.Drawing.Size(147, 35);
             this.btn_adicionar_aluno.TabIndex = 13;
@@ -175,7 +177,7 @@
             this.lbl_telefone_emergencia.AutoSize = true;
             this.lbl_telefone_emergencia.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_telefone_emergencia.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_telefone_emergencia.Location = new System.Drawing.Point(19, 355);
+            this.lbl_telefone_emergencia.Location = new System.Drawing.Point(19, 381);
             this.lbl_telefone_emergencia.Name = "lbl_telefone_emergencia";
             this.lbl_telefone_emergencia.Size = new System.Drawing.Size(249, 20);
             this.lbl_telefone_emergencia.TabIndex = 22;
@@ -186,7 +188,7 @@
             this.lbl_contato_emergencia.AutoSize = true;
             this.lbl_contato_emergencia.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_contato_emergencia.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_contato_emergencia.Location = new System.Drawing.Point(19, 320);
+            this.lbl_contato_emergencia.Location = new System.Drawing.Point(19, 346);
             this.lbl_contato_emergencia.Name = "lbl_contato_emergencia";
             this.lbl_contato_emergencia.Size = new System.Drawing.Size(157, 20);
             this.lbl_contato_emergencia.TabIndex = 21;
@@ -197,7 +199,7 @@
             this.lbl_email.AutoSize = true;
             this.lbl_email.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_email.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_email.Location = new System.Drawing.Point(283, 271);
+            this.lbl_email.Location = new System.Drawing.Point(283, 297);
             this.lbl_email.Name = "lbl_email";
             this.lbl_email.Size = new System.Drawing.Size(118, 20);
             this.lbl_email.TabIndex = 25;
@@ -208,7 +210,7 @@
             this.lbl_telefone.AutoSize = true;
             this.lbl_telefone.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_telefone.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_telefone.Location = new System.Drawing.Point(19, 271);
+            this.lbl_telefone.Location = new System.Drawing.Point(19, 297);
             this.lbl_telefone.Name = "lbl_telefone";
             this.lbl_telefone.Size = new System.Drawing.Size(144, 20);
             this.lbl_telefone.TabIndex = 20;
@@ -219,7 +221,7 @@
             this.lbl_endereco.AutoSize = true;
             this.lbl_endereco.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_endereco.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_endereco.Location = new System.Drawing.Point(19, 207);
+            this.lbl_endereco.Location = new System.Drawing.Point(19, 233);
             this.lbl_endereco.Name = "lbl_endereco";
             this.lbl_endereco.Size = new System.Drawing.Size(155, 20);
             this.lbl_endereco.TabIndex = 18;
@@ -253,7 +255,7 @@
             this.btn_voltar.FlatAppearance.BorderSize = 2;
             this.btn_voltar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_voltar.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_voltar.Location = new System.Drawing.Point(83, 407);
+            this.btn_voltar.Location = new System.Drawing.Point(83, 433);
             this.btn_voltar.Name = "btn_voltar";
             this.btn_voltar.Size = new System.Drawing.Size(70, 35);
             this.btn_voltar.TabIndex = 14;
@@ -263,35 +265,35 @@
             // 
             // txtb_telefone_emergencia_1
             // 
-            this.txtb_telefone_emergencia_1.Location = new System.Drawing.Point(318, 355);
+            this.txtb_telefone_emergencia_1.Location = new System.Drawing.Point(318, 381);
             this.txtb_telefone_emergencia_1.Name = "txtb_telefone_emergencia_1";
             this.txtb_telefone_emergencia_1.Size = new System.Drawing.Size(118, 20);
             this.txtb_telefone_emergencia_1.TabIndex = 10;
             // 
             // txtb_contato_emergencia
             // 
-            this.txtb_contato_emergencia.Location = new System.Drawing.Point(182, 320);
+            this.txtb_contato_emergencia.Location = new System.Drawing.Point(182, 346);
             this.txtb_contato_emergencia.Name = "txtb_contato_emergencia";
             this.txtb_contato_emergencia.Size = new System.Drawing.Size(563, 20);
             this.txtb_contato_emergencia.TabIndex = 9;
             // 
             // txtb_email
             // 
-            this.txtb_email.Location = new System.Drawing.Point(407, 271);
+            this.txtb_email.Location = new System.Drawing.Point(407, 297);
             this.txtb_email.Name = "txtb_email";
             this.txtb_email.Size = new System.Drawing.Size(338, 20);
             this.txtb_email.TabIndex = 8;
             // 
             // txtb_telefone
             // 
-            this.txtb_telefone.Location = new System.Drawing.Point(169, 271);
+            this.txtb_telefone.Location = new System.Drawing.Point(169, 297);
             this.txtb_telefone.Name = "txtb_telefone";
             this.txtb_telefone.Size = new System.Drawing.Size(99, 20);
             this.txtb_telefone.TabIndex = 7;
             // 
             // txtb_endereco
             // 
-            this.txtb_endereco.Location = new System.Drawing.Point(180, 209);
+            this.txtb_endereco.Location = new System.Drawing.Point(180, 235);
             this.txtb_endereco.Name = "txtb_endereco";
             this.txtb_endereco.Size = new System.Drawing.Size(565, 20);
             this.txtb_endereco.TabIndex = 3;
@@ -338,7 +340,7 @@
             // 
             // txtb_bairro
             // 
-            this.txtb_bairro.Location = new System.Drawing.Point(78, 240);
+            this.txtb_bairro.Location = new System.Drawing.Point(78, 266);
             this.txtb_bairro.Name = "txtb_bairro";
             this.txtb_bairro.Size = new System.Drawing.Size(257, 20);
             this.txtb_bairro.TabIndex = 4;
@@ -377,13 +379,33 @@
             this.txtb_cpf.Size = new System.Drawing.Size(109, 20);
             this.txtb_cpf.TabIndex = 1;
             // 
+            // lbl_nome_responsavel
+            // 
+            this.lbl_nome_responsavel.AutoSize = true;
+            this.lbl_nome_responsavel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.lbl_nome_responsavel.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_nome_responsavel.Location = new System.Drawing.Point(19, 203);
+            this.lbl_nome_responsavel.Name = "lbl_nome_responsavel";
+            this.lbl_nome_responsavel.Size = new System.Drawing.Size(173, 20);
+            this.lbl_nome_responsavel.TabIndex = 50;
+            this.lbl_nome_responsavel.Text = "Nome do Responsável";
+            // 
+            // txtb_nome_responsavel
+            // 
+            this.txtb_nome_responsavel.Location = new System.Drawing.Point(198, 205);
+            this.txtb_nome_responsavel.Name = "txtb_nome_responsavel";
+            this.txtb_nome_responsavel.Size = new System.Drawing.Size(547, 20);
+            this.txtb_nome_responsavel.TabIndex = 49;
+            // 
             // frm_cadastro_alunos
             // 
             this.AcceptButton = this.btn_adicionar_aluno;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 454);
+            this.ClientSize = new System.Drawing.Size(757, 487);
             this.ControlBox = false;
+            this.Controls.Add(this.lbl_nome_responsavel);
+            this.Controls.Add(this.txtb_nome_responsavel);
             this.Controls.Add(this.txtb_cpf);
             this.Controls.Add(this.lbl_cpf);
             this.Controls.Add(this.txtb_bairro);
@@ -460,5 +482,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label lbl_cpf;
         private System.Windows.Forms.TextBox txtb_cpf;
+        private System.Windows.Forms.Label lbl_nome_responsavel;
+        private System.Windows.Forms.TextBox txtb_nome_responsavel;
     }
 }

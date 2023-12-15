@@ -41,6 +41,7 @@ namespace Plantando_Alegria.Forms
 
             txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
             txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
+            txtb_nome_responsavel.Clear();          // Limpa os campos apos cadastrado.
             txtb_cpf.Clear();                       // Limpa os campos após cadastrado.
             txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
             txtb_bairro.Clear();                    // Limpa os campos após cadastrado.
@@ -65,6 +66,7 @@ namespace Plantando_Alegria.Forms
             DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();                                   // Variavel recebe o valor do textbox.
             DB_PA.Alunos_CPF = txtb_cpf.Text.ToUpper();                                         // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();                                 // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_Nome_Responsavel = txtb_nome_responsavel.Text.ToUpper();               // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();                               // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Email = txtb_email.Text.ToUpper();                                     // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper();                               // Variavel recebe o valor do textbox.
@@ -84,6 +86,7 @@ namespace Plantando_Alegria.Forms
             #endregion
 
             #region Se foram validados Cadastra o aluno, insere a imagem e registra o log.
+
             if (DB_PA.campos_validados == true)     // Se estiver validado.
             {
                 #region Cadastra os dados do aluno.
