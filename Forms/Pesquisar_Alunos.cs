@@ -36,6 +36,7 @@ namespace Plantando_Alegria.Forms
         {
             txtb_codigo.Clear();                // Faz a limpeza do txtb_codigo.
             txtb_nome_aluno.Clear();            // Faz a limpeza do txtb_nome_aluno.
+            txtb_cpf.Clear();                   // Faz a limpeza do txtb_cpf.
             chkbox_resultado.Items.Clear();     // Faz a limpeza do checklistbox chkbox_resultado.
         }
 
@@ -49,15 +50,15 @@ namespace Plantando_Alegria.Forms
             dB_PA.Limpar_Variaveis_Alunos();                // Chama o metodo de limpar as variaveis.
             DB_PA.Alunos_Codigo = txtb_codigo.Text;         // Variavel alunos_codigo recebe novo valor do txtbox.
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text;       // Variavel alunos_nome recebe novo valor do txtbox.
+            DB_PA.Alunos_CPF = txtb_cpf.Text;               // Variavel alunos_cpf recebe novo valor do txtbox.
             DB_PA.pesquisar_alunos = true;                  // Atribui true a variavel pesquisar_alunos.
        
             #endregion
 
             #region Retorna todas as informacoes da tabela.
 
-            if (txtb_codigo.Text == "" && txtb_nome_aluno.Text == "")   // Pesquisa com os campos em branco.
+            if (txtb_codigo.Text == "" && txtb_nome_aluno.Text == "" && txtb_cpf.Text == "")   // Pesquisa com os campos em branco.
             {
-                  
                 mensagens.Mensagem_01();                                // Da um aviso que retorna tudo da tabela.
 
                 dB_PA.Pesquisar_Tudo_tbl_alunos_cadastro();             // Chama o metodo de pesquisar tudo.
@@ -67,7 +68,7 @@ namespace Plantando_Alegria.Forms
 
             #region Retorna a pesquisa pelo nome.
 
-            else if (txtb_codigo.Text == "" && txtb_nome_aluno.Text != "")      // Faz a busca pelo label Nome Aluno
+            else if (txtb_codigo.Text == "" && txtb_cpf.Text == "" && txtb_nome_aluno.Text != "")      // Faz a busca pelo label Nome Aluno
             {
                 dB_PA.Pesquisar_Pelo_Nome_tbl_alunos_cadastro();                // Chama o metodo de pesquisar pelo nome.
             }
@@ -76,21 +77,59 @@ namespace Plantando_Alegria.Forms
 
             #region Retorna a pesquisa pelo codigo.
 
-            else if (txtb_nome_aluno.Text == "" && txtb_codigo.Text != "")      // Faz a busca pelo Codigo_Aluno.
+            else if (txtb_nome_aluno.Text == "" && txtb_cpf.Text == "" && txtb_codigo.Text != "")      // Faz a busca pelo Codigo_Aluno.
             {
                 dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();              // Chama o metodo de pesquisar pelo codigo.
             }
 
             #endregion
 
-            #region Retorna a pesquisa pelo nome ou pelo codigo.
+            #region Retorna a pesquisa pelo CPF.
 
-            else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text != "")      // Se a pesquisa tiver dados em ambos os campos.
+            else if (txtb_nome_aluno.Text == "" && txtb_codigo.Text == "" && txtb_cpf.Text != "")      // Faz a busca pelo Codigo_Aluno.
+            {
+                dB_PA.Pesquisar_pelo_CPF_tbl_alunos_cadastro();              // Chama o metodo de pesquisar pelo codigo.
+            }
+
+            #endregion
+
+            #region Retorna a pesquisa pelo nome, pelo codigo ou pelo CPF.
+
+            else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text != "" && txtb_cpf.Text != "")       // Se a pesquisa tiver dados em ambos os campos.
             {
                 mensagens.Mensagem_05();                                        // Informa que a pesquisa vai retornar valores de ambos os campos.
+                dB_PA.Pesquisar_pelo_Nome_Codigo_CPF_tbl_alunos_cadastro();         // Chama o metodo que pesquisa pelo nome e pelo codigo.
+            }
+
+            #endregion
+
+            #region Retorna a pesquisa pelo nome ou pelo codigo.
+
+            else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text != "" && txtb_cpf.Text == "")       // Se a pesquisa tiver dados em ambos os campos.
+            {
+                mensagens.Mensagem_35();                                        // Informa que a pesquisa vai retornar valores de ambos os campos.
                 dB_PA.Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro();         // Chama o metodo que pesquisa pelo nome e pelo codigo.
             }
 
+            #endregion
+
+            #region Retorna a pesquisa pelo Codigo ou pelo CPF.
+
+            else if (txtb_nome_aluno.Text == "" && txtb_codigo.Text != "" && txtb_cpf.Text != "")       // Se a pesquisa tiver dados em ambos os campos.
+            {
+                mensagens.Mensagem_36();                                        // Informa que a pesquisa vai retornar valores de ambos os campos.
+                dB_PA.Pesquisar_pelo_Codigo_CPF_tbl_alunos_cadastro();         // Chama o metodo que pesquisa pelo nome e pelo codigo.
+            }
+
+            #endregion
+
+            #region Retorna a pesquisa pelo nome ou pelo CPF.
+
+            else if (txtb_nome_aluno.Text != "" && txtb_codigo.Text == "" && txtb_cpf.Text != "")       // Se a pesquisa tiver dados em ambos os campos.
+            {
+                mensagens.Mensagem_37();                                        // Informa que a pesquisa vai retornar valores de ambos os campos.
+                dB_PA.Pesquisar_pelo_Nome_CPF_tbl_alunos_cadastro();         // Chama o metodo que pesquisa pelo nome e pelo codigo.
+            }
             #endregion
 
             #region Inicia a execucao da pesquisa.

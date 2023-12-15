@@ -33,7 +33,7 @@ namespace Plantando_Alegria.MysqlDb
         }
         public void Mensagem_05()
         {
-            MessageBox.Show("A pesquisa irá efetuar a busca pelo código OU pelo nome do aluno.\n",
+            MessageBox.Show("A pesquisa irá efetuar a busca pelo Código OU pelo Nome OU pelo CPF do aluno.\n",
                             "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public void Mensagem_06()
@@ -180,6 +180,21 @@ namespace Plantando_Alegria.MysqlDb
         {
             MessageBox.Show("O campo de CPF do Aluno aceita apenas numeros e não pode estar vazio.\n",
                             "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public void Mensagem_35()
+        {
+            MessageBox.Show("A pesquisa irá efetuar a busca pelo Código OU pelo Nome do aluno.\n",
+                            "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public void Mensagem_36()
+        {
+            MessageBox.Show("A pesquisa irá efetuar a busca pelo Código OU pelo CPF do aluno.\n",
+                            "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public void Mensagem_37()
+        {
+            MessageBox.Show("A pesquisa irá efetuar a busca pelo Nome OU pelo CPF do aluno.\n",
+                            "Plantando Alegria - Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -152,6 +152,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
         {
+            cmd.Parameters.Clear();
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Nome LIKE '" + Alunos_Nome + "'";   // Variavel ira receber a query. + o que esta na variavel.       
             cmd.CommandText = query;                                                                // Repassa a variavel query para os comandos do mysql.
             cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);                               // Adiciona um parametro para acrescentar os valores encontrados
@@ -159,9 +160,28 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo Query para pesquisar pelo codigo, pelo nome ou pelo CPF na tabela Alunos_Cadastro.
+        public void Pesquisar_pelo_Nome_Codigo_CPF_tbl_alunos_cadastro()
+        {
+            cmd.Parameters.Clear();
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                     + Alunos_Codigo
+                     + " OR Alunos_Nome LIKE" +
+                     " '" + Alunos_Nome + "'" +
+                     " OR Alunos_CPF =" + Alunos_CPF;
+
+            cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);   // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_CPF", Alunos_CPF);         // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
         #region Metodo Query para pesquisar pelo codigo ou pelo nome na tabela Alunos_Cadastro.
         public void Pesquisar_pelo_Nome_Codigo_tbl_alunos_cadastro()
         {
+            cmd.Parameters.Clear();
             query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
                      + Alunos_Codigo
                      + " OR Alunos_Nome LIKE" +
@@ -172,6 +192,37 @@ namespace Plantando_Alegria.MysqlDb
             cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
         }
 
+        #endregion
+
+        #region Metodo Query para pesquisar pelo codigo ou pelo pelo CPF na tabela Alunos_Cadastro.
+        public void Pesquisar_pelo_Codigo_CPF_tbl_alunos_cadastro()
+        {
+            cmd.Parameters.Clear();
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_Codigo="    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                     + Alunos_Codigo
+                     + " OR Alunos_CPF =" 
+                     + Alunos_CPF;
+
+            cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Alunos_codigo", Alunos_Codigo);   // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_CPF", Alunos_CPF);         // Adiciona um parametro para acrescentar os valores encontrados.
+        }
+
+        #endregion
+
+        #region Metodo Query para pesquisar pelo nome ou pelo CPF na tabela Alunos_Cadastro.
+        public void Pesquisar_pelo_Nome_CPF_tbl_alunos_cadastro()
+        {
+            cmd.Parameters.Clear();
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_CPF="    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                     + Alunos_CPF
+                     + " OR Alunos_Nome LIKE" +
+                     " '" + Alunos_Nome + "'" ;
+
+            cmd.CommandText = query;                                        // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.AddWithValue("@Alunos_Nome", Alunos_Nome);       // Adiciona um parametro para acrescentar os valores encontrados.
+            cmd.Parameters.AddWithValue("@Alunos_CPF", Alunos_CPF);         // Adiciona um parametro para acrescentar os valores encontrados.
+        }
         #endregion
 
         #endregion

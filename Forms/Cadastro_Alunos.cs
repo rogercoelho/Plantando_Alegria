@@ -41,6 +41,7 @@ namespace Plantando_Alegria.Forms
 
             txtb_codigo.Clear();                    // Limpa os campos após cadastrado.
             txtb_nome_aluno.Clear();                // Limpa os campos após cadastrado.
+            txtb_cpf.Clear();                       // Limpa os campos após cadastrado.
             txtb_endereco.Clear();                  // Limpa os campos após cadastrado.
             txtb_bairro.Clear();                    // Limpa os campos após cadastrado.
             txtb_cidade.Clear();                    // Limpa os campos após cadastrado.
