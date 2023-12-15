@@ -831,16 +831,17 @@ namespace Plantando_Alegria.MysqlDb
 
                             lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
                                                        "  Nome | ", dataReader[1].ToString() + " | ",
-                                                       "  CPF | ", dataReader[2].ToString() + " | ",
-                                                       "  Endereço | ", dataReader[3].ToString() + " | ",
-                                                       "  Bairro | ", dataReader[4].ToString() + " | ",
-                                                       "  Cidade | ", dataReader[5].ToString() + " | ",
-                                                       "  CEP | ", dataReader[6].ToString() + " | ",
-                                                       "  Tel. | ", dataReader[7].ToString() + " | ",
-                                                       "  Email | ", dataReader[8].ToString() + " | ",
-                                                       "  Contato Emergencia | ", dataReader[9].ToString() + " | ",
-                                                       "  Telefone Emergencia_1 | ", dataReader[10].ToString() + " | ",
-                                                       "  Telefone Emergencia_2 | ", dataReader[11].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                                                       "  Nome_ Responsável | ", dataReader[2].ToString() + " | ",
+                                                       "  CPF | ", dataReader[3].ToString() + " | ",
+                                                       "  Endereço | ", dataReader[4].ToString() + " | ",
+                                                       "  Bairro | ", dataReader[5].ToString() + " | ",
+                                                       "  Cidade | ", dataReader[6].ToString() + " | ",
+                                                       "  CEP | ", dataReader[7].ToString() + " | ",
+                                                       "  Tel. | ", dataReader[8].ToString() + " | ",
+                                                       "  Email | ", dataReader[9].ToString() + " | ",
+                                                       "  Contato Emergencia | ", dataReader[10].ToString() + " | ",
+                                                       "  Telefone Emergencia_1 | ", dataReader[11].ToString() + " | ",
+                                                       "  Telefone Emergencia_2 | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                         }
 
                         Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
