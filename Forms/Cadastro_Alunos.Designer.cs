@@ -59,6 +59,8 @@
             this.txtb_bairro = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pcb_imagem_aluno = new System.Windows.Forms.PictureBox();
+            this.lbl_cpf = new System.Windows.Forms.Label();
+            this.txtb_cpf = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pcb_imagem_aluno)).BeginInit();
             this.SuspendLayout();
             // 
@@ -357,6 +359,24 @@
             this.pcb_imagem_aluno.TabIndex = 48;
             this.pcb_imagem_aluno.TabStop = false;
             // 
+            // lbl_cpf
+            // 
+            this.lbl_cpf.AutoSize = true;
+            this.lbl_cpf.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.lbl_cpf.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cpf.Location = new System.Drawing.Point(283, 142);
+            this.lbl_cpf.Name = "lbl_cpf";
+            this.lbl_cpf.Size = new System.Drawing.Size(36, 20);
+            this.lbl_cpf.TabIndex = 49;
+            this.lbl_cpf.Text = "CPF";
+            // 
+            // txtb_cpf
+            // 
+            this.txtb_cpf.Location = new System.Drawing.Point(325, 144);
+            this.txtb_cpf.Name = "txtb_cpf";
+            this.txtb_cpf.Size = new System.Drawing.Size(109, 20);
+            this.txtb_cpf.TabIndex = 50;
+            // 
             // frm_cadastro_alunos
             // 
             this.AcceptButton = this.btn_adicionar_aluno;
@@ -364,6 +384,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 454);
             this.ControlBox = false;
+            this.Controls.Add(this.txtb_cpf);
+            this.Controls.Add(this.lbl_cpf);
             this.Controls.Add(this.txtb_bairro);
             this.Controls.Add(this.btn_inserir_imagem);
             this.Controls.Add(this.pcb_imagem_aluno);
@@ -436,5 +458,7 @@
         public System.Windows.Forms.PictureBox pcb_imagem_aluno;
         private System.Windows.Forms.TextBox txtb_bairro;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Label lbl_cpf;
+        private System.Windows.Forms.TextBox txtb_cpf;
     }
 }

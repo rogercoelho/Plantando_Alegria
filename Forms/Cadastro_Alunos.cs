@@ -62,6 +62,7 @@ namespace Plantando_Alegria.Forms
             #region Repassa os dados dos campos para as variaveis DB_PA.          
 
             DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper();                                   // Variavel recebe o valor do textbox.
+            DB_PA.Alunos_CPF = txtb_cpf.Text.ToUpper();                                         // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper();                                 // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper();                               // Variavel recebe o valor do textbox.
             DB_PA.Alunos_Email = txtb_email.Text.ToUpper();                                     // Variavel recebe o valor do textbox.

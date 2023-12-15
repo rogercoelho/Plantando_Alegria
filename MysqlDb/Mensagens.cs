@@ -176,5 +176,10 @@ namespace Plantando_Alegria.MysqlDb
             MessageBox.Show("Os dados da ficha do plano foram atualizados com sucesso.\n",
                             "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public void Mensagem_34()
+        {
+            MessageBox.Show("O campo de CPF do Aluno aceita apenas numeros e não pode estar vazio.\n",
+                            "Plantando Alegria - Confirmação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

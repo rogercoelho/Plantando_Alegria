@@ -43,6 +43,7 @@ namespace Plantando_Alegria.MysqlDb
 
         public static string Alunos_Codigo;                     // Variavel que comunica com o textbox.
         public static string Alunos_Nome;                       // Variavel que comunica com o textbox.
+        public static string Alunos_CPF;                        // Variavel que comunica com o textbox.
         public static string Alunos_Endereco;                   // Variavel que comunica com o textbox.
         public static string Alunos_Bairro;                     // Variavel que comunica com o textbox.
         public static string Alunos_Cidade;                     // Variavel que comunica com o textbox.
@@ -61,6 +62,7 @@ namespace Plantando_Alegria.MysqlDb
         {
             Alunos_Codigo = "";                     // Atribui vazio na variavel.
             Alunos_Nome = "";                       // Atribui vazio na variavel.
+            Alunos_CPF = "";                        // Atribui vazio na variavel.
             Alunos_Endereco = "";                   // Atribui vazio na variavel.
             Alunos_Bairro = "";                     // Atribui vazio na variavel.
             Alunos_Cidade = "";                     // Atribui vazio na variavel.
@@ -82,7 +84,7 @@ namespace Plantando_Alegria.MysqlDb
         {
             cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
 
-            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
+            query = "INSERT INTO Alunos_Cadastro VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_CPF, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
                                                         "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
                                                         "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
                                                         "@Alunos_Telefone_Emergencia_2)";
@@ -132,6 +134,20 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
 
+        #region Metodo Query para pesquisar pelo CPF do aluno na tabela Alunos_Cadastro.
+
+        public void Pesquisar_pelo_CPF_tbl_alunos_cadastro()
+        {
+            cmd.Parameters.Clear();                                                       // Faz a limpeza dos parametros antes de incluir novos.
+            //pesquisa_codigo_aluno = true;                                               // Atribui true a variavel pesquisa pelo codigo.
+            query = "SELECT * from Alunos_Cadastro WHERE Alunos_CPF =" + Alunos_CPF;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+            cmd.CommandText = query;                                                      // Repassa a variavel query para os comandos do mysql.
+            cmd.Parameters.Add("@Alunos_CPF", MySqlDbType.Int32).Value = Alunos_CPF;      // Adiciona um parametro para acrescentar os valores encontrados.
+
+        }
+
+        #endregion
+
         #region Metodo Query para pesquisar pelo nome do aluno na tabela Alunos_Cadastro.
 
         public void Pesquisar_Pelo_Nome_tbl_alunos_cadastro()
@@ -172,25 +188,29 @@ namespace Plantando_Alegria.MysqlDb
 
             if (frm_ficha_alunos.selecao2[3].ToString().Trim() == Alunos_Nome.ToString().Trim())
             {
-                if (frm_ficha_alunos.selecao2[5].ToString().Trim() == Alunos_Endereco.ToString().Trim())
+                if (frm_ficha_alunos.selecao2[5].ToString().Trim() == Alunos_CPF.ToString().Trim())
                 {
-                    if (frm_ficha_alunos.selecao2[7].ToString().Trim() == Alunos_Bairro.ToString().Trim())
+                    if (frm_ficha_alunos.selecao2[7].ToString().Trim() == Alunos_Endereco.ToString().Trim())
                     {
-                        if (frm_ficha_alunos.selecao2[9].ToString().Trim() == Alunos_Cidade.ToString().Trim())
+                        if (frm_ficha_alunos.selecao2[9].ToString().Trim() == Alunos_Bairro.ToString().Trim())
                         {
-                            if (frm_ficha_alunos.selecao2[11].ToString().Trim() == Alunos_CEP.ToString().Trim())
+                            if (frm_ficha_alunos.selecao2[11].ToString().Trim() == Alunos_Cidade.ToString().Trim())
                             {
-                                if (frm_ficha_alunos.selecao2[13].ToString().Trim() == Alunos_Telefone.ToString().Trim())
+                                if (frm_ficha_alunos.selecao2[13].ToString().Trim() == Alunos_CEP.ToString().Trim())
                                 {
-                                    if (frm_ficha_alunos.selecao2[15].ToString() == Alunos_Email.ToString())
+                                    if (frm_ficha_alunos.selecao2[15].ToString().Trim() == Alunos_Telefone.ToString().Trim())
                                     {
-                                        if (frm_ficha_alunos.selecao2[17].ToString().Trim() == Alunos_Contato_Emergencia.ToString().Trim())
+                                        if (frm_ficha_alunos.selecao2[17].ToString() == Alunos_Email.ToString())
                                         {
-                                            if (frm_ficha_alunos.selecao2[19].ToString().Trim() == Alunos_Telefone_Emergencia_1.ToString().Trim())
+                                            if (frm_ficha_alunos.selecao2[19].ToString().Trim() == Alunos_Contato_Emergencia.ToString().Trim())
                                             {
-                                                if (frm_ficha_alunos.selecao2[21].ToString().Trim() == Alunos_Telefone_Emergencia_2.ToString().Trim())
+                                                if (frm_ficha_alunos.selecao2[21].ToString().Trim() == Alunos_Telefone_Emergencia_1.ToString().Trim())
                                                 {
+                                                    if (frm_ficha_alunos.selecao2[23].ToString().Trim() == Alunos_Telefone_Emergencia_2.ToString().Trim())
+                                                    {
 
+                                                    }
+                                                    else { dados_alterados = true; }
                                                 }
                                                 else { dados_alterados = true; }
                                             }
@@ -207,11 +227,10 @@ namespace Plantando_Alegria.MysqlDb
                         else { dados_alterados = true; }
                     }
                     else { dados_alterados = true; }
-                }
-                else { dados_alterados = true; }
-            }                                                                                       // Faz a validacao dos campos. Se forem iguais, segue.
-            else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
-
+                }  // Faz a validacao dos campos. Se forem iguais, segue.
+                else { dados_alterados = true; }                                                        // Se tiver alguma alteracao atribui true a variavel de dados alterados.
+            }
+            else { dados_alterados = true; }
         }
         #endregion
         
@@ -229,6 +248,12 @@ namespace Plantando_Alegria.MysqlDb
             {
                 campos_validados = false;
                 mensagens.Mensagem_13();
+                return;
+            }
+            while (string.IsNullOrEmpty(Alunos_CPF))      // Enquanto o txtbox nao for apenas numeros retorna a mensagem.
+            {
+                campos_validados = false;
+                mensagens.Mensagem_34();
                 return;
             }
             while (string.IsNullOrEmpty(Alunos_Endereco))               // Enquanto txtbox estiver em branco retorna a mensagem.
@@ -300,7 +325,8 @@ namespace Plantando_Alegria.MysqlDb
             if (e_cadastro == true)                                                                                             // Se for cadastro e nao atualizacao.
             {
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                                  // Adiciona o parametro para o cadastro.
-                cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_CPF", MySqlDbType.VarChar).Value = Alunos_CPF;
                 cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
@@ -314,12 +340,13 @@ namespace Plantando_Alegria.MysqlDb
 
             #endregion
 
-            #region Paramentros para Cadstro do LOG na tabela Alunos_Cadastro_Log.
+            #region Paramentros para Cadastro do LOG na tabela Alunos_Cadastro_Log.
             if (e_log == true)
             {
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                                  // Adiciona o parametro para o cadastro.
-                cmd.Parameters.Add("Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
+                cmd.Parameters.Add("@Alunos_CPF", MySqlDbType.Int32).Value = Alunos_CPF;
                 cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
