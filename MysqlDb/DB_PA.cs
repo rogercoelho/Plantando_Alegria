@@ -346,7 +346,7 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = Alunos_Codigo;                                  // Adiciona o parametro para o cadastro.
                 cmd.Parameters.Add("@Alunos_Nome", MySqlDbType.VarChar).Value = Alunos_Nome;                                     // Adiciona o parametro tando para cadastro como atualizacao.
-                cmd.Parameters.Add("@Alunos_CPF", MySqlDbType.Int32).Value = Alunos_CPF;
+                cmd.Parameters.Add("@Alunos_CPF", MySqlDbType.VarChar).Value = Alunos_CPF;
                 cmd.Parameters.Add("@Alunos_Telefone", MySqlDbType.VarChar).Value = Alunos_Telefone;                            // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Email", MySqlDbType.VarChar).Value = Alunos_Email;                                  // Adiciona o parametro tando para cadastro como atualizacao.
                 cmd.Parameters.Add("@Alunos_Endereco", MySqlDbType.VarChar).Value = Alunos_Endereco;                            // Adiciona o parametro tando para cadastro como atualizacao.
@@ -373,7 +373,6 @@ namespace Plantando_Alegria.MysqlDb
         #region Metodos de Query do banco.
 
         #region Metodo Query Para Inserir imagem_Aluno na tabela Alunos_Imagem.
-
         public void Query_Inserir_Imagem()
         {
             query = "INSERT INTO Alunos_Imagem VALUES (@Alunos_Codigo, @Imagem, @Criado_Em, @Atualizado_Em)";   // variavel que recebe o comando para executar no mysql.      
@@ -382,7 +381,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query Para Alterar imagem_Aluno na tabela Alunos_Imagem.
-
         public void Query_Alterar_Imagem()
         {
             cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.     
@@ -396,7 +394,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query para pesquisar pela imagem na tabela Alunos_imagem.
-
         public void Pesquisar_Imagem()
         {
             cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
@@ -468,11 +465,9 @@ namespace Plantando_Alegria.MysqlDb
 
         #endregion
         
-
         #region Tabela Planos_Cadastro
 
         #region Variaveis da tabela Planos_Cadastro.
-
         public static string planos_codigo;                 // Variavel que comunica com o textbox.
         public static string planos_nome;                   // Variavel que comunica com o textbox.
         public static string planos_qtd_aulas_semana;       // Variavel que comunica com o textbox.
@@ -544,7 +539,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query para atualizar planos na tabela Plano_Cadastro.
-
         public void Query_Atualizar_Cadastro_Plano()
         {
             query = "UPDATE Planos_Cadastro SET Planos_Nome = @planos_nome, Planos_Qtd_Aulas_Semana = @qtd_aulas_semana, " +                 // Variavel ira receber a query.
@@ -559,7 +553,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query para pesquisar tudo da tabela Planos_Cadastro.
-
         public void Pesquisar_Tudo_tbl_planos_cadastro()
         {
             query = "SELECT * from Planos_Cadastro";    // Variavel ira receber a query.         
@@ -569,7 +562,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #region Metodo Query para pesquisar pelo codigo do plano na tabela Planos_Cadastro.
-
         public void Pesquisar_pelo_Codigo_tbl_planos_cadastro()
         {
             cmd.Parameters.Clear();                                                             // Faz a limpeza dos parametros antes de incluir novos.
@@ -584,7 +576,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #region Metodo Query para pesquisar pelo nome do plano na tabela Planos_Cadastro.
-
         public void Pesquisar_Pelo_Nome_tbl_planos_cadastro()
         {
             cmd.Parameters.Clear();
@@ -598,7 +589,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
 
         #region Metodo Query para pesquisar pelo codigo ou pelo nome na tabela Planos_Cadastro.
-
         public void Pesquisar_pelo_Nome_Codigo_tbl_planos_cadastro()
         {
             query = "SELECT * from Planos_Cadastro WHERE Planos_Codigo LIKE" +    // variavel que recebe o comando para executar no mysql + o que esta na variavel.
@@ -615,7 +605,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #region Metodo que valida os dados da tabela Planos_Cadastro.
-
         public void Verifica_Campos_Plano()
         {
             frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();
@@ -662,7 +651,6 @@ namespace Plantando_Alegria.MysqlDb
         #endregion
         
         #region Metodo que cadastra ou atualiza o cadastro na tabela Planos_Cadastro.
-
         public void Cadastrar_Atualizar_Planos_Cadastro()
         {
             cmd.Parameters.Clear();
@@ -701,7 +689,6 @@ namespace Plantando_Alegria.MysqlDb
         }
 
         #endregion
-
 
         #endregion
 
@@ -768,6 +755,7 @@ namespace Plantando_Alegria.MysqlDb
 
                     #endregion
 
+
                     #region Parte que pesquisa Alunos.
 
                     if (pesquisar_alunos == true)
@@ -777,15 +765,16 @@ namespace Plantando_Alegria.MysqlDb
 
                             lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
                                                        "  Nome | ", dataReader[1].ToString() + " | ",
-                                                       "  Endereço | ", dataReader[2].ToString() + " | ",
-                                                       "  Bairro | ", dataReader[3].ToString() + " | ",
-                                                       "  Cidade | ", dataReader[4].ToString() + " | ",
-                                                       "  CEP | ", dataReader[5].ToString() + " | ",
-                                                       "  Tel. | ", dataReader[6].ToString() + " | ",
-                                                       "  Email | ", dataReader[7].ToString() + " | ",
-                                                       "  Contato Emergencia | ", dataReader[8].ToString() + " | ",
-                                                       "  Telefone Emergencia_1 | ", dataReader[9].ToString() + " | ",
-                                                       "  Telefone Emergencia_2 | ", dataReader[10].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                                                       "  CPF | ", dataReader[2].ToString() + " | ",
+                                                       "  Endereço | ", dataReader[3].ToString() + " | ",
+                                                       "  Bairro | ", dataReader[4].ToString() + " | ",
+                                                       "  Cidade | ", dataReader[5].ToString() + " | ",
+                                                       "  CEP | ", dataReader[6].ToString() + " | ",
+                                                       "  Tel. | ", dataReader[7].ToString() + " | ",
+                                                       "  Email | ", dataReader[8].ToString() + " | ",
+                                                       "  Contato Emergencia | ", dataReader[9].ToString() + " | ",
+                                                       "  Telefone Emergencia_1 | ", dataReader[10].ToString() + " | ",
+                                                       "  Telefone Emergencia_2 | ", dataReader[11].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                         }
 
                         Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
@@ -829,14 +818,13 @@ namespace Plantando_Alegria.MysqlDb
         {
             cmd.Parameters.Clear();         // Faz a limpeza dos parametros antes de incluir novos.
 
-            query = "INSERT INTO Alunos_Cadastro_log VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
+            query = "INSERT INTO Alunos_Cadastro_log VALUES (@Alunos_Codigo, @Alunos_Nome, @Alunos_CPF, @Alunos_Endereco, @Alunos_Bairro," +  // Variavel ira receber a query.
                                                         "@Alunos_Cidade, @Alunos_CEP, @Alunos_Telefone, @Alunos_Email," +
                                                         "@Alunos_Contato_Emergencia, @Alunos_Telefone_Emergencia_1," +
                                                         "@Alunos_Telefone_Emergencia_2, @Atualizado_Em)";
             cmd.CommandText = query;        // Repassa a variavel query para os comandos do mysql.
         }
         #endregion
-
 
         #endregion
 
