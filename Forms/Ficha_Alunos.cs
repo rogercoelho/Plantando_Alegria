@@ -114,6 +114,7 @@ namespace Plantando_Alegria.Forms
             #region Controle dos botoes e textbox.
 
             txtb_nome_aluno.Enabled = true;                 // Ativa o campo para edicao.
+            txtb_nome_responsavel.Enabled = true;           // Ativa o campo para edicao.
             txtb_endereco.Enabled = true;                   // Ativa o campo para edicao.
             txtb_bairro.Enabled = true;                     // Ativa o campo para edicao.
             txtb_cidade.Enabled = true;                     // Ativa o campo para edicao.
