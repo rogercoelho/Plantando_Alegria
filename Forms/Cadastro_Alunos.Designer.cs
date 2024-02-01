@@ -68,7 +68,7 @@
             // 
             // txtb_telefone_emergencia_2
             // 
-            this.txtb_telefone_emergencia_2.Location = new System.Drawing.Point(483, 383);
+            this.txtb_telefone_emergencia_2.Location = new System.Drawing.Point(496, 383);
             this.txtb_telefone_emergencia_2.Name = "txtb_telefone_emergencia_2";
             this.txtb_telefone_emergencia_2.Size = new System.Drawing.Size(134, 20);
             this.txtb_telefone_emergencia_2.TabIndex = 12;
@@ -78,7 +78,7 @@
             this.lbl_tel_emergencia_2.AutoSize = true;
             this.lbl_tel_emergencia_2.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_tel_emergencia_2.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_tel_emergencia_2.Location = new System.Drawing.Point(459, 381);
+            this.lbl_tel_emergencia_2.Location = new System.Drawing.Point(472, 381);
             this.lbl_tel_emergencia_2.Name = "lbl_tel_emergencia_2";
             this.lbl_tel_emergencia_2.Size = new System.Drawing.Size(18, 20);
             this.lbl_tel_emergencia_2.TabIndex = 29;
@@ -89,7 +89,7 @@
             this.lbl_tel_emergencia_1.AutoSize = true;
             this.lbl_tel_emergencia_1.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.lbl_tel_emergencia_1.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_tel_emergencia_1.Location = new System.Drawing.Point(294, 381);
+            this.lbl_tel_emergencia_1.Location = new System.Drawing.Point(307, 381);
             this.lbl_tel_emergencia_1.Name = "lbl_tel_emergencia_1";
             this.lbl_tel_emergencia_1.Size = new System.Drawing.Size(18, 20);
             this.lbl_tel_emergencia_1.TabIndex = 28;
@@ -179,9 +179,9 @@
             this.lbl_telefone_emergencia.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_telefone_emergencia.Location = new System.Drawing.Point(19, 381);
             this.lbl_telefone_emergencia.Name = "lbl_telefone_emergencia";
-            this.lbl_telefone_emergencia.Size = new System.Drawing.Size(249, 20);
+            this.lbl_telefone_emergencia.Size = new System.Drawing.Size(272, 20);
             this.lbl_telefone_emergencia.TabIndex = 24;
-            this.lbl_telefone_emergencia.Text = "Telefone do Contato Emergencia";
+            this.lbl_telefone_emergencia.Text = "Telefone do Contato de Emergencia";
             // 
             // lbl_contato_emergencia
             // 
@@ -190,9 +190,9 @@
             this.lbl_contato_emergencia.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_contato_emergencia.Location = new System.Drawing.Point(19, 346);
             this.lbl_contato_emergencia.Name = "lbl_contato_emergencia";
-            this.lbl_contato_emergencia.Size = new System.Drawing.Size(157, 20);
+            this.lbl_contato_emergencia.Size = new System.Drawing.Size(253, 20);
             this.lbl_contato_emergencia.TabIndex = 23;
-            this.lbl_contato_emergencia.Text = "Contato Emergência";
+            this.lbl_contato_emergencia.Text = "Nome do Contato de Emergência";
             // 
             // lbl_email
             // 
@@ -265,16 +265,16 @@
             // 
             // txtb_telefone_emergencia_1
             // 
-            this.txtb_telefone_emergencia_1.Location = new System.Drawing.Point(318, 381);
+            this.txtb_telefone_emergencia_1.Location = new System.Drawing.Point(331, 381);
             this.txtb_telefone_emergencia_1.Name = "txtb_telefone_emergencia_1";
             this.txtb_telefone_emergencia_1.Size = new System.Drawing.Size(118, 20);
             this.txtb_telefone_emergencia_1.TabIndex = 11;
             // 
             // txtb_contato_emergencia
             // 
-            this.txtb_contato_emergencia.Location = new System.Drawing.Point(182, 346);
+            this.txtb_contato_emergencia.Location = new System.Drawing.Point(278, 346);
             this.txtb_contato_emergencia.Name = "txtb_contato_emergencia";
-            this.txtb_contato_emergencia.Size = new System.Drawing.Size(563, 20);
+            this.txtb_contato_emergencia.Size = new System.Drawing.Size(467, 20);
             this.txtb_contato_emergencia.TabIndex = 10;
             // 
             // txtb_email

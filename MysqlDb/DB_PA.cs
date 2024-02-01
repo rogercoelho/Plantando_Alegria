@@ -829,19 +829,19 @@ namespace Plantando_Alegria.MysqlDb
                         while (dataReader.Read())                       // Enquanto o datareader estiver recebendo dados.
                         {
 
-                            lista.Add(string.Join(null, "Cod. | ", dataReader[0].ToString() + " | ",
+                            lista.Add(string.Join(null,"  Cod. | ", dataReader[0].ToString() + " | ",
                                                        "  Nome | ", dataReader[1].ToString() + " | ",
-                                                       "  Nome_ Responsável | ", dataReader[2].ToString() + " | ",
+                                                       "  Nome do Responsável | ", dataReader[2].ToString() + " | ",
                                                        "  CPF | ", dataReader[3].ToString() + " | ",
                                                        "  Endereço | ", dataReader[4].ToString() + " | ",
                                                        "  Bairro | ", dataReader[5].ToString() + " | ",
                                                        "  Cidade | ", dataReader[6].ToString() + " | ",
                                                        "  CEP | ", dataReader[7].ToString() + " | ",
-                                                       "  Tel. | ", dataReader[8].ToString() + " | ",
+                                                       "  Telefone | ", dataReader[8].ToString() + " | ",
                                                        "  Email | ", dataReader[9].ToString() + " | ",
-                                                       "  Contato Emergencia | ", dataReader[10].ToString() + " | ",
-                                                       "  Telefone Emergencia_1 | ", dataReader[11].ToString() + " | ",
-                                                       "  Telefone Emergencia_2 | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
+                                                       "  Nome do Contato de Emergencia | ", dataReader[10].ToString() + " | ",
+                                                       "  Telefone de Emergencia 1 | ", dataReader[11].ToString() + " | ",
+                                                       "  Telefone de Emergencia 2 | ", dataReader[12].ToString() + " | "));     // Acrescenta na variavel lista o valor do datareader.
                         }
 
                         Cad_Ok = "OK";     // Variavel Cad_OK recebe ok para listar no checklistbox.
