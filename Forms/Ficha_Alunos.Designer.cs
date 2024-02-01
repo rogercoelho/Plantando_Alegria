@@ -214,6 +214,7 @@
             // 
             // txtb_nome_responsavel
             // 
+            this.txtb_nome_responsavel.Enabled = false;
             this.txtb_nome_responsavel.Location = new System.Drawing.Point(193, 246);
             this.txtb_nome_responsavel.Name = "txtb_nome_responsavel";
             this.txtb_nome_responsavel.Size = new System.Drawing.Size(547, 20);
@@ -221,6 +222,7 @@
             // 
             // txtb_cpf
             // 
+            this.txtb_cpf.Enabled = false;
             this.txtb_cpf.Location = new System.Drawing.Point(320, 185);
             this.txtb_cpf.Name = "txtb_cpf";
             this.txtb_cpf.Size = new System.Drawing.Size(109, 20);
@@ -239,6 +241,7 @@
             // 
             // txtb_bairro
             // 
+            this.txtb_bairro.Enabled = false;
             this.txtb_bairro.Location = new System.Drawing.Point(73, 307);
             this.txtb_bairro.Name = "txtb_bairro";
             this.txtb_bairro.Size = new System.Drawing.Size(257, 20);
@@ -246,6 +249,7 @@
             // 
             // txtb_telefone_emergencia_2
             // 
+            this.txtb_telefone_emergencia_2.Enabled = false;
             this.txtb_telefone_emergencia_2.Location = new System.Drawing.Point(491, 424);
             this.txtb_telefone_emergencia_2.Name = "txtb_telefone_emergencia_2";
             this.txtb_telefone_emergencia_2.Size = new System.Drawing.Size(134, 20);
@@ -275,6 +279,7 @@
             // 
             // txtb_cep
             // 
+            this.txtb_cep.Enabled = false;
             this.txtb_cep.Location = new System.Drawing.Point(661, 306);
             this.txtb_cep.Name = "txtb_cep";
             this.txtb_cep.Size = new System.Drawing.Size(79, 20);
@@ -293,6 +298,7 @@
             // 
             // txtb_cidade
             // 
+            this.txtb_cidade.Enabled = false;
             this.txtb_cidade.Location = new System.Drawing.Point(402, 306);
             this.txtb_cidade.Name = "txtb_cidade";
             this.txtb_cidade.Size = new System.Drawing.Size(211, 20);
@@ -388,6 +394,7 @@
             // 
             // txtb_telefone_emergencia_1
             // 
+            this.txtb_telefone_emergencia_1.Enabled = false;
             this.txtb_telefone_emergencia_1.Location = new System.Drawing.Point(326, 422);
             this.txtb_telefone_emergencia_1.Name = "txtb_telefone_emergencia_1";
             this.txtb_telefone_emergencia_1.Size = new System.Drawing.Size(118, 20);
@@ -395,6 +402,7 @@
             // 
             // txtb_contato_emergencia
             // 
+            this.txtb_contato_emergencia.Enabled = false;
             this.txtb_contato_emergencia.Location = new System.Drawing.Point(273, 387);
             this.txtb_contato_emergencia.Name = "txtb_contato_emergencia";
             this.txtb_contato_emergencia.Size = new System.Drawing.Size(467, 20);
@@ -402,6 +410,7 @@
             // 
             // txtb_email
             // 
+            this.txtb_email.Enabled = false;
             this.txtb_email.Location = new System.Drawing.Point(402, 338);
             this.txtb_email.Name = "txtb_email";
             this.txtb_email.Size = new System.Drawing.Size(338, 20);
@@ -409,6 +418,7 @@
             // 
             // txtb_telefone
             // 
+            this.txtb_telefone.Enabled = false;
             this.txtb_telefone.Location = new System.Drawing.Point(164, 338);
             this.txtb_telefone.Name = "txtb_telefone";
             this.txtb_telefone.Size = new System.Drawing.Size(99, 20);
@@ -416,6 +426,7 @@
             // 
             // txtb_endereco
             // 
+            this.txtb_endereco.Enabled = false;
             this.txtb_endereco.Location = new System.Drawing.Point(175, 276);
             this.txtb_endereco.Name = "txtb_endereco";
             this.txtb_endereco.Size = new System.Drawing.Size(565, 20);
@@ -423,6 +434,7 @@
             // 
             // txtb_nome_aluno
             // 
+            this.txtb_nome_aluno.Enabled = false;
             this.txtb_nome_aluno.Location = new System.Drawing.Point(154, 216);
             this.txtb_nome_aluno.Name = "txtb_nome_aluno";
             this.txtb_nome_aluno.Size = new System.Drawing.Size(586, 20);
@@ -430,6 +442,7 @@
             // 
             // txtb_codigo
             // 
+            this.txtb_codigo.Enabled = false;
             this.txtb_codigo.Location = new System.Drawing.Point(154, 183);
             this.txtb_codigo.Name = "txtb_codigo";
             this.txtb_codigo.Size = new System.Drawing.Size(109, 20);
