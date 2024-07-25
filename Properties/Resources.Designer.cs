@@ -63,6 +63,16 @@ namespace Plantando_Alegria.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logomarca_branca {
+            get {
+                object obj = ResourceManager.GetObject("logomarca_branca", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap maquina_fotografica {
             get {
                 object obj = ResourceManager.GetObject("maquina_fotografica", resourceCulture);
@@ -76,6 +86,26 @@ namespace Plantando_Alegria.Properties {
         internal static System.Drawing.Bitmap maquina_fotografica1 {
             get {
                 object obj = ResourceManager.GetObject("maquina_fotografica1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vermelho {
+            get {
+                object obj = ResourceManager.GetObject("vermelho", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vermelho__1_ {
+            get {
+                object obj = ResourceManager.GetObject("vermelho (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

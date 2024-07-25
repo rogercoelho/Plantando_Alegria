@@ -28,63 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_pesquisar_plano = new System.Windows.Forms.Button();
-            this.btn_cadastro_planos = new System.Windows.Forms.Button();
-            this.btn_pesquisar_aluno = new System.Windows.Forms.Button();
             this.btn_sair = new System.Windows.Forms.Button();
-            this.btn_testeDB = new System.Windows.Forms.Button();
-            this.btn_cadastro_alunos = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_titulo_1 = new System.Windows.Forms.Label();
+            this.lbl_titulo_2 = new System.Windows.Forms.Label();
+            this.btn_controle_alunos = new System.Windows.Forms.Button();
+            this.btn_controle_planos = new System.Windows.Forms.Button();
+            this.btn_controle_financeiro = new System.Windows.Forms.Button();
+            this.btn_suporte = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btn_pesquisar_plano
-            // 
-            this.btn_pesquisar_plano.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_pesquisar_plano.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_pesquisar_plano.FlatAppearance.BorderSize = 2;
-            this.btn_pesquisar_plano.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_pesquisar_plano.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_pesquisar_plano.Location = new System.Drawing.Point(228, 119);
-            this.btn_pesquisar_plano.Name = "btn_pesquisar_plano";
-            this.btn_pesquisar_plano.Size = new System.Drawing.Size(190, 35);
-            this.btn_pesquisar_plano.TabIndex = 11;
-            this.btn_pesquisar_plano.Text = "Pesquisar Plano";
-            this.btn_pesquisar_plano.UseVisualStyleBackColor = false;
-            this.btn_pesquisar_plano.Click += new System.EventHandler(this.btn_pesquisar_plano_Click);
-            // 
-            // btn_cadastro_planos
-            // 
-            this.btn_cadastro_planos.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_cadastro_planos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_cadastro_planos.FlatAppearance.BorderSize = 2;
-            this.btn_cadastro_planos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cadastro_planos.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cadastro_planos.Location = new System.Drawing.Point(12, 119);
-            this.btn_cadastro_planos.Name = "btn_cadastro_planos";
-            this.btn_cadastro_planos.Size = new System.Drawing.Size(190, 35);
-            this.btn_cadastro_planos.TabIndex = 9;
-            this.btn_cadastro_planos.Text = "Cadastro de Planos";
-            this.btn_cadastro_planos.UseVisualStyleBackColor = false;
-            this.btn_cadastro_planos.Click += new System.EventHandler(this.btn_cadastro_planos_Click);
-            // 
-            // btn_pesquisar_aluno
-            // 
-            this.btn_pesquisar_aluno.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_pesquisar_aluno.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_pesquisar_aluno.FlatAppearance.BorderSize = 2;
-            this.btn_pesquisar_aluno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_pesquisar_aluno.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_pesquisar_aluno.Location = new System.Drawing.Point(228, 66);
-            this.btn_pesquisar_aluno.Name = "btn_pesquisar_aluno";
-            this.btn_pesquisar_aluno.Size = new System.Drawing.Size(190, 35);
-            this.btn_pesquisar_aluno.TabIndex = 10;
-            this.btn_pesquisar_aluno.Text = "Pesquisar Aluno";
-            this.btn_pesquisar_aluno.UseVisualStyleBackColor = false;
-            this.btn_pesquisar_aluno.Click += new System.EventHandler(this.btn_pesquisar_aluno_Click);
             // 
             // btn_sair
             // 
-            this.btn_sair.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_sair.BackColor = System.Drawing.Color.White;
             this.btn_sair.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btn_sair.FlatAppearance.BorderSize = 2;
             this.btn_sair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -97,57 +52,101 @@
             this.btn_sair.UseVisualStyleBackColor = false;
             this.btn_sair.Click += new System.EventHandler(this.btn_sair_Click);
             // 
-            // btn_testeDB
+            // lbl_titulo_1
             // 
-            this.btn_testeDB.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_testeDB.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_testeDB.FlatAppearance.BorderSize = 2;
-            this.btn_testeDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_testeDB.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_testeDB.Location = new System.Drawing.Point(506, 15);
-            this.btn_testeDB.Name = "btn_testeDB";
-            this.btn_testeDB.Size = new System.Drawing.Size(100, 45);
-            this.btn_testeDB.TabIndex = 13;
-            this.btn_testeDB.Text = "O banco Funciona?";
-            this.btn_testeDB.UseVisualStyleBackColor = false;
+            this.lbl_titulo_1.AutoSize = true;
+            this.lbl_titulo_1.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_titulo_1.Font = new System.Drawing.Font("Microsoft YaHei", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_titulo_1.Location = new System.Drawing.Point(192, 9);
+            this.lbl_titulo_1.Name = "lbl_titulo_1";
+            this.lbl_titulo_1.Size = new System.Drawing.Size(232, 31);
+            this.lbl_titulo_1.TabIndex = 7;
+            this.lbl_titulo_1.Text = "Plantando Alegria";
             // 
-            // btn_cadastro_alunos
+            // lbl_titulo_2
             // 
-            this.btn_cadastro_alunos.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_cadastro_alunos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_cadastro_alunos.FlatAppearance.BorderSize = 2;
-            this.btn_cadastro_alunos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cadastro_alunos.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cadastro_alunos.Location = new System.Drawing.Point(12, 66);
-            this.btn_cadastro_alunos.Name = "btn_cadastro_alunos";
-            this.btn_cadastro_alunos.Size = new System.Drawing.Size(190, 35);
-            this.btn_cadastro_alunos.TabIndex = 8;
-            this.btn_cadastro_alunos.Text = "Cadastro de Alunos";
-            this.btn_cadastro_alunos.UseVisualStyleBackColor = false;
-            this.btn_cadastro_alunos.Click += new System.EventHandler(this.btn_cadastro_alunos_Click);
+            this.lbl_titulo_2.AutoSize = true;
+            this.lbl_titulo_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_titulo_2.Location = new System.Drawing.Point(149, 40);
+            this.lbl_titulo_2.Name = "lbl_titulo_2";
+            this.lbl_titulo_2.Size = new System.Drawing.Size(317, 25);
+            this.lbl_titulo_2.TabIndex = 14;
+            this.lbl_titulo_2.Text = "Escola de Circo e Produções";
             // 
-            // label1
+            // btn_controle_alunos
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(30, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(470, 26);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Plantando Alegria - Escola de Circo e Produções";
+            this.btn_controle_alunos.BackColor = System.Drawing.Color.White;
+            this.btn_controle_alunos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_controle_alunos.FlatAppearance.BorderSize = 2;
+            this.btn_controle_alunos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_controle_alunos.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_controle_alunos.Location = new System.Drawing.Point(212, 84);
+            this.btn_controle_alunos.Name = "btn_controle_alunos";
+            this.btn_controle_alunos.Size = new System.Drawing.Size(190, 35);
+            this.btn_controle_alunos.TabIndex = 15;
+            this.btn_controle_alunos.Text = "Controle de Alunos";
+            this.btn_controle_alunos.UseVisualStyleBackColor = false;
+            this.btn_controle_alunos.Click += new System.EventHandler(this.btn_controle_alunos_Click);
+            // 
+            // btn_controle_planos
+            // 
+            this.btn_controle_planos.BackColor = System.Drawing.Color.White;
+            this.btn_controle_planos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_controle_planos.FlatAppearance.BorderSize = 2;
+            this.btn_controle_planos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_controle_planos.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_controle_planos.Location = new System.Drawing.Point(212, 144);
+            this.btn_controle_planos.Name = "btn_controle_planos";
+            this.btn_controle_planos.Size = new System.Drawing.Size(190, 35);
+            this.btn_controle_planos.TabIndex = 16;
+            this.btn_controle_planos.Text = "Controle de Planos";
+            this.btn_controle_planos.UseVisualStyleBackColor = false;
+            this.btn_controle_planos.Click += new System.EventHandler(this.btn_controle_planos_Click);
+            // 
+            // btn_controle_financeiro
+            // 
+            this.btn_controle_financeiro.BackColor = System.Drawing.Color.White;
+            this.btn_controle_financeiro.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_controle_financeiro.FlatAppearance.BorderSize = 2;
+            this.btn_controle_financeiro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_controle_financeiro.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_controle_financeiro.Location = new System.Drawing.Point(212, 201);
+            this.btn_controle_financeiro.Name = "btn_controle_financeiro";
+            this.btn_controle_financeiro.Size = new System.Drawing.Size(190, 35);
+            this.btn_controle_financeiro.TabIndex = 17;
+            this.btn_controle_financeiro.Text = "Controle Financeiro";
+            this.btn_controle_financeiro.UseVisualStyleBackColor = false;
+            // 
+            // btn_suporte
+            // 
+            this.btn_suporte.BackColor = System.Drawing.Color.White;
+            this.btn_suporte.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_suporte.FlatAppearance.BorderSize = 2;
+            this.btn_suporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_suporte.Font = new System.Drawing.Font("Microsoft YaHei", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_suporte.Location = new System.Drawing.Point(212, 259);
+            this.btn_suporte.Name = "btn_suporte";
+            this.btn_suporte.Size = new System.Drawing.Size(190, 35);
+            this.btn_suporte.TabIndex = 18;
+            this.btn_suporte.Text = "Suporte";
+            this.btn_suporte.UseVisualStyleBackColor = false;
             // 
             // frm_tela_principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Firebrick;
+            this.BackgroundImage = global::Plantando_Alegria.Properties.Resources.logomarca_branca;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(626, 405);
-            this.Controls.Add(this.btn_pesquisar_plano);
-            this.Controls.Add(this.btn_cadastro_planos);
-            this.Controls.Add(this.btn_pesquisar_aluno);
+            this.Controls.Add(this.btn_suporte);
+            this.Controls.Add(this.btn_controle_financeiro);
+            this.Controls.Add(this.btn_controle_planos);
+            this.Controls.Add(this.btn_controle_alunos);
+            this.Controls.Add(this.lbl_titulo_2);
             this.Controls.Add(this.btn_sair);
-            this.Controls.Add(this.btn_testeDB);
-            this.Controls.Add(this.btn_cadastro_alunos);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbl_titulo_1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -160,14 +159,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_pesquisar_plano;
-        private System.Windows.Forms.Button btn_cadastro_planos;
-        private System.Windows.Forms.Button btn_pesquisar_aluno;
         private System.Windows.Forms.Button btn_sair;
-        private System.Windows.Forms.Button btn_testeDB;
-        private System.Windows.Forms.Button btn_cadastro_alunos;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_titulo_1;
+        private System.Windows.Forms.Label lbl_titulo_2;
+        private System.Windows.Forms.Button btn_controle_alunos;
+        private System.Windows.Forms.Button btn_controle_planos;
+        private System.Windows.Forms.Button btn_controle_financeiro;
+        private System.Windows.Forms.Button btn_suporte;
     }
 }
 

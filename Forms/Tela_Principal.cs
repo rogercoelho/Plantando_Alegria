@@ -13,75 +13,51 @@ namespace Plantando_Alegria
 {
     public partial class frm_tela_principal : Form
     {
-
-        #region Metodo construtor.
+        #region Inicio - Metodo construtor.
         public frm_tela_principal()
         {
             InitializeComponent();
         }
 
-        #endregion
+        #endregion Fim - Metodo construtor.
 
-        #region Metodo do botao Cadastro de Alunos.
-        public void btn_cadastro_alunos_Click(object sender, EventArgs e)
+        #region Inicio - Metodo Botao Controle de Alunos.
+        private void btn_controle_alunos_Click(object sender, EventArgs e)
         {
-            #region Abre o form Cadastro de alunos e fecha o principal.
-            
-            frm_cadastro_alunos frm_Cadastro_Alunos = new frm_cadastro_alunos();        // Instanciando objeto para a classe Cadastro_Alunos.    
-            frm_Cadastro_Alunos.Show();                                             // Mostra a tela de cadasto.
-            this.Hide();                                                            // Esconde a tela principal.
-            
-            #endregion
+            frm_controle_de_alunos frm_controle_de_alunos = new frm_controle_de_alunos();
+            frm_controle_de_alunos.Show();
+            this.Hide();
         }
-        #endregion
+        #endregion Fim - Metodo Botao Controle de Alunos.
 
-        #region Metodo do Botao Pesquisar Aluno. 
-        public void btn_pesquisar_aluno_Click(object sender, EventArgs e)
+        #region Inicio - Metodo Botao Controle de Planos.
+        private void btn_controle_planos_Click(object sender, EventArgs e)
         {
-            #region Abre o formulario de Pesquisa de alunos.
-
-            frm_pesquisar_alunos frm_Pesquisar_Alunos = new frm_pesquisar_alunos();     // Instanciando objeto para a classe Consultar_Alunos.
-            frm_Pesquisar_Alunos.Show();                                                // Mostra a tela de consulta
-            this.Hide();                                                                // Esconde a tela principal
-
-            #endregion
-
+            frm_controle_de_planos frm_controle_de_planos = new frm_controle_de_planos();
+            frm_controle_de_planos.Show();
+            this.Hide();
         }
-        #endregion
+        #endregion Fim - Metodo Botao Controle de Planos.
 
-        #region Metodo do botao Cadastro de Planos.
-        public void btn_cadastro_planos_Click(object sender, EventArgs e)
-        {
-            #region Abre o form Cadastro de Planos e fecha o principal.
+        #region Inicio - Metodo Botao Controle Financeiro.
 
-            frm_cadastro_planos frm_Cadastro_Planos = new frm_cadastro_planos();        // Instanciando objeto para a classe Cadastro_Planos.
-            frm_Cadastro_Planos.Show();     // Mostra a tela de cadastro de planos.
-            this.Hide();                    // Esconde a tela Principal
+        // Implementar Controle Financeiro.
 
-            #endregion
-        }
+        #endregion Fim - Metodo Botao Controle Financeiro.
 
-        #endregion
+        #region Inicio - Metodo Botao Suporte.
 
-        #region Metodo do botao Pesquisar Planos.
-        public void btn_pesquisar_plano_Click(object sender, EventArgs e)
-        {
-            #region Abre o Form Pesquisa de Planos e Fecha o principal.
+        // Implementar botado de suporte.
 
-            frm_pesquisar_planos frm_Pesquisar_Planos = new frm_pesquisar_planos(); // Instanciando objeto para a classe frm_pesquisar_planos.
-            frm_Pesquisar_Planos.Show();                                            // Mostra a tela de pesquisar planos.
-            this.Hide();                                                            // Fecha a tela.
+        #endregion Fim - Metodo Botao Suporte.
 
-            #endregion
-        }
-
-        #endregion
-
-        #region Metodo do Botao Sair.
+        #region Inicio - Metodo do Botao Sair.
         public void btn_sair_Click(object sender, EventArgs e)
         {
             Application.Exit();  // Encerra a Aplicacao.
         }
-        #endregion
+        #endregion Fim - Metodo do Botao Sair.
+
+
     }
 }

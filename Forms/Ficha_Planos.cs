@@ -1,53 +1,48 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_planos : Form
     {
-        #region Variaveis operacionais.
-        public static string selecao;       // Criando variavel de selecao do valor.
-        public static string[] selecao2;    // Criando variavel de array de selecao.
-
-        #endregion
-
-        #region Instanciando objetos.
+        #region Inicio - Instanciando objetos.
 
         DB_PA dB_PA = new DB_PA();              // Instancia objeto para a classe DB_PA.
         Mensagens mensagens = new Mensagens();  // Instancia objeto para a classe mensagens.
-        #endregion
 
-        #region Metodo Construtor
+        #endregion Fim - Instanciando objetos.
+
+        #region Inicio - Metodo Construtor.
         public frm_ficha_planos()
         {
             InitializeComponent();
         }
 
-        #endregion
+        #endregion Fim - Metodo Construtor.
 
-        #region Metodo do Botao Limpar
-        private void btn_limpar_Click(object sender, EventArgs e)
+        #region Inicio - Metodo de execucao ao carregar tela.
+        private void frm_ficha_planos_Load(object sender, EventArgs e)
         {
-            txtb_codigo_plano.Clear();          // Limpa os textbox.
-            txtb_nome_plano.Clear();            // Limpa os textbox.
-            txtb_qtd_aulas_semana.Clear();      // Limpa os textbox.
-            txtb_qtd_aulas_total.Clear();       // Limpa os textbox.
-            txtb_valor_mensal_plano.Clear();    // Limpa os textbox.
-            txtb_valor_total_plano.Clear();     // Limpa os textbox.
+            dB_PA.Limpar_Variaveis_Ficha_Plano();   // Limpa as variaveis da tela de ficha de planos
+            dB_PA.Tela_Planos_Trata_Selecao();           // Chama o metodo que trata a selecao e atribui os valores nas variaveis do plano.
+            dB_PA.Transfere_Ficha_PlanoXTabela_Planos_Cadastro(); //Chama o metodo que repassa os dados das variaveis da ficha de planos para as variaeis do banco.
+            Carrega_Ficha_Plano();                  // Chama o metodo que carrega a ficha do plano.
+
+        }
+        #endregion Fim - Metodo de execucao ao carregar tela.
+
+        #region Inicio - Metodo do Botao Voltar.
+        private void btn_voltar_Click(object sender, EventArgs e)
+        {
+            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para a tela principal.
+            frm_Tela_Principal.Show();                                          // Abre a tela principal.
+            this.Close();                                                       // Fecha a tela atual.
         }
 
+        #endregion Fim - Metodo do Botao Voltar.
 
-        #endregion
-
-        #region Metodo do Botao Cancelar.
+        #region Inicio - Metodo do Botao Cancelar.
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             txtb_codigo_plano.Enabled = false;          // Altera a permissao do textbox.
@@ -58,26 +53,31 @@ namespace Plantando_Alegria.Forms
             txtb_valor_total_plano.Enabled = false;     // Altera a permissao do textbox.
             txtb_situacao_plano.Visible = true;         // Altera a visibilidade do textbox.
             cbbox_situacao_plano.Visible = false;       // Altera a visibilidade do combobox
+            txtb_qtd_meses.Visible = true;              // Altera a visibilidade do textbox
+            cbbox_quantidade_meses.Visible = false;     // Altera a visibilidade do Combobox.
             btn_cancelar.Visible = false;               // Altera a visibilidade do botao.
             btn_limpar.Visible = false;                 // Altera a visibilidade do botao.                      
             btn_salvar.Visible = false;                 // Altera a visibilidade do botao.                      
             btn_editar.Visible = true;                  // Altera a visibilidade do botao.                      
-            btn_voltar.Visible = true;                  // Altera a visibilidade do botao.                      
+            btn_voltar.Visible = true;                  // Altera a visibilidade do botao.
+            Carrega_Ficha_Plano();                      // Volta a carregar a ficha do plano.
         }
-        #endregion
+        #endregion Fim - Metodo do Botao Cancelar.
 
-        #region Metodo do botao Historico.
-        private void btn_historico_Click(object sender, EventArgs e)
+        #region Inicio - Metodo do Botao Limpar.
+        private void btn_limpar_Click(object sender, EventArgs e)
         {
-            frm_historico frm_Historico = new frm_historico();  // Instancia objeto para a form historico.
-            frm_historico.volta_ficha_plano = true;             // Atribui true a variavel volta_ficha_plano. 
-            DB_PA.planos_codigo = selecao2[1];                  // Variavel planos_codigo recebe o valor da selecao2 posicao 1.
-            frm_Historico.Show();                               // Abre a tela de historico.
-            this.Close();                                       // Fecha a tela atual
+            txtb_codigo_plano.Clear();          // Limpa os textbox.
+            txtb_nome_plano.Clear();            // Limpa os textbox.
+            txtb_qtd_aulas_semana.Clear();      // Limpa os textbox.
+            txtb_qtd_aulas_total.Clear();       // Limpa os textbox.
+            txtb_valor_mensal_plano.Clear();    // Limpa os textbox.
+            txtb_valor_total_plano.Clear();     // Limpa os textbox.
         }
-        #endregion
 
-        #region Metodo do Botao Editar.
+        #endregion Fim - Metodo do Botao Limpar.
+
+        #region Inicio - Metodo do Botao Editar.
         private void btn_editar_Click(object sender, EventArgs e)
         {
             txtb_nome_plano.Enabled = true;         // Altera a permissao do textbox.
@@ -87,74 +87,78 @@ namespace Plantando_Alegria.Forms
             txtb_valor_total_plano.Enabled = true;  // Altera a permissao do textbox.
             txtb_situacao_plano.Visible = false;    // Altera a permissao do textbox.
             cbbox_situacao_plano.Visible = true;    // Altera a permissao do combobox.
+            txtb_qtd_meses.Visible = false;
+            cbbox_quantidade_meses.Visible = true;
+            cbbox_quantidade_meses.SelectedItem = DB_PA.tela_ficha_planos_qtd_meses;
             btn_voltar.Visible = false;             // Altera a visibilidade do botao.
             btn_editar.Visible = false;             // Altera a visibilidade do botao.
             btn_salvar.Visible = true;              // Altera a visibilidade do botao.
             btn_cancelar.Visible = true;            // Altera a visibilidade do botao.
             btn_limpar.Visible = true;              // Altera a visibilidade do botao.
         }
-        #endregion
+        #endregion Fim - Metodo do Botao Editar.
 
-        #region Metodo do Botao Voltar
-        private void btn_voltar_Click(object sender, EventArgs e)
-        {
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instancia objeto para a tela principal.
-            frm_Tela_Principal.Show();                                          // Abre a tela principal.
-            this.Close();                                                       // Fecha a tela atual.
-        }
-        #endregion
-
-        #region Metodo de execucao ao carregar tela.
-        private void frm_ficha_planos_Load(object sender, EventArgs e)
-        {
-            Carrega_Ficha_Plano();  // Chama o metodo que carrega a ficha do plano.
-        }
-        #endregion
-
-        #region Metodo que carrega a ficha do plano.
+        #region Inicio - Metodo que carrega a ficha do plano pelas variaveis da tela.
         public void Carrega_Ficha_Plano()
         {
-            char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
-            selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);    // Selecao2 recebe de selecao com os caracteres removidos.
-            txtb_codigo_plano.Text = selecao2[1].ToString().Trim();                     // Textbox recebe o valor da variavel selecao na posicao 1.
-            txtb_nome_plano.Text = selecao2[3].ToString().Trim();                       // Textbox recebe o valor da variavel selecao na posicao 3.
-            txtb_qtd_aulas_semana.Text = selecao2[5].ToString().Trim();                 // Textbox recebe o valor da variavel selecao na posicao 5.
-            txtb_qtd_aulas_total.Text = selecao2[7].ToString().Trim();                  // Textbox recebe o valor da variavel selecao na posicao 7.
-            txtb_valor_mensal_plano.Text = selecao2[9].ToString().Trim();               // Textbox recebe o valor da variavel selecao na posicao 9.
-            txtb_valor_total_plano.Text = selecao2[11].ToString().Trim();               // Textbox recebe o valor da variavel selecao na posicao 11.
-            txtb_situacao_plano.Text = selecao2[13].ToString().Trim();                  // Textbox recebe o valor da variavel selecao na posicao 13.
+            txtb_codigo_plano.Text = DB_PA.tela_ficha_planos_codigo;
+            txtb_nome_plano.Text = DB_PA.tela_ficha_planos_nome;
+            txtb_qtd_meses.Text = DB_PA.tela_ficha_planos_qtd_meses;
+            txtb_qtd_aulas_semana.Text = DB_PA.tela_ficha_planos_qtd_aulas_semana;
+            txtb_qtd_aulas_total.Text = DB_PA.tela_ficha_planos_qtd_aulas_total;
+            txtb_valor_mensal_plano.Text = Convert.ToString(DB_PA.tela_ficha_planos_valor_mensal);
+            txtb_valor_mensal_plano.Text = txtb_valor_mensal_plano.Text.Replace(".", ",");
+            txtb_valor_total_plano.Text = Convert.ToString(DB_PA.tela_ficha_planos_valor_total);
+            txtb_valor_total_plano.Text = txtb_valor_total_plano.Text.Replace(".", ",");
+            txtb_situacao_plano.Text = DB_PA.tela_ficha_planos_situacao;
         }
 
-        #endregion
+        #endregion Fim - Metodo que carrega a ficha do plano pelas variaveis da tela.
 
-        #region Metodo do Botao Salvar.
+        #region Incio - Metodo do Botao Salvar.
         private void btn_salvar_Click(object sender, EventArgs e)
         {
-            #region Atribui valor para as variaveis.
-            
-            DB_PA.planos_codigo = txtb_codigo_plano.Text.ToUpper().Trim();                  // Variavel recebe o valor do textbox.
-            DB_PA.planos_nome = txtb_nome_plano.Text.ToUpper().Trim();                      // Variavel recebe o valor do textbox.
-            DB_PA.planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.ToUpper().Trim();    // Variavel recebe o valor do textbox.
-            DB_PA.planos_qtd_aulas_total = txtb_qtd_aulas_total.Text.ToUpper().Trim();      // Variavel recebe o valor do textbox.
-            DB_PA.planos_valor_mensal = txtb_valor_mensal_plano.Text.ToUpper().Trim();      // Variavel recebe o valor do textbox.
-            DB_PA.planos_valor_total = txtb_valor_total_plano.Text.ToUpper().Trim();        // Variavel recebe o valor do textbox.
-            
-            while (cbbox_situacao_plano.SelectedItem == null)                               // Se nao for escolhida uma opcao no combobox.
+
+            #region Inicio - Atribui valor alterado para as variaveis da ficha do plano.
+
+            while (cbbox_quantidade_meses.SelectedItem == null)                           // Se nao for escolhida uma opcao no combobox.
             {
-                mensagens.Mensagem_32();                                                    // Mostra a mensagem
-                return;                                                                     // Retorna.
+                mensagens.Mensagem_42();                                                // Mostra a mensagem
+                return;                                                                 // Retorna.
             }
-            
-            DB_PA.planos_situacao = cbbox_situacao_plano.SelectedItem.ToString();           // Variavel recebe o valor do combobox.
-            #endregion
+            while (cbbox_situacao_plano.SelectedItem == null)                           // Se nao for escolhida uma opcao no combobox.
+            {
+                mensagens.Mensagem_32();                                                // Mostra a mensagem
+                return;                                                                 // Retorna.
+            }
 
-            #region Valida os campos da Ficha do Plano.
+            DB_PA.tela_ficha_planos_codigo = txtb_codigo_plano.Text.ToUpper().Trim();            // Variavel recebe o valor do textbox.
+            DB_PA.tela_ficha_planos_nome = txtb_nome_plano.Text.ToUpper().Trim();                // Variavel recebe o valor do textbox.
+            DB_PA.tela_ficha_planos_qtd_meses = cbbox_quantidade_meses.SelectedItem.ToString();  // Variavel recebe o valor do combobox.
+            DB_PA.tela_ficha_planos_qtd_aulas_semana = txtb_qtd_aulas_semana.Text.Trim();        // Variavel recebe o valor do textbox.
+            DB_PA.tela_ficha_planos_qtd_aulas_total = txtb_qtd_aulas_total.Text.Trim();          // Variavel recebe o valor do textbox.
+            DB_PA.tela_ficha_planos_valor_mensal = txtb_valor_mensal_plano.Text;                 // Variavel recebe valor do textbox e faz substituicao.
+            DB_PA.tela_ficha_planos_valor_total = txtb_valor_total_plano.Text;                   // Variavel recebe valor do textbox e faz substituicao.
+            DB_PA.tela_ficha_planos_situacao = cbbox_situacao_plano.SelectedItem.ToString();     // Variavel recebe o valor do combobox.
 
+            #endregion Fim - Atribui valor alterado para as variaveis da ficha do plano.
+
+            #region Inicio - Valida os campos da Ficha do Plano.
+
+            dB_PA.Verifica_Campos_Tela_Ficha_Plano();
             dB_PA.Compara_Ficha_Planos();   // chama o metodo de validacao dos campos.
 
-            #endregion
+            #endregion Fim - Valida os campos da Ficha do Plano.
 
-            #region Verifica o que foi alterado e executa a mudanca.
+            #region Inicio - Transfere as variaveis da ficha do plano para as variaveis do banco.
+
+            if (DB_PA.dados_alterados == true && DB_PA.campos_validados == true)
+            {
+                dB_PA.Transfere_Ficha_PlanoXTabela_Planos_Cadastro();
+            }
+            #endregion Fim - Transfere as variaveis da ficha do plano para as variaveis do banco.
+
+            #region Inicio - Verifica o que foi alterado e executa a mudanca.
 
             if (DB_PA.dados_alterados == true)                  // Se a variavel for igual a true.
             {
@@ -165,6 +169,8 @@ namespace Plantando_Alegria.Forms
                 dB_PA.Log_Query_Cadastrar_Plano();              // Chama o metodo da query do log do plano.
                 dB_PA.Cadastrar_Atualizar_Planos_Cadastro();    // Chama o metodo dos parametros do log do plano.
                 dB_PA.Executa_Banco();                          // Chama o metodo que executa a atualizacao do banco.
+                DB_PA.dados_alterados = false;                                          // Atribui false na variavel apos fazer a alteracao.
+                DB_PA.campos_validados = false;
                 mensagens.Mensagem_33();                        // mostra a mensagem.
             }
             else
@@ -172,28 +178,26 @@ namespace Plantando_Alegria.Forms
                 mensagens.Mensagem_31();                        // Mostra a mensagem na tela.
             }
 
-            #endregion
-
-            #region Carrega a alteracao na ficha do Plano.
-
-            dB_PA.Limpa_Variaveis_Planos();                         // Limpa as variaveis da tabela Planos_Cadastro.
-            DB_PA.pesquisar_planos = true;                          // Atribui true na variavel para fazer nova pesquisa.
-            DB_PA.pesquisa_codigo_plano = true;                     // Atribui true na variavel para usar a pesquisa pelo codigo.
-            DB_PA.planos_codigo = txtb_codigo_plano.Text;           // Variaveu planos_codigo recebe o codigo do plano.
-
-            if (DB_PA.dados_alterados == true)                      // Se os dados foram alterados.
-            {
-                dB_PA.Pesquisar_pelo_Codigo_tbl_planos_cadastro();  // Chama o metodo que pesquisa pelo codigo do plano
-                dB_PA.Executa_Pesquisa();                           // Chama o metodo que executa a pesquisa.
-                Carrega_Ficha_Plano();                              // Recarrega a ficha do plano.
-                DB_PA.dados_alterados = false;                      // Atribui falso a variavel dados_alterados.
-            }
-
             btn_cancelar.PerformClick();
 
-            #endregion
+            #endregion Fim - Verifica o que foi alterado e executa a mudanca.
 
         }
-        #endregion
+        #endregion Fim - Metodo do Botao Salvar.
+
+        #region Inicio - Metodo do botao Historico.
+        private void btn_historico_Click(object sender, EventArgs e)
+        {
+            frm_historico frm_Historico = new frm_historico();  // Instancia objeto para a form historico.
+            //frm_historico.volta_ficha_plano = true;             // Atribui true a variavel volta_ficha_plano. 
+            if (DB_PA.tela_ficha_planos_codigo != null)              // Se a variavel nao estiver vazia.
+            {
+                DB_PA.tbl_planos_cadastro_codigo = DB_PA.tela_ficha_planos_codigo;    // Variavel planos_codigo recebe o valor da selecao2 posicao 1.
+            }
+            frm_Historico.Show();                               // Abre a tela de historico.
+            this.Close();                                       // Fecha a tela atual
+        }
+        #endregion Fim - Metodo do botao Historico.
+
     }
 }

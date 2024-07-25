@@ -15,54 +15,85 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_historico : Form
     {
-        #region Variaveis operacionais.
-        public static bool volta_ficha_aluno;   // Cria variavel para validar o metodo de voltar ficha do aluno.
-        public static bool volta_ficha_plano;   // Cria variavel para validar o metodo de voltar a ficha do plano.
-        #endregion
+        private Alunos alunos;
+        private bool historico_aluno;
+        private string query;
+        private string codigo;
+        Conexao_Banco_PA Conexao_Banco_PA = new Conexao_Banco_PA();
+        Mensagens mensagens = new Mensagens();
+        MySqlCommand cmd = new MySqlCommand();
+        DataTable dataTable = new DataTable();
 
-        #region Instanciando Objetos.
-        DB_PA dB_PA = new DB_PA();              // Instancia objeto para a classe DB_PA.
-        #endregion
+        public object Datagrid { get; set; }
 
-        #region Metodo Construtor.
+        #region Inicio - Metodo Construtor.
         public frm_historico()
         {
             InitializeComponent();
+            alunos = new Alunos();
+            
         }
-        #endregion
 
-        #region Metodo que executa ao carregar a tela
+        public frm_historico(bool historico_aluno, string codigo) : this()
+        {
+            this.historico_aluno = historico_aluno;
+            this.codigo = codigo;
+        }
+
+
+        #endregion Fim - Metodo Construtor.
+
+        #region Inicio - Metodo que executa ao carregar a tela.
 
         private void Historico_Load(object sender, EventArgs e)
         {
-                dB_PA.Executa_Pesquisa_Log();               // Chama o metodo que executa a pesquisa.
-                dtgrid_historico.DataSource = dB_PA.log;    // Datagrid recebe o conteudo do objeto log.
+            if (historico_aluno == true)
+            {
+                query = "SELECT * from Alunos_Cadastro_log WHERE Alunos_Codigo = " + codigo;      // variavel que recebe o comando para executar no mysql + o que esta na variavel.
+                cmd.CommandText = query;
+                try
+                {
+                    cmd.Connection = Conexao_Banco_PA.Conectar_DB();
+                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);
+                    dataAdapter.Fill(dataTable);
+                    dtgrid_historico.DataSource = dataTable;
+                    Conexao_Banco_PA.Desconectar_DB();
+                }
+                catch (MySqlException erro_db)
+                {
+                    mensagens.Mensagem_04("--->" + erro_db.Message);
+                    historico_aluno = false;
+                    return;
+                }
+                
+                
+            }
         }
 
-        #endregion
+        #endregion Fim - Metodo que executa ao carregar a tela.
 
-        #region Metodo do Botao Voltar.
+        #region Inicio - Metodo do Botao Voltar.
         private void btn_voltar_Click(object sender, EventArgs e)
         {
-            if (volta_ficha_aluno == true)  // Se a variavel volta_ficha_aluno for true.
+            if (historico_aluno == true)  // Se a variavel volta_ficha_aluno for true.
             {
-                volta_ficha_aluno = false;                                  // Atribui false a variavel volta_ficha_aluno.
-                frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos(); // Instancia objeto para a tela fiha_alunos.
+                historico_aluno = false;                                  // Atribui false a variavel volta_ficha_aluno.
+                frm_ficha_alunos frm_Ficha_Alunos = new frm_ficha_alunos(alunos); // Instancia objeto para a tela ficha_alunos.
                 frm_Ficha_Alunos.Show();                                    // Abre a tela da ficha do aluno.
                 this.Close();                                               // Fecha a tela atual.
 
             }
-            else if (volta_ficha_plano == true) // Se a variavel volta_ficha_plano for true.
-            {
-                volta_ficha_plano = false;                                  // Atribui false a variavel volta_ficha_plano.
-                frm_ficha_planos frm_Ficha_Planos = new frm_ficha_planos(); // Instancia objeto para a tela ficha_planos.
-                frm_Ficha_Planos.Show();                                    // Abre a tela ficha de planos.
-                this.Close();                                               // Fecha a tela atual.
+            //else if (volta_ficha_plano == true) // Se a variavel volta_ficha_plano for true.
+            //{
+            //    volta_ficha_plano = false;                                  // Atribui false a variavel volta_ficha_plano.
+            //    frm_ficha_planos frm_Ficha_Planos = new frm_ficha_planos(); // Instancia objeto para a tela ficha_planos.
+            //    frm_Ficha_Planos.Show();                                    // Abre a tela ficha de planos.
+            //    this.Close();                                               // Fecha a tela atual.
 
-            }
+            //}
         }
 
-        #endregion
+        #endregion Fim - Metodo do Botao Voltar.
     }
 }
 

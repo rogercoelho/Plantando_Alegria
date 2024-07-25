@@ -1,7 +1,5 @@
 ﻿using Plantando_Alegria.MysqlDb;
 using System;
-using System.Data.OleDb;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -10,272 +8,278 @@ namespace Plantando_Alegria.Forms
 {
     public partial class frm_ficha_alunos : Form
     {
-        #region Instanciando objetos.
-
-        DB_PA dB_PA = new DB_PA();                                          // Instanciando objeto para a classe DB_PA.
         Mensagens mensagens = new Mensagens();                              // Instanciando objeto para a classe mensagens.    
+        
+        private Alunos alunos;
 
-        #endregion
-
-        #region Variaveis operacionais.
-        public static string selecao;       // Variavel que recebe a selecao do checklistbox
-        public static string[] selecao2;    // Array de variavei que recebe a pesquisa selecionada.            
-
-        #endregion
-
-        #region Metodo Construtor.
-        public frm_ficha_alunos()
+        public frm_ficha_alunos(Alunos ctor_alunos)
         {
             InitializeComponent();
-        }
-        #endregion
-
-        #region Metodo do Botao Voltar.
-        public void btn_voltar_Click(object sender, EventArgs e)
-        {
-            frm_tela_principal frm_Tela_Principal = new frm_tela_principal();   // Instanciando objeto para a tela principal.
-            frm_Tela_Principal.Show();                                          // Abre a tela principal.
-            this.Close();                                                       // fecha a atual.
-        }
-        #endregion
-
-        #region Metodo do Botao Cancelar.
-        public void btn_cancelar_Click(object sender, EventArgs e)
-        {
-            #region Controle dos botoes e textbox.
-
-            txtb_nome_aluno.Enabled = false;                // Desativa o campo para edicao.
-            txtb_nome_responsavel.Enabled = false;          // Desativa o campo para edicao.
-            txtb_endereco.Enabled = false;                  // Desativa o campo para edicao.
-            txtb_bairro.Enabled = false;                    // Desativa o campo para edicao.
-            txtb_cidade.Enabled = false;                    // Desativa o campo para edicao.
-            txtb_cep.Enabled = false;                       // Desativa o campo para edicao.
-            txtb_telefone.Enabled = false;                  // Desativa o campo para edicao.
-            txtb_email.Enabled = false;                     // Desativa o campo para edicao.
-            txtb_contato_emergencia.Enabled = false;        // Desativa o campo para edicao.
-            txtb_telefone_emergencia_1.Enabled = false;     // Desativa o campo para edicao.
-            txtb_telefone_emergencia_2.Enabled = false;     // Desativa o campo para edicao.
-
-            btn_alterar_imagem.Visible = false;             // Desativa a visualizacao do botao.
-            btn_cancelar.Visible = false;                   // Desativa a visualizacao do botao.
-            btn_salvar.Visible = false;                     // Desativa a visualizacao do botao.
-            btn_limpar.Visible = false;                     // Desativa a visualizacao do botao.
-            btn_voltar.Visible = true;                      // Ativa a visualizacao do botao.
-            btn_editar.Visible = true;                      // Ativa a visualizacao do botao.
-
-            btn_alterar_imagem.Enabled = false;             // Desabilita a execucao do botao.
-            btn_cancelar.Enabled = false;                   // Desabilita a execucao do botao.
-            btn_salvar.Enabled = false;                     // Desabilita a execucao do botao.
-            btn_limpar.Enabled = false;                     // Desabilita a execucao do botao.
-            btn_voltar.Enabled = true;                      // Habilita a execucao do botao.
-            btn_editar.Enabled = true;                      // Habilita a execucao do botao.
-
-            #endregion
-
-            Carrega_Ficha_Aluno();          // Chama o metodo que carrega a ficha do aluno.
-
-        }
-        #endregion
-
-        #region Metodo do Botao Limpar.
-        public void btn_limpar_Click(object sender, EventArgs e)
-        {
-            txtb_nome_aluno.Clear();                                            // Limpa o textbox.
-            txtb_endereco.Clear();                                              // Limpa o textbox.
-            txtb_bairro.Clear();                                                // Limpa o textbox.
-            txtb_cidade.Clear();                                                // Limpa o textbox.
-            txtb_cep.Clear();                                                   // Limpa o textbox.
-            txtb_telefone.Clear();                                              // Limpa o textbox.
-            txtb_email.Clear();                                                 // Limpa o textbox.
-            txtb_contato_emergencia.Clear();                                    // Limpa o textbox.
-            txtb_telefone_emergencia_1.Clear();                                 // Limpa o textbox.
-            txtb_telefone_emergencia_2.Clear();                                 // Limpa o textbox.
-            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;  // Carrega a foto padrao na picturebox.
-        }
-        #endregion
-
-        #region Metodo do botao de Alterar Imagem.
-        public void btn_alterar_imagem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openfile = new OpenFileDialog();                             // Instanciando objeto para a classe OpenfileDialog.
-            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png "; // filta os tipos de arquivos permitidos.
-
-            if (openfile.ShowDialog() == DialogResult.OK)                               // Se pressionar OK na janela.
-            {
-                DB_PA.caminho_foto_aluno = openfile.FileName.ToString();                // Pega o caminho da imagem selecionada.
-                pcb_imagem_aluno.ImageLocation = DB_PA.caminho_foto_aluno;              // Mostra a imagem no PictureBox.
-                DB_PA.foto_alterada = true;                                             // Atribui o valor true para foto alterada.
-            }
-        }
-        #endregion
-
-        #region Metodo do Botao Editar.
-        public void btn_editar_Click(object sender, EventArgs e)
-        {
-            #region Controle dos botoes e textbox.
-
-            txtb_nome_aluno.Enabled = true;                 // Ativa o campo para edicao.
-            txtb_nome_responsavel.Enabled = true;           // Ativa o campo para edicao.
-            txtb_endereco.Enabled = true;                   // Ativa o campo para edicao.
-            txtb_bairro.Enabled = true;                     // Ativa o campo para edicao.
-            txtb_cidade.Enabled = true;                     // Ativa o campo para edicao.
-            txtb_cep.Enabled = true;                        // Ativa o campo para edicao.
-            txtb_telefone.Enabled = true;                   // Ativa o campo para edicao.
-            txtb_email.Enabled = true;                      // Ativa o campo para edicao.
-            txtb_contato_emergencia.Enabled = true;         // Ativa o campo para edicao.
-            txtb_telefone_emergencia_1.Enabled = true;      // Ativa o campo para edicao.
-            txtb_telefone_emergencia_2.Enabled = true;      // Ativa o campo para edicao.
-
-            btn_voltar.Visible = false;         // Desativa a visualizacao do botao.
-            btn_editar.Visible = false;         // Desativa a visualizacao do botao.
-            btn_limpar.Visible = true;          // Ativa a visualizacao do botao .           
-            btn_salvar.Visible = true;          // Ativa a visualizacao do botao.
-            btn_cancelar.Visible = true;        // Ativa a visualizacao do botao.
-            btn_alterar_imagem.Visible = true;  // Ativa a visualizacao do botao.
-
-            btn_limpar.Enabled = true;          // Habilita a execucao do botao.
-            btn_salvar.Enabled = true;          // Habilita a execucao do botao.
-            btn_cancelar.Enabled = true;        // Habilita a execucao do botao.
-            btn_alterar_imagem.Enabled = true;  // Habilita a execucao do botao.
-            btn_voltar.Enabled = false;         // Desabilita a execucao do botao.
-            btn_editar.Enabled = false;         // Desabilita a execucao do botao.
-
-            #endregion
-        }
-        #endregion
-
-        #region Metodo do botao Salvar.
-        public void btn_salvar_Click(object sender, EventArgs e)
-        {
-            
-            #region Atribui valor para as variaveis.
-            
-            DB_PA.Alunos_Codigo = txtb_codigo.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Nome = txtb_nome_aluno.Text.ToUpper().Trim();                                 // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone = txtb_telefone.Text.ToUpper().Trim();                               // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Email = txtb_email.Text.ToUpper().Trim();                                     // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Endereco = txtb_endereco.Text.ToUpper().Trim();                               // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Bairro = txtb_bairro.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Cidade = txtb_cidade.Text.ToUpper().Trim();                                   // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_CEP = txtb_cep.Text.ToUpper().Trim();                                         // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Contato_Emergencia = txtb_contato_emergencia.Text.ToUpper().Trim();           // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone_Emergencia_1 = txtb_telefone_emergencia_1.Text.ToUpper().Trim();     // Repassa o valor do textbox para a variavel.
-            DB_PA.Alunos_Telefone_Emergencia_2 = txtb_telefone_emergencia_2.Text.ToUpper().Trim();     // Repassa o valor do textbox para a variavel.
-
-            #endregion
-
-            #region Valida os campos da ficha do aluno.
-            dB_PA.Compara_Ficha_Aluno();              // Chama o metodo de validacao dos campos.
-
-            #endregion
-
-            #region Verifica o que foi alterado e executa a mudanca.
-
-            if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == true)           // Verifica se foi alterada a foto e os dados.
-            {
-                dB_PA.Query_Alterar_Imagem();                                           // Chama o metodo da query da imagem.
-                dB_PA.Processa_Imagem();                                                // Chama o metodo que trata a imagem.
-                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                dB_PA.Query_Atualizar_Cadastro_Aluno();                                 // Chama o metodo da query dos dados.
-                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
-                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                mensagens.Mensagem_10();                                                // mostra mensagem.
-            }
-            else if (DB_PA.foto_alterada == false && DB_PA.dados_alterados == true)     // Se alterou so os dados
-            {
-                dB_PA.Query_Atualizar_Cadastro_Aluno();                                 // Chama o metodo da query dos dados.
-                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
-                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                DB_PA.e_log = true;                                                     // Atribui true na variavel que chama o log.
-                dB_PA.Log_Query_Cadastrar_Aluno();                                      // Chama o metodo da query do log
-                dB_PA.Cadastrar_Atualizar_Alunos_Cadastro();                            // Chama o metodo que trata os dados.
-                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                mensagens.Mensagem_08();                                                // mostra mensagem.
-            }
-            else if (DB_PA.foto_alterada == true && DB_PA.dados_alterados == false)     // Se alterou so a foto.
-            {
-                dB_PA.Query_Alterar_Imagem();                                           // Chama o metodo da query da imagem.
-                dB_PA.Processa_Imagem();                                                // Chama o metodo que trata a imagem.
-                dB_PA.Executa_Banco();                                                  // Chama o metodo que salva no banco.
-                mensagens.Mensagem_09();                                                // mostra mensagem.
-            }
-            else                                                                        // Sem alteracoes.
-            {
-                mensagens.Mensagem_07();                                                // mostra mensagem.
-            }
-
-
-            #endregion
-
-            #region Carrega a alteracao na ficha do aluno.
-
-            DB_PA.pesquisar_alunos = true;
-            dB_PA.Limpar_Variaveis_Alunos();
-            DB_PA.Alunos_Codigo = txtb_codigo.Text.Trim();
-            btn_limpar.PerformClick();
-
-            if (DB_PA.dados_alterados == true || DB_PA.foto_alterada == true)           // Se foi alterado.
-            {
-                
-                dB_PA.Pesquisar_pelo_Codigo_tbl_alunos_cadastro();                      // Chama o metodo para pesquisar pelo codigo.
-                dB_PA.Executa_Pesquisa();                                               // Chama o metodo que executa a pesquisa.
-                Carrega_Ficha_Aluno();                                                  // Chama o metodo que carrega a ficha do aluno.
-                DB_PA.dados_alterados = false;
-            }
-            #endregion
-
-            btn_cancelar.PerformClick();            // Trava os botoes novamente.
+            alunos = ctor_alunos;
+  
         }
 
-        #endregion
-
-        #region Metodo do Botao Historico.
-        private void btn_historico_Click(object sender, EventArgs e)
-        {
-            frm_historico frm_Historico = new frm_historico();      // Instancia objeto para o frm_historico.
-            frm_historico.volta_ficha_aluno = true;                 // Atribui true a variavel volta_ficha_aluno.
-            DB_PA.Alunos_Codigo = selecao2[1];                      // Variavel Alunos codigo recebe o valor da variavel selecao2 posicao 1
-            frm_Historico.Show();                                   // Abre o form historico.
-            this.Close();                                           // fecha a tela.
-        }
-        #endregion
-
-        #region Metodo de execucao ao carregar Tela.
+        #region Inicio - Metodo de execucao ao carregar Tela.
         public void frm_ficha_alunos_Load(object sender, EventArgs e)
         {
-            Carrega_Ficha_Aluno();      // Chama o metodo que carrega a ficha do aluno.
+            /*    Funcao -> Metodo que carrega a ficha do aluno do aluno que foi selecionado no checklistbox
+             *    da tela de pesquisa de alunos.
+             *  - Primeiro chama o metodo de limpar todas as variaveis da tela de ficha de aluno. 
+             *  - Chama a metodo que trata a selecao da tela de pesquisa de alunos e transfere para
+             *    as variaveis da ficha de aluno.
+             *  - Chama o metodo que repassa os dados das variaveis da ficha de aluno para as variaeis do banco.
+             *  - Chama o metodo que pesquisa a imagem do aluno selecionado.
+             *  - Chama o metodo que carrega a imagem do aluno selecionado na tela de ficha de aluno.
+             *  - Chama o metodo que carrega os dados do aluno selecionado na tela de ficha do aluno.
+             */
+
+            pcb_imagem_aluno.Image = alunos.Foto_Aluno;
+            txtb_situacao_aluno.Text = alunos.Alunos_situacao;
+            txtb_data_situacao.Text = " - Matricula DIA - " + alunos.Alunos_Data_Situacao;
+            txtb_codigo.Text = Convert.ToString(alunos.Alunos_codigo);
+            txtb_nome_aluno.Text = alunos.Alunos_nome;
+            txtb_cpf.Text = Convert.ToString(alunos.Alunos_cpf);
+            txtb_nome_responsavel.Text = alunos.Alunos_nome_responsavel;
+            txtb_endereco.Text = alunos.Alunos_endereco;
+            txtb_bairro.Text = alunos.Alunos_bairro;
+            txtb_cidade.Text = alunos.Alunos_cidade;
+            txtb_cep.Text = alunos.Alunos_cep;
+            txtb_telefone.Text = alunos.Alunos_telefone;
+            txtb_email.Text = alunos.Alunos_email;
+            txtb_contato_emergencia.Text = alunos.Alunos_nome_contato_emergencia;
+            txtb_telefone_emergencia_1.Text = alunos.Alunos_tel_contato_emergencia_1;
+            txtb_telefone_emergencia_2.Text = alunos.Alunos_tel_contato_emergencia_2;
         }
-        #endregion
+        #endregion Fim - Metodo de execucao ao carregar Tela.
 
-        #region Metodo que carrega a ficha do aluno.
-
-        public void Carrega_Ficha_Aluno()
+        #region Inicio - Metodo do Botao Limpar.
+        public void btn_limpar_Click(object sender, EventArgs e)
         {
-            char[] remove = new char[] { '|' };                                         // Criando um array de variaveis com caracteres que serao removidos da selecao.
-            selecao2 = selecao.Split(remove, StringSplitOptions.RemoveEmptyEntries);    // Selecao2 recebe de selecao com os caracteres removidos.
+            /*  Funcao -> Faz a limpeza dos campos da ficha do aluno e carrega
+             *  a imagem padrao do aluno na picturebox.
+             */
 
-            txtb_codigo.Text = selecao2[1].ToString().Trim();                           // textbox recebe selecao na posicao do array.
-            txtb_nome_aluno.Text = selecao2[3].ToString().Trim();                       // textbox recebe selecao na posicao do array.
-            txtb_nome_responsavel.Text = selecao2[5].ToString().Trim();                 // textbox recebe selecao na posicao do array.
-            txtb_cpf.Text = selecao2[7].ToString().Trim();                              // textbox recebe selecao na posicao do array.
-            txtb_endereco.Text = selecao2[9].ToString().Trim();                         // textbox recebe selecao na posicao do array.
-            txtb_bairro.Text = selecao2[11].ToString().Trim();                          // textbox recebe selecao na posicao do array.
-            txtb_cidade.Text = selecao2[13].ToString().Trim();                          // textbox recebe selecao na posicao do array.
-            txtb_cep.Text = selecao2[15].ToString().Trim();                             // textbox recebe selecao na posicao do array.
-            txtb_telefone.Text = selecao2[17].ToString().Trim();                        // textbox recebe selecao na posicao do array.
-            txtb_email.Text = selecao2[19].ToString().Trim();                           // textbox recebe selecao na posicao do array.
-            txtb_contato_emergencia.Text = selecao2[21].ToString().Trim();              // textbox recebe selecao na posicao do array.
-            txtb_telefone_emergencia_1.Text = selecao2[23].ToString().Trim();           // textbox recebe selecao na posicao do array.
-            txtb_telefone_emergencia_2.Text = selecao2[25].ToString().Trim();           // textbox recebe selecao na posicao do array.
-            DB_PA.Alunos_Codigo = txtb_codigo.Text.Trim();                              // textbox recebe codigo do aluno direto da variavel.
-            dB_PA.Pesquisar_Imagem();                                                   // Chama o metodo de Pesquisar imagem
-            byte[] imagem_byte = DB_PA.imagem_byte;                                     // Tranfere o array de byte da imagem.
-            MemoryStream memoryStream = new MemoryStream(imagem_byte);                  // Manda para a memoria a imagem (Memorystream).
-            pcb_imagem_aluno.Image = Image.FromStream(memoryStream);                    // Picturebox recebe a imagem decodificada da memoria.
-            pcb_imagem_aluno.Refresh();                                                 // Atualiza o picturebox.
+            txtb_nome_aluno.Clear();
+            txtb_nome_responsavel.Clear();
+            txtb_endereco.Clear();
+            txtb_bairro.Clear();
+            txtb_cidade.Clear();
+            txtb_cep.Clear();
+            txtb_telefone.Clear();
+            txtb_email.Clear();
+            txtb_contato_emergencia.Clear();
+            txtb_telefone_emergencia_1.Clear();
+            txtb_telefone_emergencia_2.Clear();
+            pcb_imagem_aluno.Image = Properties.Resources.maquina_fotografica;
+        }
+        #endregion Fim - Metodo do Botao Limpar.
+
+        #region Inicio - Metodo do Botao Voltar.
+        public void btn_voltar_Click(object sender, EventArgs e)
+        {
+            /*  Funcao -> Metodo que volta para a tela principal e fecha a tela atual.
+             *  - Instncia o objeto para a tela principal.
+             *  - Chama o metodo que abre a tela principal.
+             *  - Chama o metodo que fecha a tela atual.
+             */
+
+            frm_controle_de_alunos frm_controle_de_alunos = new frm_controle_de_alunos();
+            frm_controle_de_alunos.Show();
+            this.Close();
+        }
+        #endregion Fim - Metodo do Botao Voltar.
+
+        #region Inicio - Metodo do Botao Editar.
+        public void btn_editar_Click(object sender, EventArgs e)
+        {
+            /* Funcao -> Metodo que habilita e desabilita botoes da tela de ficha de cadastro.
+             */
+
+            txtb_nome_aluno.Enabled = true;
+            txtb_nome_responsavel.Enabled = true;
+            txtb_endereco.Enabled = true;
+            txtb_bairro.Enabled = true;
+            txtb_cidade.Enabled = true;
+            txtb_cep.Enabled = true;
+            txtb_telefone.Enabled = true;
+            txtb_email.Enabled = true;
+            txtb_contato_emergencia.Enabled = true;
+            txtb_telefone_emergencia_1.Enabled = true;
+            txtb_telefone_emergencia_2.Enabled = true;
+
+            txtb_situacao_aluno.Visible = false;
+            txtb_data_situacao.Visible = false;
+            cbbox_situacao_aluno.Visible = true;
+            cbbox_situacao_aluno.SelectedIndex = 0;
+            btn_voltar.Visible = false;
+            btn_editar.Visible = false;
+            btn_limpar.Visible = true;
+            btn_salvar.Visible = true;
+            btn_cancelar.Visible = true;
+            btn_alterar_imagem.Visible = true;
+
+            btn_limpar.Enabled = true;
+            btn_salvar.Enabled = true;
+            btn_cancelar.Enabled = true;
+            btn_alterar_imagem.Enabled = true;
+            btn_voltar.Enabled = false;
+            btn_editar.Enabled = false;
+        }
+        #endregion Fim - Metodo do Botao Editar.
+
+        #region Inicio - Metodo do botao de Alterar Imagem.
+        public void btn_alterar_imagem_Click(object sender, EventArgs e)
+        {
+            /*    Funcao -> metodo do botao que carreg  a nova imagem do aluno na ficha de alunos para ser atualizada.
+             *  - Intancia o objeto para a classe openfiledialog, que é a janela de selecao de arquivos.
+             *  - Filtra os tipos de arquivos a sere abertos pelo openfiledialog
+             *  - Se a janela do openfile tiver o Ok pressionado.
+             *  - Atribui o caminho do arquivo aberto no openfile para a variavel da tabela Alunos_imagem
+             *  - Atribui o local da imagem na picturebox o conteudo do caminho da variavel caminho_foto_aluno.
+             *  - Atribui true na variavel da tabela Alunos_Imagem que identifica que a foto foi alterada para
+             *    poder efetuar o processo de gravacao no banco da nova imagem.
+             */
+
+            OpenFileDialog openfile = new OpenFileDialog();
+            openfile.Filter = "Imagens (*.jpg; *.jpeg; *.png) | *.jpg; *.jpeg; *.png ";
+            if (openfile.ShowDialog() == DialogResult.OK)
+            {
+                alunos.Alunos_endereco_da_foto = openfile.FileName.ToString();
+                pcb_imagem_aluno.ImageLocation = alunos.Alunos_endereco_da_foto;
+                alunos.Foto_alterada = true;
+                
+            }
+        }
+        #endregion Fim - Metodo do botao de Alterar Imagem.
+
+        #region Inicio - Metodo do Botao Cancelar.
+        public void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            /*   Funcao -> Metodo que habilita, desabilita botoes, carrega a imagem do aluno e 
+             *   carrega os dados da ficha do aluno.
+             */
+
+            txtb_nome_aluno.Enabled = false;
+            txtb_nome_responsavel.Enabled = false;
+            txtb_endereco.Enabled = false;
+            txtb_bairro.Enabled = false;
+            txtb_cidade.Enabled = false;
+            txtb_cep.Enabled = false;
+            txtb_telefone.Enabled = false;
+            txtb_email.Enabled = false;
+            txtb_contato_emergencia.Enabled = false;
+            txtb_telefone_emergencia_1.Enabled = false;
+            txtb_telefone_emergencia_2.Enabled = false;
+            btn_alterar_imagem.Visible = false;
+            btn_cancelar.Visible = false;
+            btn_salvar.Visible = false;
+            btn_limpar.Visible = false;
+            btn_voltar.Visible = true;
+            btn_editar.Visible = true;
+            txtb_situacao_aluno.Visible = true;
+            txtb_data_situacao.Visible = true;
+            cbbox_situacao_aluno.Visible = false;
+            btn_alterar_imagem.Enabled = false;
+            btn_cancelar.Enabled = false;
+            btn_salvar.Enabled = false;
+            btn_limpar.Enabled = false;
+            btn_voltar.Enabled = true;
+            btn_editar.Enabled = true;
+            
         }
         #endregion
 
+        #region Inicio - Metodo do botao Salvar.
+        public void btn_salvar_Click(object sender, EventArgs e)
+        {
+            /*  Funcao -> Metodo do botao que salva as alteraçoes realizadas na ficha do aluno e
+             *  faz a gravacao da atualizacao no banco de dados.
+             *  - Repassa as informacoes dos campos para as variaveis da tela de ficha do aluno.
+             *  - Chama o metodo que faz a verificacao dos campos digitados se estao conforme
+             *    os parametros da tabela.
+             *  - Chama o metodo que faz a compracao entre as variaveis da ficha do aluno e do banco.
+             *  - Se houver diferenca entre as variaveis da ficha do aluno e as variaveis do banco, 
+             *    a variavel que valida vai retornar como true, e ai transfere as informacoes das 
+             *    variaveis da ficha do aluno para as variaveis do banco para iniciar o processo 
+             *    de atualizacao dos dados do aluno selecionado.
+             *  - Se as variaveis que identificam que a foto e os dados do aluno foram alterados,
+             *    retornarem como true, entao inicia a atualizacao de ambos.
+             *  - Chama o metodo da query que atualiza primeiro os dados do aluno.
+             *  - Depois chama o metodo dos parametros da tabela Alunos_cadastro.
+             *  - Chama o metodo que executa a gravacao no banco.
+             *  - Depois de gravado os dados do aluno no banco, chama o metodo da query que altera
+             *    a imagem do aluno.
+             *  - Chama o metodo que executa o processamento da imagem e prepara ela para gravar no 
+             *    banco de dados.
+             *  - Chama denovo o metodo que executa a gravacao no banco.
+             *  - Depois atribui true na variavel que identifica que devemos passar para o processo
+             *    de gravacao de log.
+             *  - Chama o metodo de query do log para os dados do aluno.
+             *  - Chama o metodo dos parametros da tabela Alunos_cadastro_Log.
+             *  - E por ultimo chama novamente o metodo que executa o banco.
+             *  - Depois volta a atribuir false para as variaveis de validacao dados_alterados e
+             *    campos_validados.
+             *  - Por fim, mostra a mensagem na tela.
+             *  - Se a alteracao foi apenas nos dados do aluno ou apenas na imagem do aluno, o
+             *    procedimento de alteracao segue o mesmo, porem apenas a rotina da parte alterada.
+             *  - Caso as vriaveis de validacao estiverem como false, significa que nao houve alteracao
+             *    entre os dados digitados e o conteudo do banco de dados, neste caso apenas mostra a 
+             *    mensagem em tela dizendo que nao teve alteracao.
+             */
+
+            
+            alunos.Atualiza_Dados_Aluno(Convert.ToInt32(txtb_codigo.Text.ToUpper().Trim()), txtb_nome_aluno.Text.ToUpper().Trim(), txtb_cpf.Text.ToUpper().Trim(), txtb_nome_responsavel.Text.ToUpper().Trim(), 
+                                       txtb_endereco.Text.ToUpper().Trim(), txtb_bairro.Text.ToUpper().Trim(),txtb_cidade.Text.ToUpper().Trim(),txtb_cep.Text.ToUpper().Trim(),
+                                       txtb_telefone.Text.ToUpper().Trim(), txtb_email.Text.ToUpper().Trim(), txtb_contato_emergencia.Text.ToUpper().Trim(), 
+                                       txtb_telefone_emergencia_1.Text.ToUpper().Trim(),txtb_telefone_emergencia_2.Text.ToUpper().Trim(), cbbox_situacao_aluno.SelectedItem.ToString());
+  
+           
+        }
+
+        #endregion Fim - Metodo do botao Salvar.
+
+        #region Incio - Metodo do Botao Historico.
+        private void btn_historico_Click(object sender, EventArgs e)
+        {
+            /*    Funcao -> Metodo que traz o log de alteracoes (historico) do aluno selecionado.
+             *  - Primeiro instancia o objeto para a tela de historico.
+             *  - Depois atribui true na variavel que identifica que o botao voltar deve retornar
+             *    para a tela de ficha do aluno e nao do plano.
+             *  - Ai confere de o codigo do aluno na tela de ficha do aluno nao esta em branco.
+             *  - Se nao estiver em branco tranfere o conteudo da variavel do codigo da ficha do
+             *    aluno para a variavel que comunica com o banco.
+             *  - Chama o metodo que mostra a tela de historico.
+             *  - chama o metodo que fecha a tela atual.
+             */
+            
+            bool historico_aluno = true;
+
+            frm_historico frm_Historico = new frm_historico(historico_aluno, txtb_codigo.Text);
+            frm_Historico.Show();
+            this.Close();
+            
+        }
+        #endregion Fim - Metodo do Botao Historico.
+
+        #region Inicio - Método do botao de financas do aluno.
+        private void lbl_financas_Click(object sender, EventArgs e)
+        {
+            /*    Funcao -> Chama o metodo que abre a tela de financas do aluno.
+             *  - Instancia o objeto para a tela de financas.
+             *  - Chama o metodo que mostra a tela de financas.
+             *  - chama o metodo que fecha a tela atual.
+             */
+            frm_financas_aluno frm_financas_aluno = new frm_financas_aluno();
+            frm_financas_aluno.Show();
+            this.Close();
+        }
+
+        #endregion Fim - Método do botao de financas do aluno.
+
+
+        
+    
+    
     }
 }
 

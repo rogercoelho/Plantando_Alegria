@@ -1,16 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Plantando_Alegria.MysqlDb
 {
-    public class Conexao_Banco_PA
+    internal class Conexao_Banco_PA
     {
-        #region Parametros de conexao com o Banco.
+        #region Inicio - Parametros de conexao com o Banco.
         MySqlConnection conexao_db_pa = new MySqlConnection();  // Instanciando objeto para a classe MysqlConnection.
 
         public Conexao_Banco_PA()
@@ -21,9 +16,9 @@ namespace Plantando_Alegria.MysqlDb
                                              "pwd=PlantandoAlegria021010; " +
                                              "database=goutechc_Plantando_Alegria";
         }
-        #endregion
+        #endregion Fim - Parametros de conexao com o Banco.
 
-        #region Metodo para conectar ao banco.
+        #region Inicio - Metodo para conectar ao banco.
         public MySqlConnection Conectar_DB()   // Como o metodo nao é void ele retorna o MysqlConnection.
         {
             if (conexao_db_pa.State == ConnectionState.Closed)
@@ -33,9 +28,9 @@ namespace Plantando_Alegria.MysqlDb
             return conexao_db_pa;               // Retorna a conexao_db_pa com os seus parametros.
         }
 
-        #endregion
+        #endregion Fim - Metodo para conectar ao banco.
 
-        #region Metodo para desconectar do Banco.
+        #region Inicio - Metodo para desconectar do Banco.
         public void Desconectar_DB()
         {
             if (conexao_db_pa.State == ConnectionState.Open)
@@ -43,7 +38,7 @@ namespace Plantando_Alegria.MysqlDb
                 conexao_db_pa.Close();
             }
         }
-        #endregion
+        #endregion Fim - Metodo para desconectar do Banco.
 
     }
 }

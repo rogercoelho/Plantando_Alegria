@@ -12,6 +12,25 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp.goutech.com.br/controle_pa/</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://plantandoalegria.com.br/controle_pa/</InstallUrl>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +50,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>BD0F91A4B4D680AED208A5BD99E3C9FF5E9DE7C6</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Plantando_Alegria_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -107,6 +138,12 @@
     <Compile Include="Forms\Cadastro_Alunos.Designer.cs">
       <DependentUpon>Cadastro_Alunos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Controle_de_Alunos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Controle_de_Alunos.Designer.cs">
+      <DependentUpon>Controle_de_Alunos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Ficha_Alunos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,23 +162,35 @@
     <Compile Include="Forms\Ficha_Planos.Designer.cs">
       <DependentUpon>Ficha_Planos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Financas_Aluno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Financas_Aluno.Designer.cs">
+      <DependentUpon>Financas_Aluno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controle_de_Planos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Controle_de_Planos.Designer.cs">
+      <DependentUpon>Controle_de_Planos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Historico.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Historico.Designer.cs">
       <DependentUpon>Historico.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Pesquisar_Alunos.cs">
+    <Compile Include="Forms\Consultar_Alunos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Pesquisar_Alunos.Designer.cs">
-      <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
+    <Compile Include="Forms\Consultar_Alunos.Designer.cs">
+      <DependentUpon>Consultar_Alunos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Pesquisar_Planos.cs">
+    <Compile Include="Forms\Consultar_Planos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Pesquisar_Planos.Designer.cs">
-      <DependentUpon>Pesquisar_Planos.cs</DependentUpon>
+    <Compile Include="Forms\Consultar_Planos.Designer.cs">
+      <DependentUpon>Consultar_Planos.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Tela_Principal.cs">
       <SubType>Form</SubType>
@@ -152,10 +201,15 @@
     <Compile Include="MysqlDb\Conexao_Banco_PA.cs" />
     <Compile Include="MysqlDb\DB_PA.cs" />
     <Compile Include="MysqlDb\Mensagens.cs" />
+    <Compile Include="MysqlDb\Alunos.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ResizeImages.cs" />
     <EmbeddedResource Include="Forms\Cadastro_Alunos.resx">
       <DependentUpon>Cadastro_Alunos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controle_de_Alunos.resx">
+      <DependentUpon>Controle_de_Alunos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ficha_Alunos.resx">
       <DependentUpon>Ficha_Alunos.cs</DependentUpon>
@@ -166,14 +220,20 @@
     <EmbeddedResource Include="Forms\Ficha_Planos.resx">
       <DependentUpon>Ficha_Planos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Financas_Aluno.resx">
+      <DependentUpon>Financas_Aluno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controle_de_Planos.resx">
+      <DependentUpon>Controle_de_Planos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Historico.resx">
       <DependentUpon>Historico.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pesquisar_Alunos.resx">
-      <DependentUpon>Pesquisar_Alunos.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Consultar_Alunos.resx">
+      <DependentUpon>Consultar_Alunos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pesquisar_Planos.resx">
-      <DependentUpon>Pesquisar_Planos.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Consultar_Planos.resx">
+      <DependentUpon>Consultar_Planos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tela_Principal.resx">
       <DependentUpon>Tela_Principal.cs</DependentUpon>
@@ -189,6 +249,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Plantando_Alegria_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -204,6 +265,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\maquina_fotografica.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vermelho %281%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vermelho.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logomarca_branca.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
