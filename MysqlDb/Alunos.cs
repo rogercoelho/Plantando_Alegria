@@ -641,7 +641,7 @@ namespace Plantando_Alegria.MysqlDb
                 cmd.Parameters.Add("@Alunos_Codigo", MySqlDbType.Int32).Value = codigo;
                 Executa_a_Query();
 
-
+                mensagens.Mensagem_08();
      
 
 
